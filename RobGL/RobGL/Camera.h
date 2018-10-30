@@ -21,8 +21,8 @@ namespace rgl {
 
 	private:
 		glm::mat4x4 projectionMatrix;
-		float _pitch;
-		float _yaw;
+		float _pitch = 0;
+		float _yaw = 0;
 		glm::vec3 _position;
 	};
 
