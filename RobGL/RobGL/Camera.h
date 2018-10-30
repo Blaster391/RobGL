@@ -9,8 +9,12 @@ namespace rgl {
 		Camera();
 		~Camera();
 
-		void setPerspective();
-		void setOrthographic();
+		inline void setPosition(glm::vec3 position) {
+			_position = position;
+		}
+
+		void setProjectionPerspective();
+		void setProjectionOrthographic();
 
 		glm::mat4x4 getViewMatrix();
 		glm::mat4x4 getProjectionMatrix() { return projectionMatrix; }

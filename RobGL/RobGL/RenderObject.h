@@ -9,6 +9,10 @@ namespace rgl {
 		RenderObject();
 		~RenderObject();
 
+		inline void setModelMatrix(glm::mat4x4 m) {
+			_modelMatrix = m;
+		}
+
 		void draw(GLuint program);
 	private:
 		Mesh* _mesh;

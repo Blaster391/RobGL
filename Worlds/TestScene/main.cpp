@@ -2,6 +2,7 @@
 #include <RobGL/Renderer.h>
 #include <Window/Window.h>
 
+
 int main() {
 	Window w;
 	w.startup();
@@ -23,12 +24,19 @@ int main() {
 	shaders.push_back(fragmentShader);
 
 
-	Camera mainCamera;
-	mainCamera.setPerspective();
+	rgl::Camera mainCamera;
+	mainCamera.setProjectionPerspective();
+	glm::vec3 cameraPos(0, 0, 10);
+	mainCamera.setPosition(cameraPos);
+
 
 	rgl::RenderPool pool(shaders, &mainCamera);
 
 	rgl::RenderObject ro;
+	glm::mat4x4 roPos;
+	roPos = glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10)) * glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -100));
+
+	ro.setModelMatrix(roPos);
 	pool.addRenderObject(&ro);
 
 
