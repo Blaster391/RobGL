@@ -1,6 +1,6 @@
 #pragma once
 #include <External/glfw/glfw3.h>
-
+#include <functional>
 class Window
 {
 public:
@@ -14,6 +14,8 @@ public:
 
 	bool ShouldClose();
 
+	void setInputCallback(std::function<void(int, int, int, int)> func);
+
 	inline bool hasFailed() {
 		return _failed;
 	}
@@ -22,6 +24,9 @@ public:
 		glfwSwapBuffers(_window);
 	}
 
+	void onKeyPress(int, int, int, int);
+
+
 private:
 	GLFWwindow* _window;
 
@@ -29,5 +34,7 @@ private:
 
 	const int WIDTH = 800;
 	const int HEIGHT = 600;
+
+	std::function<void(int key, int scancode, int action, int mods)> keycallback;
 };
 

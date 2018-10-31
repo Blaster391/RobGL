@@ -31,12 +31,18 @@ void Window::startup()
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	//4x antialias
+	//16x antialias
 	glfwWindowHint(GLFW_SAMPLES, 16);
 
 	_window = glfwCreateWindow(WIDTH, HEIGHT, "RobGL", nullptr, nullptr);
 
 	glfwMakeContextCurrent(_window);
+
+	glfwSetWindowUserPointer(_window, this);
+
+	glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+		static_cast<Window*>(glfwGetWindowUserPointer(window))->onKeyPress(key, scancode, action, mods);
+	});
 
 	_failed = !_window;
 }
@@ -56,4 +62,14 @@ void Window::shutdown()
 
 bool Window::ShouldClose() {
 	return glfwWindowShouldClose(_window);
+}
+
+void Window::onKeyPress(int key, int scancode, int action, int mods)
+{
+	keycallback(key, scancode, action, mods);
+}
+
+void Window::setInputCallback(std::function<void(int key, int scancode, int action, int mods)> callback)
+{
+	keycallback = callback;
 }

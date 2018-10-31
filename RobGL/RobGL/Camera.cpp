@@ -25,7 +25,7 @@ namespace rgl {
 		//TODO remove hardcoded stuffs
 		int width = 800;
 		int height = 600;
-		projectionMatrix = glm::ortho(width / 2.0f, -width / 2.0f, height / 2.0f, -height / 2.0f, -1.0f, 10000.0f);
+		projectionMatrix = glm::ortho(-width / 2.0f, width / 2.0f,  -height / 2.0f, height / 2.0f, -1.0f, 10000.0f);
 	}
 	glm::mat4x4 Camera::getViewMatrix()
 	{
