@@ -25,7 +25,7 @@ namespace rgl {
 	{		
 		glBindVertexArray(arrayObject);
 		if (useIndicies) {
-			//TODO dis
+			glDrawElements(_meshType, _indicies.size(), GL_UNSIGNED_INT, 0);
 		}
 		else {
 			glDrawArrays(_meshType, 0, _verticies.size());
@@ -37,6 +37,8 @@ namespace rgl {
 	}
 	void Mesh::buffer()
 	{
+		useIndicies = (_indicies.size() > 0);
+
 		glBindVertexArray(arrayObject);
 
 		glGenBuffers(1, &bufferObject);
@@ -52,6 +54,11 @@ namespace rgl {
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 		glEnableVertexAttribArray(3);
 
+		if (useIndicies) {
+			glGenBuffers(1, &indexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indicies.size() * sizeof(GLuint), _indicies.data(), GL_STATIC_DRAW);
+		}
 
 		glBindVertexArray(0);
 	}

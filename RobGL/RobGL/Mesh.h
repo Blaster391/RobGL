@@ -19,6 +19,7 @@ namespace rgl {
 	private:
 		GLuint arrayObject;
 		GLuint bufferObject;
+		GLuint indexBuffer;
 
 		GLuint	_meshType;
 
