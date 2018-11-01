@@ -31,6 +31,7 @@ namespace rgl {
 
 		//TODO configuations
 		glEnable(GL_MULTISAMPLE);
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	Renderer::~Renderer()
@@ -55,6 +56,7 @@ namespace rgl {
 	void Renderer::clearBuffers()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 	void Renderer::swapBuffers()
 	{
