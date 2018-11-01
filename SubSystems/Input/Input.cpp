@@ -25,6 +25,7 @@ std::function<void(int key, int scancode, int action, int mods)> Input::getKeyEv
 void Input::startup(Window* w)
 {
 	w->setInputCallback(getKeyEvent());
+	_mouse.init(w);
 }
 
 void Input::update(float delta)
@@ -32,10 +33,17 @@ void Input::update(float delta)
 	setPressedButtons();
 	setReleasedButtons();
 	calculateHeldButtons();
+
+	_mouse.update();
 }
 
 void Input::shutdown()
 {
+}
+
+MouseController& Input::Mouse()
+{
+	return _mouse;
 }
 
 bool Input::isKeyPressed(InputButton key)

@@ -24,8 +24,21 @@ public:
 		glfwSwapBuffers(_window);
 	}
 
-	void onKeyPress(int, int, int, int);
+	void onKeyPress(int key, int scancode, int action, int mods);
+	std::pair<double, double> getCursorPosition();
 
+	//TODO better
+	inline int getCurrentHeight() {
+		int width, height;
+		glfwGetWindowSize(_window,&width, &height);
+		return height;
+	}
+
+	inline int getCurrentWidth() {
+		int width, height;
+		glfwGetWindowSize(_window, &width, &height);
+		return width;
+	}
 
 private:
 	GLFWwindow* _window;

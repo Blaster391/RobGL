@@ -2,6 +2,7 @@
 #include <set>
 #include <algorithm>
 #include "InputButtons.h"
+#include "MouseController.h"
 
 #include <Window/Window.h>
 
@@ -14,6 +15,8 @@ public:
 	void startup(Window* w);
 	void update(float delta);
 	void shutdown();
+
+	MouseController& Mouse();
 
 	bool isKeyPressed(InputButton key);
 	bool isKeyHeld(InputButton key);
@@ -32,6 +35,8 @@ private:
 	std::set<InputButton> nextReleased;
 
 	std::function<void(int key, int scancode, int action, int mods)> getKeyEvent();
+
+	MouseController _mouse;
 
 };
 

@@ -64,6 +64,12 @@ bool Window::ShouldClose() {
 	return glfwWindowShouldClose(_window);
 }
 
+std::pair<double, double> Window::getCursorPosition() {
+	std::pair<double, double> positions;
+	glfwGetCursorPos(_window, &positions.first, &positions.second);
+	return positions;
+}
+
 void Window::onKeyPress(int key, int scancode, int action, int mods)
 {
 	keycallback(key, scancode, action, mods);

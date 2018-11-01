@@ -5,6 +5,7 @@
 #include <RobGL/TextureLoader.h>
 #include <RobGL/MeshHelpers.h>
 
+#include "CameraController.h"
 
 int main() {
 	Window w;
@@ -49,6 +50,7 @@ int main() {
 	glm::vec3 cameraPos(0, 0, 10);
 	mainCamera.setPosition(cameraPos);
 
+	CameraController cameraController(&mainCamera, &i);
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
@@ -95,15 +97,11 @@ int main() {
 		renderer.update();
 
 		finished = w.ShouldClose();
+
+		cameraController.update();
+
 		if (i.isKeyPressed(InputButton::KEYBOARD_ESCAPE)) {
 			finished = true;
-		}
-
-		if (i.isKeyPressed(InputButton::KEYBOARD_Q)) {
-			mainCamera.setProjectionOrthographic();
-		}
-		if (i.isKeyPressed(InputButton::KEYBOARD_R)) {
-			mainCamera.setProjectionPerspective();
 		}
 
 		if (i.isKeyPressed(InputButton::KEYBOARD_SPACE)) {
@@ -112,13 +110,7 @@ int main() {
 			andyTexture->setFiltering(bilinear);
 		}
 
-		if (i.isKeyHeld(InputButton::KEYBOARD_W)) {
-			cameraPos += glm::vec3(0, 0, 0.1f);
-			mainCamera.setPosition(cameraPos);
-		} else if (i.isKeyHeld(InputButton::KEYBOARD_S)) {
-			cameraPos -= glm::vec3(0, 0, 0.1f);
-			mainCamera.setPosition(cameraPos);
-		}
+
 
 	}
 

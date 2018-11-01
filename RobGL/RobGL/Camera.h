@@ -19,8 +19,15 @@ namespace rgl {
 		glm::mat4x4 getViewMatrix();
 		glm::mat4x4 getProjectionMatrix() { return projectionMatrix; }
 
+		void translate(glm::vec3 v);
+		void pitch(float p);
+		void yaw(float y);
+		void roll(float r);
+
+
 	private:
 		glm::mat4x4 projectionMatrix;
+
 		float _pitch = 0;
 		float _yaw = 0;
 		glm::vec3 _position;
