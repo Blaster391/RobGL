@@ -8,12 +8,19 @@
 #include <iostream>
 
 namespace rgl {
-	Texture* TextureLoader::LoadFromPNG(std::string filename, bool generateMips)
+
+	Texture * TextureLoader::LoadFromFile(std::string filename, bool hasAlpha, bool generateMips)
 	{
 		int w;
 		int h;
 		int comp;
-		unsigned char* image = stbi_load(filename.c_str(), &w, &h, &comp, STBI_rgb);
+
+		int loadType = STBI_rgb_alpha;
+		if (!hasAlpha) {
+			loadType = STBI_rgb;
+		}
+
+		unsigned char* image = stbi_load(filename.c_str(), &w, &h, &comp, loadType);
 
 		GLuint tex;
 		glGenTextures(1, &tex);
@@ -30,6 +37,9 @@ namespace rgl {
 		if (generateMips) {
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
+
+		//TODO set this somewhere else
+		glTexParameterf(GL_TEXTURE_MAX_ANISOTROPY, GL_TEXTURE_2D, 16);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 

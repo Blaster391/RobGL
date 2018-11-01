@@ -5,6 +5,6 @@ namespace rgl {
 	class TextureLoader
 	{
 	public:
-		static Texture* LoadFromPNG(std::string filename, bool generateMips);
+		static Texture* LoadFromFile(std::string filename, bool hasAlpha, bool generateMips = true);
 	};
 }
