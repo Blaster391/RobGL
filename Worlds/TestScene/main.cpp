@@ -4,6 +4,7 @@
 #include <Input/Input.h>
 #include <RobGL/TextureLoader.h>
 #include <RobGL/MeshHelpers.h>
+#include <RobGL/StencilPool.h>
 
 #include "CameraController.h"
 
@@ -66,8 +67,7 @@ int main() {
 
 	CameraController cameraController(&mainCamera, &i);
 
-	rgl::RenderPool stencilPool(stencilShaders, &uiCamera);
-	stencilPool.setIsStencil(true);
+	rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
@@ -149,11 +149,6 @@ int main() {
 		if (i.isKeyPressed(InputButton::KEYBOARD_J)) {
 			stencil = !stencil;
 			stencilPool.setEnabled(stencil);
-		}
-
-		if (i.isKeyPressed(InputButton::KEYBOARD_K)) {
-			stencil2 = !stencil2;
-			stencilPool.setIsStencil(stencil2);
 		}
 	}
 

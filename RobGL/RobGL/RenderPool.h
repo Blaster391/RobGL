@@ -16,7 +16,7 @@ namespace rgl {
 
 		void addRenderObject(RenderObject* r);
 
-		void draw();
+		virtual void draw();
 
 		inline Camera* getCamera() { return _camera; }
 		inline void setCamera(Camera* c) { _camera = c; }
@@ -25,9 +25,9 @@ namespace rgl {
 		void setScissorBounds(Box b);
 
 		void setEnabled(bool active);
-		void setIsStencil(bool stencil);
 
-	private:
+
+	protected:
 		void setUniforms();
 
 		std::vector<RenderObject*> _renderObjects;
@@ -37,8 +37,6 @@ namespace rgl {
 		GLuint _program;
 
 		bool _enabled = true;
-
-		bool _stencil = false;
 
 		bool _scissor = false;
 		Box _scissorBounds;

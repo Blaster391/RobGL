@@ -40,12 +40,7 @@ namespace rgl {
 
 		setUniforms();
 
-		if (_stencil) {
-			glEnable(GL_STENCIL_TEST);
-			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-			glStencilFunc(GL_ALWAYS, 2, ~0);
-			glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-		}
+
 
 		if (_scissor) {
 			glEnable(GL_SCISSOR_TEST);
@@ -57,12 +52,6 @@ namespace rgl {
 
 		for (auto& r : _renderObjects) {
 			r->draw(_program);
-		}
-
-		if (_stencil) {
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-			glStencilFunc(GL_EQUAL, 2, ~0);
-			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		}
 
 		glUseProgram(0);
@@ -83,10 +72,6 @@ namespace rgl {
 		_enabled = active;
 	}
 
-	void RenderPool::setIsStencil(bool stencil)
-	{
-		_stencil = stencil;
-	}
 
 	void RenderPool::setUniforms()
 	{

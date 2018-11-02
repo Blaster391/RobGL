@@ -141,6 +141,7 @@
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="RenderPool.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="StencilPool.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="tinyobj\tiny_obj_loader.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="RenderPool.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="StencilPool.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Vertex.cpp" />
