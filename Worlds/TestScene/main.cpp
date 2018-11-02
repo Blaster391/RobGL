@@ -29,9 +29,13 @@ int main() {
 	rgl::Shader* texturedVertexShader = new rgl::Shader("Assets/Shaders/texVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* texturedFragmentShader = new rgl::Shader("Assets/Shaders/texFrag.glsl", GL_FRAGMENT_SHADER);
 
+	rgl::Shader* stencilVertexShader = new rgl::Shader("Assets/Shaders/stencilVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* stencilFragmentShader = new rgl::Shader("Assets/Shaders/stencilFrag.glsl", GL_FRAGMENT_SHADER);
+
 	rgl::Texture* texture = rgl::TextureLoader::LoadFromFile("Assets/Textures/test.png",false, true);
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
+	rgl::Texture* checkerboardTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/chessboard.tga", true, false);
 
 	rgl::Mesh* triangleMesh = rgl::MeshHelpers::GenerateTriangle();
 	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
@@ -45,6 +49,10 @@ int main() {
 	texturedShaders.push_back(texturedVertexShader);
 	texturedShaders.push_back(texturedFragmentShader);
 
+	std::vector<rgl::Shader*> stencilShaders;
+	stencilShaders.push_back(stencilVertexShader);
+	stencilShaders.push_back(stencilFragmentShader);
+
 	//TODO camera to camera controller
 	rgl::Camera mainCamera;
 	mainCamera.setProjectionPerspective();
@@ -52,6 +60,9 @@ int main() {
 	mainCamera.setPosition(cameraPos);
 
 	CameraController cameraController(&mainCamera, &i);
+
+	rgl::RenderPool stencilPool(stencilShaders, &mainCamera);
+	stencilPool.setIsStencil(true);
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
@@ -78,19 +89,29 @@ int main() {
 	texturedPool.addRenderObject(&roTex);
 
 
-	rgl::RenderObject roTransparent;
+	rgl::RenderObject roAndy;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
-	roTransparent.setModelMatrix(roPos);
-	roTransparent.setTexture(andyTexture);
-	roTransparent.setMesh(andyMesh);
-	texturedPool.addRenderObject(&roTransparent);
+	roAndy.setModelMatrix(roPos);
+	roAndy.setTexture(andyTexture);
+	roAndy.setMesh(andyMesh);
+	texturedPool.addRenderObject(&roAndy);
 
+
+	rgl::RenderObject roStencil;
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
+	roStencil.setModelMatrix(roPos);
+	roStencil.setTexture(checkerboardTexture);
+	roStencil.setMesh(quadMesh);
+	stencilPool.addRenderObject(&roStencil);
+
+	renderer.addRenderPool(&stencilPool);
 	renderer.addRenderPool(&colouredPool);
 	renderer.addRenderPool(&texturedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
 	bool bilinear = false;
 	bool scissor = false;
+	bool stencil = false;
 
 	while (!finished) {
 		w.update(1);
@@ -118,6 +139,10 @@ int main() {
 			texturedPool.setScissorBounds({200,200,100,100});
 		}
 
+		if (i.isKeyPressed(InputButton::KEYBOARD_J)) {
+			stencil = !stencil;
+			stencilPool.setEnabled(stencil);
+		}
 	}
 
 	w.shutdown();
@@ -131,6 +156,7 @@ int main() {
 	delete texture;
 	delete transparentTexture;
 	delete andyTexture;
+	delete checkerboardTexture;
 
 	delete triangleMesh;
 	delete andyMesh;

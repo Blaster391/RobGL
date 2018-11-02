@@ -23,6 +23,10 @@ namespace rgl {
 
 		void setScissor(bool active);
 		void setScissorBounds(Box b);
+
+		void setEnabled(bool active);
+		void setIsStencil(bool stencil);
+
 	private:
 		void setUniforms();
 
@@ -32,7 +36,11 @@ namespace rgl {
 
 		GLuint _program;
 
-		bool _scissor;
+		bool _enabled = true;
+
+		bool _stencil = false;
+
+		bool _scissor = false;
 		Box _scissorBounds;
 
 	};

@@ -50,6 +50,8 @@ namespace rgl {
 			pool->draw();
 		}
 
+		glDisable(GL_STENCIL_TEST);
+
 		swapBuffers();
 	}
 	void Renderer::addRenderPool(RenderPool* rp) {
@@ -58,8 +60,7 @@ namespace rgl {
 
 	void Renderer::clearBuffers()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClear(GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 	void Renderer::swapBuffers()
 	{
