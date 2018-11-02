@@ -103,7 +103,8 @@ int main() {
 
 
 	rgl::RenderObject roStencil;
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(800, 800, 100));
+	//roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10000)) * glm::scale(glm::mat4(1.0f), glm::vec3(1000.0f, 1000.0f, 1.0f));
 	roStencil.setModelMatrix(roPos);
 	roStencil.setTexture(checkerboardTexture);
 	roStencil.setMesh(quadMesh);
@@ -117,6 +118,7 @@ int main() {
 	bool bilinear = false;
 	bool scissor = false;
 	bool stencil = false;
+	bool stencil2 = false;
 
 	while (!finished) {
 		w.update(1);
@@ -147,6 +149,11 @@ int main() {
 		if (i.isKeyPressed(InputButton::KEYBOARD_J)) {
 			stencil = !stencil;
 			stencilPool.setEnabled(stencil);
+		}
+
+		if (i.isKeyPressed(InputButton::KEYBOARD_K)) {
+			stencil2 = !stencil2;
+			stencilPool.setIsStencil(stencil2);
 		}
 	}
 

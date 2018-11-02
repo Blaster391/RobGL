@@ -39,7 +39,9 @@ namespace rgl {
 		glUseProgram(_program);
 
 		setUniforms();
+
 		if (_stencil) {
+			glEnable(GL_STENCIL_TEST);
 			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 			glStencilFunc(GL_ALWAYS, 2, ~0);
 			glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);

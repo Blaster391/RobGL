@@ -10,7 +10,7 @@ out vec4 fragColour;
 
 void main(void)	{	
 
-	vec4 value = texture(tex,IN.texCoords);
+	vec4 value = texture(tex,IN.texCoords).rgba;
 
 	if(value.a == 0){
 		discard;

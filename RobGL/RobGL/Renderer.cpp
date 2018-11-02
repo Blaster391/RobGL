@@ -60,6 +60,8 @@ namespace rgl {
 
 	void Renderer::clearBuffers()
 	{
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+		/*glClearStencil(1);*/
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 	void Renderer::swapBuffers()
