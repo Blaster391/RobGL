@@ -59,9 +59,14 @@ int main() {
 	glm::vec3 cameraPos(0, 0, 10);
 	mainCamera.setPosition(cameraPos);
 
+	rgl::Camera uiCamera;
+	uiCamera.setProjectionOrthographic();
+	glm::vec3 uiPos(0, 0, 0);
+	uiCamera.setPosition(uiPos);
+
 	CameraController cameraController(&mainCamera, &i);
 
-	rgl::RenderPool stencilPool(stencilShaders, &mainCamera);
+	rgl::RenderPool stencilPool(stencilShaders, &uiCamera);
 	stencilPool.setIsStencil(true);
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
@@ -98,7 +103,7 @@ int main() {
 
 
 	rgl::RenderObject roStencil;
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(800, 800, 100));
 	roStencil.setModelMatrix(roPos);
 	roStencil.setTexture(checkerboardTexture);
 	roStencil.setMesh(quadMesh);
