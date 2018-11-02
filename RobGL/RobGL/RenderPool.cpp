@@ -20,6 +20,10 @@ namespace rgl {
 			std::cout << error << std::endl;
 		}
 
+		glUseProgram(_program);
+		_viewMatrixPosition = glGetUniformLocation(_program, "viewMatrix");
+		_projectionMatrixPosition = glGetUniformLocation(_program, "projMatrix");
+		glUseProgram(0);
 	}
 
 	RenderPool::~RenderPool()
@@ -76,8 +80,8 @@ namespace rgl {
 	void RenderPool::setUniforms()
 	{
 		//TODO these are using gets and that's bad
-		glUniformMatrix4fv(glGetUniformLocation(_program, "viewMatrix"), 1, false, (float*)&_camera->getViewMatrix());
-		glUniformMatrix4fv(glGetUniformLocation(_program, "projMatrix"), 1, false, (float*)&_camera->getProjectionMatrix());
+		glUniformMatrix4fv(_viewMatrixPosition, 1, false, (float*)&_camera->getViewMatrix());
+		glUniformMatrix4fv(_projectionMatrixPosition, 1, false, (float*)&_camera->getProjectionMatrix());
 	}
 }
 

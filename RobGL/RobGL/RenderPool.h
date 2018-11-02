@@ -41,6 +41,9 @@ namespace rgl {
 		bool _scissor = false;
 		Box _scissorBounds;
 
+		GLuint _viewMatrixPosition;
+		GLuint _projectionMatrixPosition;
+
 	};
 }
 
