@@ -396,3 +396,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+!Worlds/TestScene/Assets/Models/*
