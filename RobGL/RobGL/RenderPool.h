@@ -4,6 +4,7 @@
 #include <vector>
 #include "glad/glad.h"
 #include "Camera.h"
+#include "Box.h"
 
 namespace rgl {
 	//TODO split into more classes - make it "CameraRenderPool"/"UI Render Pool" etc
@@ -20,6 +21,8 @@ namespace rgl {
 		inline Camera* getCamera() { return _camera; }
 		inline void setCamera(Camera* c) { _camera = c; }
 
+		void setScissor(bool active);
+		void setScissorBounds(Box b);
 	private:
 		void setUniforms();
 
@@ -28,6 +31,10 @@ namespace rgl {
 		Camera* _camera = nullptr;
 
 		GLuint _program;
+
+		bool _scissor;
+		Box _scissorBounds;
+
 	};
 }
 

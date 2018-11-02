@@ -36,11 +36,29 @@ namespace rgl {
 
 		setUniforms();
 
+		if (_scissor) {
+			glEnable(GL_SCISSOR_TEST);
+			glScissor(_scissorBounds.x, _scissorBounds.y, _scissorBounds.Width, _scissorBounds.Height);
+		}
+		else {
+			glDisable(GL_SCISSOR_TEST);
+		}
+
 		for (auto& r : _renderObjects) {
 			r->draw(_program);
 		}
 
 		glUseProgram(0);
+	}
+
+	void RenderPool::setScissor(bool active)
+	{
+		_scissor = active;
+	}
+
+	void RenderPool::setScissorBounds(Box b)
+	{
+		_scissorBounds = b;
 	}
 
 	void RenderPool::setUniforms()

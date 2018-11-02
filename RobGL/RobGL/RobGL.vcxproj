@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FallbackShaders.h" />
     <ClInclude Include="glad\glad.h" />

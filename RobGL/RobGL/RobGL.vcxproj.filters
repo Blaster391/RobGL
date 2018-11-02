@@ -72,6 +72,9 @@
     <ClInclude Include="tinyobj\tiny_obj_loader.h">
       <Filter>tinyobj</Filter>
     </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">

@@ -90,6 +90,7 @@ int main() {
 	renderer.addRenderPool(&transparentTexturedPool);
 
 	bool bilinear = false;
+	bool scissor = false;
 
 	while (!finished) {
 		w.update(1);
@@ -111,7 +112,11 @@ int main() {
 			andyTexture->setFiltering(bilinear);
 		}
 
-
+		if (i.isKeyPressed(InputButton::KEYBOARD_H)) {
+			scissor = !scissor;
+			texturedPool.setScissor(scissor);
+			texturedPool.setScissorBounds({200,200,100,100});
+		}
 
 	}
 
