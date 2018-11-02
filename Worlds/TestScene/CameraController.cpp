@@ -9,7 +9,7 @@ CameraController::~CameraController()
 {
 }
 
-void CameraController::update()
+void CameraController::update(float delta)
 {
 	if (_input->isKeyPressed(InputButton::KEYBOARD_Q)) {
 		_camera->setProjectionOrthographic();

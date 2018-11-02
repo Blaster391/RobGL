@@ -20,6 +20,7 @@ namespace rgl {
 	}
 	void Mesh::setIndicies(std::vector<unsigned int> indicies)
 	{
+		_indicies = indicies;
 	}
 	void Mesh::draw()
 	{		

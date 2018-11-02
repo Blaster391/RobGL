@@ -6,5 +6,7 @@ namespace rgl {
 	public:
 		static Mesh* LoadMeshFromObj(std::string filename);
 		static Mesh* GenerateTriangle();
+		static Mesh* GenerateQuad();
+
 	};
 }

@@ -16,7 +16,7 @@ namespace rgl {
 		//TODO remove hardcoded stuffs
 		int width = 800;
 		int height = 600;
-		projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 0.1f, 10000.0f);
+		projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 1.0f, 10000.0f);
 	}
 
 	void Camera::setProjectionOrthographic()

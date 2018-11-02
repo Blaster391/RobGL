@@ -7,7 +7,7 @@ public:
 	CameraController(rgl::Camera* c, Input* i);
 	~CameraController();
 
-	void update();
+	void update(float delta);
 
 	rgl::Camera* getCamera();
 	

@@ -115,4 +115,46 @@ namespace rgl {
 
 		return m;
 	}
+	Mesh * MeshHelpers::GenerateQuad()
+	{
+		Mesh* m = new Mesh;
+
+		std::vector<Vertex> verticies;
+		Vertex v;
+		v.Position = glm::vec3(-0.5f, 0.5f, 0);
+		v.Colour = glm::vec4(1, 0, 0, 1);
+		v.TexCoord = glm::vec2(0, 1);
+		verticies.push_back(v);
+
+		v.Position = glm::vec3(0.5f, 0.5f, 0);
+		v.Colour = glm::vec4(0, 1, 0, 1);
+		v.TexCoord = glm::vec2(1, 1);
+		verticies.push_back(v);
+
+		v.Position = glm::vec3(-0.5f, -0.5f, 0);
+		v.Colour = glm::vec4(0, 0, 1, 1);
+		v.TexCoord = glm::vec2(0, 0);
+		verticies.push_back(v);
+
+		v.Position = glm::vec3(0.5f, -0.5f, 0);
+		v.Colour = glm::vec4(0, 0, 1, 1);
+		v.TexCoord = glm::vec2(1, 0);
+		verticies.push_back(v);
+
+		std::vector<unsigned int> indicies;
+		indicies.push_back(0);
+		indicies.push_back(1);
+		indicies.push_back(2);
+		indicies.push_back(2);
+		indicies.push_back(1);
+		indicies.push_back(3);
+
+
+		m->setVerticies(verticies);
+		m->setIndicies(indicies);
+
+		m->buffer();
+
+		return m;
+	}
 }

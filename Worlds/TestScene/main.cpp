@@ -34,6 +34,7 @@ int main() {
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
 
 	rgl::Mesh* triangleMesh = rgl::MeshHelpers::GenerateTriangle();
+	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
 	rgl::Mesh* andyMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/anky.obj");
 
 	std::vector<rgl::Shader*> colouredShaders;
@@ -70,10 +71,10 @@ int main() {
 	colouredPool.addRenderObject(&ro2);
 
 	rgl::RenderObject roTex;
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(5, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(5, 0, -9)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	roTex.setModelMatrix(roPos);
 	roTex.setTexture(texture);
-	roTex.setMesh(triangleMesh);
+	roTex.setMesh(quadMesh);
 	texturedPool.addRenderObject(&roTex);
 
 
@@ -98,7 +99,7 @@ int main() {
 
 		finished = w.ShouldClose();
 
-		cameraController.update();
+		cameraController.update(1);
 
 		if (i.isKeyPressed(InputButton::KEYBOARD_ESCAPE)) {
 			finished = true;
@@ -118,6 +119,17 @@ int main() {
 
 	delete colouredVertexShader;
 	delete colouredFragmentShader;
+
+	delete texturedVertexShader;
+	delete texturedFragmentShader;
+
+	delete texture;
+	delete transparentTexture;
+	delete andyTexture;
+
+	delete triangleMesh;
+	delete andyMesh;
+	delete quadMesh;
 
 	return 0;
 }

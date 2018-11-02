@@ -11,12 +11,8 @@ out Vertex	{
 	vec2 texCoords;
 } OUT;
 
-mat4 m = mat4(vec4(100, 0, 0, 0),
-		  vec4(0, 100, 0, 0),
-		  vec4(0, 0, 100, 1000),
-		  vec4(0, 0, 0, 1));
-
 void main(void)	{
 	gl_Position		= projMatrix * viewMatrix * modelMatrix * vec4(Position, 1.0);
+
 	OUT.texCoords		= TexCoords;
 }
