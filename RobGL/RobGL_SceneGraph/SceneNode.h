@@ -2,6 +2,7 @@
 #include <RobGL/RenderObject.h>
 #include <vector>
 #include <External/glm/common.hpp>
+
 namespace rgl {
 	namespace scenes {
 		class SceneNode
@@ -20,7 +21,7 @@ namespace rgl {
 			void setParent(SceneNode* p);
 
 			void setPosition(glm::vec3 p);
-			void setRotation(glm::vec4  r);
+			void setRotation(glm::mat4  r);
 			void setScale(glm::vec3 s);
 
 		private:
@@ -32,7 +33,7 @@ namespace rgl {
 			glm::mat4 _worldTransform;
 
 			glm::vec3 _position;
-			glm::vec4 _rotation;
+			glm::mat4  _rotation = glm::mat4(1);
 			glm::vec3 _scale;
 		};
 	}

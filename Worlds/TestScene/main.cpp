@@ -8,6 +8,8 @@
 
 #include "CameraController.h"
 
+#include <RobGL_SceneGraph\SceneNode.h>
+
 int main() {
 	Window w;
 	w.startup();
@@ -41,6 +43,7 @@ int main() {
 	rgl::Mesh* triangleMesh = rgl::MeshHelpers::GenerateTriangle();
 	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
 	rgl::Mesh* andyMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/anky.obj");
+	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
@@ -78,16 +81,16 @@ int main() {
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	ro.setModelMatrix(roPos);
 	ro.setMesh(triangleMesh);
-	colouredPool.addRenderObject(&ro);
+	//colouredPool.addRenderObject(&ro);
 
 	rgl::RenderObject ro2;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(2, 1, -5)) * glm::scale(glm::mat4(1.0f), glm::vec3(3, 3, 3));
 	ro2.setModelMatrix(roPos);
 	ro2.setMesh(triangleMesh);
-	colouredPool.addRenderObject(&ro2);
+	//colouredPool.addRenderObject(&ro2);
 
 	rgl::RenderObject roTex;
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(5, 0, -9)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -25)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
 	roTex.setModelMatrix(roPos);
 	roTex.setTexture(texture);
 	roTex.setMesh(quadMesh);
@@ -102,6 +105,23 @@ int main() {
 	texturedPool.addRenderObject(&roAndy);
 
 
+	rgl::scenes::SceneNode parentNode;
+	parentNode.attachRenderObject(&roAndy);
+
+	rgl::scenes::SceneNode childNode;
+	rgl::RenderObject roChild;
+	roChild.setModelMatrix(roPos);
+	roChild.setTexture(texture);
+	roChild.setMesh(hatMesh);
+	childNode.attachRenderObject(&roChild);
+	texturedPool.addRenderObject(&roChild);
+	parentNode.addChild(&childNode);
+
+	parentNode.setPosition(glm::vec3(0, 0, -5));
+	parentNode.setScale(glm::vec3(10, 10, 10));
+	childNode.setPosition(glm::vec3(0, 1.7f, 3.3f));
+	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
+
 	rgl::RenderObject roStencil;
 	//roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10000)) * glm::scale(glm::mat4(1.0f), glm::vec3(1000.0f, 1000.0f, 1.0f));
@@ -110,7 +130,7 @@ int main() {
 	roStencil.setMesh(quadMesh);
 	stencilPool.addRenderObject(&roStencil);
 
-	renderer.addRenderPool(&stencilPool);
+	//renderer.addRenderPool(&stencilPool);
 	renderer.addRenderPool(&colouredPool);
 	renderer.addRenderPool(&texturedPool);
 	renderer.addRenderPool(&transparentTexturedPool);

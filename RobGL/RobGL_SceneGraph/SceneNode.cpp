@@ -1,4 +1,5 @@
 #include "SceneNode.h"
+#include <External\glm\gtc\matrix_transform.hpp>
 
 namespace rgl {
 	namespace scenes {
@@ -19,14 +20,13 @@ namespace rgl {
 
 		glm::mat4 SceneNode::updateWorldTransform()
 		{
-			glm::mat4 t;
+			glm::mat4 t(1);
 
 			if (_parent != nullptr) {
 				t = _parent->getWorldTransform();
 			}
 
-
-			 glm::mat4 localTransform = glm::translate(glm::rotate(glm::scale()));
+			glm::mat4 localTransform = glm::translate(glm::mat4(1), _position) * _rotation * glm::scale(glm::mat4(1), _scale);
 			 t = t * localTransform;
 
 			if (_renderObject != nullptr) {
@@ -46,10 +46,13 @@ namespace rgl {
 		void SceneNode::addChild(SceneNode * sn)
 		{
 			_children.push_back(sn);
+			sn->setParent(this);
+			sn->updateWorldTransform();
 		}
 		void SceneNode::attachRenderObject(RenderObject * ro)
 		{
 			_renderObject = ro;
+			_renderObject->setModelMatrix(updateWorldTransform());
 		}
 		SceneNode * SceneNode::getParent()
 		{
@@ -65,7 +68,7 @@ namespace rgl {
 			updateWorldTransform();
 
 		}
-		void SceneNode::setRotation(glm::vec4 r)
+		void SceneNode::setRotation(glm::mat4 r)
 		{
 			_rotation = r;
 			updateWorldTransform();
