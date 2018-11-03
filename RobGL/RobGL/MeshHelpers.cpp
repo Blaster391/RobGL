@@ -157,4 +157,62 @@ namespace rgl {
 
 		return m;
 	}
+	Mesh * MeshHelpers::GenerateHeightMap(int vertsX, int vertsZ, float stepSize)
+	{
+		Mesh* m = GenerateHeightMapBase(vertsX, vertsZ, stepSize);
+
+		m->buffer();
+
+		return m;
+	}
+	Mesh * MeshHelpers::GenerateHeightMap(int vertsX, int vertsZ, float stepSize, std::string filename)
+	{
+		Mesh* m = GenerateHeightMapBase(vertsX, vertsZ, stepSize);
+
+		m->buffer();
+
+		return m;
+	}
+	Mesh * MeshHelpers::GenerateHeightMapBase(int vertsX, int vertsZ, float stepSize)
+	{
+		std::vector<Vertex> vertices;
+		std::vector<unsigned int> indices;
+
+		for (int x = 0; x < vertsX; ++x) {
+			 for (int z = 0; z < vertsZ; ++z) {
+				int offset = (x * vertsX) + z;
+				Vertex v;
+
+				v.Position = glm::vec3(x * stepSize, 0, z * stepSize);
+				
+				//TODO better texCoords
+				v.TexCoord = glm::vec2(x * stepSize, z * stepSize);
+				
+
+				vertices.push_back(v);
+			}		}
+		int numIndices = 0;
+		
+		 for (int x = 0; x < vertsX - 1; ++x) {
+			 for (int z = 0; z < vertsZ - 1; ++z) {
+				 int a = (x * (vertsX)) + z;
+				 int b = ((x + 1) * (vertsX)) + z;
+				 int c = ((x + 1) * (vertsX)) + (z + 1);
+				int d = (x * (vertsX)) + (z + 1);
+				
+				indices.push_back(c);
+				indices.push_back(b);
+				indices.push_back(a);
+				
+				indices.push_back(a);
+				indices.push_back(d);
+				indices.push_back(c);
+				
+			}		}
+		 Mesh* m = new Mesh();
+		 m->setIndicies(indices);
+		 m->setVerticies(vertices);
+
+		return m;
+	}
 }

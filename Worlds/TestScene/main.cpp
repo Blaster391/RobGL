@@ -44,6 +44,7 @@ int main() {
 	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
 	rgl::Mesh* andyMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/anky.obj");
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
+	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10);
 
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
@@ -76,12 +77,22 @@ int main() {
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
 
+
+
+
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	ro.setModelMatrix(roPos);
 	ro.setMesh(triangleMesh);
 	//colouredPool.addRenderObject(&ro);
+
+	rgl::RenderObject roFloor;
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, -1, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
+	roFloor.setModelMatrix(roPos);
+	roFloor.setMesh(floorMesh);
+	roFloor.setTexture(texture);
+	texturedPool.addRenderObject(&roFloor);
 
 	rgl::RenderObject ro2;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(2, 1, -5)) * glm::scale(glm::mat4(1.0f), glm::vec3(3, 3, 3));
@@ -104,7 +115,6 @@ int main() {
 	roAndy.setMesh(andyMesh);
 	texturedPool.addRenderObject(&roAndy);
 
-
 	rgl::scenes::SceneNode parentNode;
 	parentNode.attachRenderObject(&roAndy);
 
@@ -114,7 +124,7 @@ int main() {
 	roChild.setTexture(texture);
 	roChild.setMesh(hatMesh);
 	childNode.attachRenderObject(&roChild);
-	texturedPool.addRenderObject(&roChild);
+	colouredPool.addRenderObject(&roChild);
 	parentNode.addChild(&childNode);
 
 	parentNode.setPosition(glm::vec3(0, 0, -5));
