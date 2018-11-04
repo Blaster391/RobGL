@@ -180,6 +180,17 @@ int main() {
 			stencil = !stencil;
 			stencilPool.setEnabled(stencil);
 		}
+
+		if (i.isKeyPressed(InputButton::KEYBOARD_V)) {
+			auto verts = floorMesh->getVertices();
+			verts[20].Position.y = 3;
+			verts[21].Position.y = 3;
+			verts[22].Position.y = 3;
+
+			floorMesh->setVerticies(verts);
+
+			floorMesh->rebuffer();
+		}
 	}
 
 	w.shutdown();

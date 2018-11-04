@@ -11,7 +11,7 @@ namespace rgl {
 	Mesh::~Mesh()
 	{
 		glDeleteVertexArrays(1, &arrayObject);
-		glDeleteBuffers(1, &bufferObject);	
+		clear();
 	}
 
 	void Mesh::setVerticies(std::vector<Vertex> verticies)
@@ -62,5 +62,17 @@ namespace rgl {
 		}
 
 		glBindVertexArray(0);
+	}
+	void Mesh::rebuffer()
+	{
+		clear();
+		buffer();
+	}
+	void Mesh::clear()
+	{
+		glDeleteBuffers(1, &bufferObject);
+		if (useIndicies) {
+			glDeleteBuffers(1, &indexBuffer);
+		}
 	}
 }

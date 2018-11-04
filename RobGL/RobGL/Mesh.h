@@ -9,12 +9,20 @@ namespace rgl {
 		Mesh();
 		~Mesh();
 
+		std::vector<Vertex>& getVertices() {
+			return _verticies;
+		}
+
 		void setVerticies(std::vector<Vertex> verticies);
 		void setIndicies(std::vector<unsigned int> indicies);
 
 		void draw();
 
 		void buffer();
+
+		void rebuffer();
+
+		void clear();
 
 	private:
 		GLuint arrayObject;

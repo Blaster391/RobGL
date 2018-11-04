@@ -23,12 +23,8 @@ namespace rgl {
 			exit(1);
 		}
 
-		std::vector<glm::vec3> positions;
-		std::vector<glm::vec3> normals;
-		std::vector<glm::vec2> texCoords;
-		std::vector<glm::vec4> colours;
-
 		std::vector<Vertex> verticies;
+		std::vector<Vertex> indices;
 
 		// Loop over shapes
 		for (size_t s = 0; s < shapes.size(); s++) {
@@ -76,7 +72,6 @@ namespace rgl {
 		}	
 
 		Mesh* m = new Mesh();
-		
 
 		m->setVerticies(verticies);
 
