@@ -44,7 +44,7 @@ int main() {
 	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
 	rgl::Mesh* andyMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/anky.obj");
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
-	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10);
+	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
@@ -190,6 +190,10 @@ int main() {
 			floorMesh->setVerticies(verts);
 
 			floorMesh->rebuffer();
+		}
+
+		if (i.isKeyPressed(InputButton::KEYBOARD_T)) {
+			parentNode.setPosition(glm::vec3(5, 0, -5));
 		}
 	}
 

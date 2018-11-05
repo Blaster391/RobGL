@@ -32,8 +32,6 @@ namespace rgl {
 			glDrawArrays(_meshType, 0, _verticies.size());
 		}
 
-
-
 		glBindVertexArray(0);
 	}
 	void Mesh::buffer()

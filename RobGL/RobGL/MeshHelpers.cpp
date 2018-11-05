@@ -3,6 +3,7 @@
 #include "tinyobj/tiny_obj_loader.h"
 #include <iostream>
 #include <vector>
+#include <External/stb/stb_image.h>
 
 namespace rgl {
 	Mesh* MeshHelpers::LoadMeshFromObj(std::string filename)
@@ -160,9 +161,41 @@ namespace rgl {
 
 		return m;
 	}
-	Mesh * MeshHelpers::GenerateHeightMap(int vertsX, int vertsZ, float stepSize, std::string filename)
+	Mesh * MeshHelpers::GenerateHeightMap(int vertsX, int vertsZ, float stepSize, std::string filename, float yScale)
 	{
 		Mesh* m = GenerateHeightMapBase(vertsX, vertsZ, stepSize);
+
+
+
+		int w;
+		int h;
+		int comp;
+
+		unsigned char* image = stbi_load(filename.c_str(), &w, &h, &comp, STBI_grey);
+
+		unsigned char maxVal = ~0;
+
+
+		int heightStep = h / vertsZ;
+		int widthStep = w / vertsX;
+
+		auto verts = m->getVertices();
+
+		for (int x = 0; x < vertsX; ++x) {
+			for (int z = 0; z < vertsZ; ++z) {
+				unsigned short y = image[x*widthStep + (z* heightStep)*vertsX];
+				verts[x + z * vertsX].Position.y = ((float)y/ maxVal) * yScale;
+
+				std::cout << y << ",";
+
+			}
+			std::cout << std::endl;
+		}
+
+
+		m->setVerticies(verts);
+
+		stbi_image_free(image);
 
 		m->buffer();
 

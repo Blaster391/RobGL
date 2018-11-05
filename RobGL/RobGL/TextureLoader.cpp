@@ -43,6 +43,7 @@ namespace rgl {
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		stbi_image_free(image);
 
 
 		Texture* t = new Texture(tex, generateMips);
