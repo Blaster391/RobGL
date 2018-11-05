@@ -44,6 +44,7 @@ namespace rgl {
 
 		setUniforms();
 
+		Frustum f = _camera->getFrustum();
 
 
 		if (_scissor) {
@@ -55,7 +56,9 @@ namespace rgl {
 		}
 
 		for (auto& r : _renderObjects) {
-			r->draw(_program);
+			if (f.insideFrustum(r)) {
+				r->draw(_program);
+			}
 		}
 
 		glUseProgram(0);

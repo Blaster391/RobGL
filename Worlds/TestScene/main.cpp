@@ -77,15 +77,13 @@ int main() {
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
 
-
-
-
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	ro.setModelMatrix(roPos);
 	ro.setMesh(triangleMesh);
-	//colouredPool.addRenderObject(&ro);
+	ro.setBounds(new rgl::BoundingSphere(&ro,5));
+	colouredPool.addRenderObject(&ro);
 
 	rgl::RenderObject roFloor;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, -1, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));

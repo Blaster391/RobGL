@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{b86dcfe6-c946-42d6-ab73-3cd5858dab86}</UniqueIdentifier>
     </Filter>
@@ -33,6 +29,9 @@
     </Filter>
     <Filter Include="Mesh">
       <UniqueIdentifier>{1d865963-faac-407f-bb94-95145b68d7c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\BoundingBox">
+      <UniqueIdentifier>{7bfbfca3-9f55-4f13-8da9-2a5e28d2fd1e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +83,18 @@
     <ClInclude Include="MeshHelpers.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingBox.h">
+      <Filter>Mesh\BoundingBox</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingSphere.h">
+      <Filter>Mesh\BoundingBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Mesh\BoundingBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -124,6 +135,18 @@
     </ClCompile>
     <ClCompile Include="MeshHelpers.cpp">
       <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingBox.cpp">
+      <Filter>Mesh\BoundingBox</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingSphere.cpp">
+      <Filter>Mesh\BoundingBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Mesh\BoundingBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

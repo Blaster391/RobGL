@@ -44,6 +44,8 @@ namespace rgl {
 		GLuint _viewMatrixPosition;
 		GLuint _projectionMatrixPosition;
 
+		bool _frustumCulling = true;
+
 	};
 }
 

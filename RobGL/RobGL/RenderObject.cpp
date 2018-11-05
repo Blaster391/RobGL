@@ -1,5 +1,6 @@
 #include "RenderObject.h"
 #include "MeshHelpers.h"
+#include "Frustum.h"
 namespace rgl {
 	RenderObject::RenderObject()
 	{
@@ -31,4 +32,10 @@ namespace rgl {
 			//glUniform1i(glGetUniformLocation(program, "tex"), _texture->pointer());
 		}
 	}
+
+	glm::vec3 RenderObject::getPosition()
+	{
+		return _modelMatrix[3];
+	}
+
 }

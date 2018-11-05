@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Plane.h"
 
 namespace rgl {
 	Camera::Camera()
@@ -45,5 +46,38 @@ namespace rgl {
 
 	void Camera::yaw(float y) {
 		_yaw += y;
+	}
+
+	Frustum Camera::getFrustum()
+	{
+		glm::mat4x4 vpMatrix =  getProjectionMatrix() * getViewMatrix();
+		Plane planes[6];
+
+		glm::vec3 xaxis(vpMatrix[0]);
+		glm::vec3 yaxis(vpMatrix[1]);
+		glm::vec3 zaxis(vpMatrix[2]);
+		glm::vec3 waxis(vpMatrix[3]);
+		
+		// RIGHT
+		planes[0] = Plane(waxis - xaxis, (vpMatrix[3][3] - vpMatrix[3][0]), true);
+
+		// LEFT
+		planes[1] = Plane(waxis + xaxis, (vpMatrix[3][3] + vpMatrix[3][0]), true);
+
+		// BOTTOM
+		planes[2] = Plane(waxis + yaxis, (vpMatrix[3][3] + vpMatrix[3][1]), true);
+
+		 // TOP
+		planes[3] = Plane(waxis - yaxis, (vpMatrix[3][3] - vpMatrix[3][1]), true);
+
+		 // FAR
+		planes[4] = Plane(waxis - zaxis, (vpMatrix[3][3] - vpMatrix[3][1]), true);
+
+		 // NEAR
+		planes[5] = Plane(waxis + zaxis, (vpMatrix[3][3] + vpMatrix[3][2]), true);
+
+		Frustum f(planes);
+
+		return f;
 	}
 }

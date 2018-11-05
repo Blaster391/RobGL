@@ -2,6 +2,7 @@
 #include <External/glm/mat4x4.hpp>
 #include <External/glm/gtc/matrix_transform.hpp>
 #include "glad/glad.h"
+#include "Frustum.h"
 namespace rgl {
 	class Camera
 	{
@@ -24,12 +25,14 @@ namespace rgl {
 		void yaw(float y);
 		void roll(float r);
 
+		Frustum getFrustum();
 
 	private:
 		glm::mat4x4 projectionMatrix;
 
 		float _pitch = 0;
 		float _yaw = 0;
+		float _roll = 0;
 		glm::vec3 _position;
 	};
 
