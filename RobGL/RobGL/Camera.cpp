@@ -48,8 +48,14 @@ namespace rgl {
 		_yaw += y;
 	}
 
+	void Camera::roll(float r)
+	{
+		_roll += r;
+	}
+
 	Frustum Camera::getFrustum()
 	{
+
 		glm::mat4x4 vpMatrix =  getProjectionMatrix() * getViewMatrix();
 		Plane planes[6];
 
@@ -58,23 +64,25 @@ namespace rgl {
 		glm::vec3 zaxis(vpMatrix[2]);
 		glm::vec3 waxis(vpMatrix[3]);
 		
+		glm::vec4 w(vpMatrix[3]);
+
 		// RIGHT
-		planes[0] = Plane(waxis - xaxis, (vpMatrix[3][3] - vpMatrix[3][0]), true);
+		planes[0] = Plane(waxis - xaxis, (w[3] - w[0]), true);
 
 		// LEFT
-		planes[1] = Plane(waxis + xaxis, (vpMatrix[3][3] + vpMatrix[3][0]), true);
+		planes[1] = Plane(waxis + xaxis, (w[3] + w[0]), true);
 
 		// BOTTOM
-		planes[2] = Plane(waxis + yaxis, (vpMatrix[3][3] + vpMatrix[3][1]), true);
+		planes[2] = Plane(waxis + yaxis, (w[3] + w[1]), true);
 
 		 // TOP
-		planes[3] = Plane(waxis - yaxis, (vpMatrix[3][3] - vpMatrix[3][1]), true);
+		planes[3] = Plane(waxis - yaxis, (w[3] - w[1]), true);
 
 		 // FAR
-		planes[4] = Plane(waxis - zaxis, (vpMatrix[3][3] - vpMatrix[3][1]), true);
+		planes[4] = Plane(waxis - zaxis, (w[3] - w[2]), true);
 
 		 // NEAR
-		planes[5] = Plane(waxis + zaxis, (vpMatrix[3][3] + vpMatrix[3][2]), true);
+		planes[5] = Plane(waxis + zaxis, (w[3] + w[2]), true);
 
 		Frustum f(planes);
 

@@ -82,7 +82,7 @@ int main() {
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	ro.setModelMatrix(roPos);
 	ro.setMesh(triangleMesh);
-	ro.setBounds(new rgl::BoundingSphere(&ro,5));
+	ro.setBounds(new rgl::BoundingSphere(&ro,10));
 	colouredPool.addRenderObject(&ro);
 
 	rgl::RenderObject roFloor;
