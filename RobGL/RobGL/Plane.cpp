@@ -2,14 +2,16 @@
 #include <External/glm/geometric.hpp>
 namespace rgl {
 
-	Plane::Plane(const glm::vec3 & normal, float distance, bool normalise)
+	Plane::Plane(const glm::vec4 & normal, bool normalise)
 	{
-		if (normalise) {			float length = sqrt(glm::dot(normal, normal));			_normal = normal / length;
-			_distance = distance / length;
+		if (normalise) {
+			float length = glm::length(normal);
+			_normal = normal / length;
+			_distance = normal.w / length;
 		}
 		else {
 			_normal = normal;
-			_distance = distance;
+			_distance = normal.w;
 		}
 	}
 

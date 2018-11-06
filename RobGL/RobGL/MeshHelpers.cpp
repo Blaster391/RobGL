@@ -1,6 +1,10 @@
 #include "MeshHelpers.h"
 #define TINYOBJLOADER_IMPLEMENTATION // define this in only *one* .cc
 #include "tinyobj/tiny_obj_loader.h"
+#define TINYGLTF_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#define STBI_MSC_SECURE_CRT
+#include "tinygltf/tiny_gltf.h"
 #include <iostream>
 #include <vector>
 #include <External/stb/stb_image.h>
@@ -81,6 +85,26 @@ namespace rgl {
 		m->buffer();
 	
 		return m;
+	}
+
+	Mesh * MeshHelpers::LoadMeshFromGLTF(std::string filename)
+	{
+		tinygltf::Model model;
+		tinygltf::TinyGLTF gltf_ctx;
+
+		std::string err;
+		std::string warn;
+
+
+		bool ret = gltf_ctx.LoadASCIIFromFile(&model, &err, &warn, filename.c_str());
+
+		std::cout << "meshes(item=" << model.meshes.size() << ")" << std::endl;
+		for (size_t i = 0; i < model.meshes.size(); i++) {
+			std::cout << "name     : " << model.meshes[i].name << std::endl;
+			std::cout << "primitives(items=" << model.meshes[i].primitives.size() << "): " << std::endl;
+		}
+
+		return nullptr;
 	}
 
 

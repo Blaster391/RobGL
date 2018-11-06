@@ -17,7 +17,7 @@ namespace rgl {
 		//TODO remove hardcoded stuffs
 		int width = 800;
 		int height = 600;
-		projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 1.0f, 10000.0f);
+		projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 0.1f, 100.0f);
 	}
 
 	void Camera::setProjectionOrthographic()
@@ -59,30 +59,29 @@ namespace rgl {
 		glm::mat4x4 vpMatrix =  getProjectionMatrix() * getViewMatrix();
 		Plane planes[6];
 
-		glm::vec3 xaxis(vpMatrix[0]);
-		glm::vec3 yaxis(vpMatrix[1]);
-		glm::vec3 zaxis(vpMatrix[2]);
-		glm::vec3 waxis(vpMatrix[3]);
+		glm::vec4 xaxis(vpMatrix[0]);
+		glm::vec4 yaxis(vpMatrix[1]);
+		glm::vec4 zaxis(vpMatrix[2]);
+		glm::vec4 waxis(vpMatrix[3]);
 		
-		glm::vec4 w(vpMatrix[3]);
-
 		// RIGHT
-		planes[0] = Plane(waxis - xaxis, (w[3] - w[0]), true);
+		planes[0] = Plane((waxis - xaxis), true);
 
 		// LEFT
-		planes[1] = Plane(waxis + xaxis, (w[3] + w[0]), true);
+		planes[1] = Plane((waxis + xaxis), true);
 
 		// BOTTOM
-		planes[2] = Plane(waxis + yaxis, (w[3] + w[1]), true);
+		planes[2] = Plane((waxis + yaxis), true);
 
 		 // TOP
-		planes[3] = Plane(waxis - yaxis, (w[3] - w[1]), true);
+		planes[3] = Plane((waxis - yaxis), true);
 
 		 // FAR
-		planes[4] = Plane(waxis - zaxis, (w[3] - w[2]), true);
+		planes[4] = Plane((waxis - zaxis), true);
 
 		 // NEAR
-		planes[5] = Plane(waxis + zaxis, (w[3] + w[2]), true);
+		planes[5] = Plane((waxis + zaxis), true);
+
 
 		Frustum f(planes);
 

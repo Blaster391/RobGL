@@ -35,7 +35,7 @@ namespace rgl {
 
 	glm::vec3 RenderObject::getPosition()
 	{
-		return _modelMatrix[3];
+		return _modelMatrix[3] / _modelMatrix[3].w;
 	}
 
 }

@@ -33,6 +33,12 @@
     <Filter Include="Mesh\BoundingBox">
       <UniqueIdentifier>{7bfbfca3-9f55-4f13-8da9-2a5e28d2fd1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{934364d1-2f01-40e0-8190-ea5012293843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinygltf">
+      <UniqueIdentifier>{452cd628-a5ad-43d4-a5a9-fac7cb2457ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -95,6 +101,12 @@
     <ClInclude Include="Frustum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GLTFMesh.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="tinygltf\tiny_gltf.h">
+      <Filter>tinygltf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -147,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="Frustum.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTFMesh.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

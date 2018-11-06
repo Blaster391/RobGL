@@ -46,6 +46,8 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
+	rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/endmysuffering.gltf");
+
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
 	colouredShaders.push_back(colouredFragmentShader);
@@ -82,7 +84,7 @@ int main() {
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	ro.setModelMatrix(roPos);
 	ro.setMesh(triangleMesh);
-	ro.setBounds(new rgl::BoundingSphere(&ro,10));
+	ro.setBounds(new rgl::BoundingSphere(&ro,0.01f));
 	colouredPool.addRenderObject(&ro);
 
 	rgl::RenderObject roFloor;

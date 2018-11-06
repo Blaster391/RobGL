@@ -19,13 +19,15 @@ namespace rgl {
 			return true;
 		}
 
-		for (int i = 0; i < 6; ++i) {
-			{
-				if (!bounds->insidePlane(_planes[i])) {
-					return false;
-				}
-			}
-		}
+		//TODO fix and reenable
+
+		//for (int i = 0; i < 6; ++i) {
+		//	{
+		//		if (!bounds->insidePlane(_planes[i])) {
+		//			return false;
+		//		}
+		//	}
+		//}
 
 		return true;
 	}
