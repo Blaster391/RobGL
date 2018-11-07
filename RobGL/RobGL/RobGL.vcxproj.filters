@@ -101,11 +101,14 @@
     <ClInclude Include="Frustum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLTFMesh.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="tinygltf\tiny_gltf.h">
       <Filter>tinygltf</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedMesh.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Joint.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -160,7 +163,10 @@
     <ClCompile Include="Frustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GLTFMesh.cpp">
+    <ClCompile Include="AnimatedMesh.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Joint.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>

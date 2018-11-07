@@ -112,7 +112,7 @@ int main() {
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	roAndy.setModelMatrix(roPos);
 	roAndy.setTexture(andyTexture);
-	roAndy.setMesh(andyMesh);
+	roAndy.setMesh(ahhhhhh);
 	texturedPool.addRenderObject(&roAndy);
 
 	rgl::scenes::SceneNode parentNode;

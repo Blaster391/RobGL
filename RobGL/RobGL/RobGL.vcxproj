@@ -138,7 +138,8 @@
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="glad\glad.h" />
     <ClInclude Include="glad\khrplatform.h" />
-    <ClInclude Include="GLTFMesh.h" />
+    <ClInclude Include="AnimatedMesh.h" />
+    <ClInclude Include="Joint.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshHelpers.h" />
     <ClInclude Include="Plane.h" />
@@ -160,7 +161,8 @@
     <ClCompile Include="FallbackShaders.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="glad\glad.c" />
-    <ClCompile Include="GLTFMesh.cpp" />
+    <ClCompile Include="AnimatedMesh.cpp" />
+    <ClCompile Include="Joint.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshHelpers.cpp" />
     <ClCompile Include="Plane.cpp" />

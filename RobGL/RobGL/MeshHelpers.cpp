@@ -29,7 +29,7 @@ namespace rgl {
 		}
 
 		std::vector<Vertex> verticies;
-		std::vector<Vertex> indices;
+		std::vector<unsigned int> indices;
 
 		// Loop over shapes
 		for (size_t s = 0; s < shapes.size(); s++) {
@@ -98,13 +98,71 @@ namespace rgl {
 
 		bool ret = gltf_ctx.LoadASCIIFromFile(&model, &err, &warn, filename.c_str());
 
+		std::vector<Vertex> verticies;
+		std::vector<unsigned int> indices;
+
+		Mesh* m = new Mesh();
+
 		std::cout << "meshes(item=" << model.meshes.size() << ")" << std::endl;
-		for (size_t i = 0; i < model.meshes.size(); i++) {
-			std::cout << "name     : " << model.meshes[i].name << std::endl;
-			std::cout << "primitives(items=" << model.meshes[i].primitives.size() << "): " << std::endl;
+		if (model.meshes.size() == 0) {
+			return nullptr;
 		}
 
-		return nullptr;
+		auto& mesh = model.meshes[0];
+
+		std::cout << "name     : " << mesh.name << std::endl;
+		std::cout << "primitives(items=" << mesh.primitives.size() << "): " << std::endl;
+
+		std::cout << mesh.primitives[0].indices << std::endl;
+
+		for (auto& at : mesh.primitives[0].attributes) {
+			std::cout << at.first << std::endl;
+			std::cout << at.second << std::endl;
+		}
+
+		int indicesAccessor = mesh.primitives[0].indices;
+		int positionAccessor = mesh.primitives[0].attributes["POSITION"];
+		int texCoordAccessor = mesh.primitives[0].attributes["TEXCOORD_0"];
+
+		std::cout << model.accessors[indicesAccessor].count << std::endl;
+		std::cout << model.accessors[positionAccessor].count << std::endl;
+		std::cout << model.accessors[texCoordAccessor].count << std::endl;
+
+		auto positionBV = model.bufferViews[model.accessors[positionAccessor].bufferView];
+		auto texCoordBV = model.bufferViews[model.accessors[texCoordAccessor].bufferView];
+
+		auto positionInterator = (glm::vec3*)(model.buffers[positionBV.buffer].data.data() + positionBV.byteOffset);
+		auto texCoordInterator = (glm::vec2*)(model.buffers[texCoordBV.buffer].data.data() + texCoordBV.byteOffset);
+
+		for (auto i = 0; i < model.accessors[positionAccessor].count; i++){
+			Vertex v;
+
+			v.Position = *(positionInterator + i);
+			v.TexCoord = *(texCoordInterator + i);
+
+			v.TexCoord.y = 1-v.TexCoord.y;
+
+			verticies.push_back(v);
+		}
+
+		auto indicesBV = model.bufferViews[model.accessors[indicesAccessor].bufferView];
+		auto indicesInterator = (short*)(model.buffers[indicesBV.buffer].data.data() + indicesBV.byteOffset);
+		for (auto i = 0; i < model.accessors[indicesAccessor].count; i++) {
+			indices.push_back(*(indicesInterator + i));
+		}
+			
+
+		//for (auto& pos : model.meshes[i].primitives[0].attributes[]) {
+
+		//}
+
+		m->setVerticies(verticies);
+		m->setIndicies(indices);
+		
+
+		m->buffer();
+
+		return m;
 	}
 
 
@@ -242,7 +300,9 @@ namespace rgl {
 				
 
 				vertices.push_back(v);
-			}		}
+			}
+		}
+
 		int numIndices = 0;
 		
 		 for (int x = 0; x < vertsX - 1; ++x) {
@@ -260,7 +320,9 @@ namespace rgl {
 				indices.push_back(d);
 				indices.push_back(c);
 				
-			}		}
+			}
+		}
+
 		 Mesh* m = new Mesh();
 		 m->setIndicies(indices);
 		 m->setVerticies(vertices);
