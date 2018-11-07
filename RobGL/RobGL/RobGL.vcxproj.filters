@@ -110,6 +110,12 @@
     <ClInclude Include="Joint.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexWeightData.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -168,6 +174,12 @@
     </ClCompile>
     <ClCompile Include="Joint.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexWeightData.cpp">
+      <Filter>Maths</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

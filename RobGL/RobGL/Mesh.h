@@ -16,13 +16,13 @@ namespace rgl {
 		void setVerticies(std::vector<Vertex> verticies);
 		void setIndicies(std::vector<unsigned int> indicies);
 
-		void draw();
+		virtual void draw();
 
-		void buffer();
+		virtual void buffer();
 
-		void rebuffer();
+		virtual void rebuffer();
 
-		void clear();
+		virtual void clear();
 
 	private:
 		GLuint arrayObject;

@@ -150,15 +150,97 @@ namespace rgl {
 		for (auto i = 0; i < model.accessors[indicesAccessor].count; i++) {
 			indices.push_back(*(indicesInterator + i));
 		}
-			
-
-		//for (auto& pos : model.meshes[i].primitives[0].attributes[]) {
-
-		//}
 
 		m->setVerticies(verticies);
 		m->setIndicies(indices);
 		
+
+		m->buffer();
+
+		return m;
+	}
+
+	AnimatedMesh * MeshHelpers::LoadAnimatedMeshFromGLTF(std::string filename)
+	{
+		tinygltf::Model model;
+		tinygltf::TinyGLTF gltf_ctx;
+
+		std::string err;
+		std::string warn;
+
+
+		bool ret = gltf_ctx.LoadASCIIFromFile(&model, &err, &warn, filename.c_str());
+
+		std::vector<Vertex> verticies;
+		std::vector<unsigned int> indices;
+		std::vector<VertexWeightData> weightData;
+
+
+		AnimatedMesh* m = new AnimatedMesh();
+
+		std::cout << "meshes(item=" << model.meshes.size() << ")" << std::endl;
+		if (model.meshes.size() == 0) {
+			return nullptr;
+		}
+
+		auto& mesh = model.meshes[0];
+
+		std::cout << "name     : " << mesh.name << std::endl;
+		std::cout << "primitives(items=" << mesh.primitives.size() << "): " << std::endl;
+
+		std::cout << mesh.primitives[0].indices << std::endl;
+
+		for (auto& at : mesh.primitives[0].attributes) {
+			std::cout << at.first << std::endl;
+			std::cout << at.second << std::endl;
+		}
+
+		int indicesAccessor = mesh.primitives[0].indices;
+		int positionAccessor = mesh.primitives[0].attributes["POSITION"];
+		int texCoordAccessor = mesh.primitives[0].attributes["TEXCOORD_0"];
+		int weightsAccessor = mesh.primitives[0].attributes["WEIGHTS_0"];
+		int jointsAccessor = mesh.primitives[0].attributes["JOINTS_0"];
+
+		std::cout << model.accessors[indicesAccessor].count << std::endl;
+		std::cout << model.accessors[positionAccessor].count << std::endl;
+		std::cout << model.accessors[texCoordAccessor].count << std::endl;
+
+		auto positionBV = model.bufferViews[model.accessors[positionAccessor].bufferView];
+		auto texCoordBV = model.bufferViews[model.accessors[texCoordAccessor].bufferView];
+		auto weightsBV = model.bufferViews[model.accessors[weightsAccessor].bufferView];
+		auto jointsBV = model.bufferViews[model.accessors[jointsAccessor].bufferView];
+
+		auto positionInterator = (glm::vec3*)(model.buffers[positionBV.buffer].data.data() + positionBV.byteOffset);
+		auto texCoordInterator = (glm::vec2*)(model.buffers[texCoordBV.buffer].data.data() + texCoordBV.byteOffset);
+		auto weightsInterator = (glm::vec4*)(model.buffers[weightsBV.buffer].data.data() + weightsBV.byteOffset);
+		auto jointsInterator = (glm::ivec4*)(model.buffers[jointsBV.buffer].data.data() + jointsBV.byteOffset);
+
+		for (auto i = 0; i < model.accessors[positionAccessor].count; i++) {
+			Vertex v;
+
+			VertexWeightData vwd;
+
+			v.Position = *(positionInterator + i);
+			v.TexCoord = *(texCoordInterator + i);
+			//Fix tex coords
+			v.TexCoord.y = 1 - v.TexCoord.y;
+
+			verticies.push_back(v);
+			vwd.Joints = *(jointsInterator + i); WHAT SIZE IS THIS?????
+			vwd.Weights = *(weightsInterator + i);
+
+			weightData.push_back(vwd);
+		}
+
+		auto indicesBV = model.bufferViews[model.accessors[indicesAccessor].bufferView];
+		auto indicesInterator = (short*)(model.buffers[indicesBV.buffer].data.data() + indicesBV.byteOffset);
+		for (auto i = 0; i < model.accessors[indicesAccessor].count; i++) {
+			indices.push_back(*(indicesInterator + i));
+		}
+
+		m->setVerticies(verticies);
+		m->setIndicies(indices);
+
 
 		m->buffer();
 

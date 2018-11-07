@@ -147,12 +147,14 @@
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="RenderPool.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="StencilPool.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="tinygltf\tiny_gltf.h" />
     <ClInclude Include="tinyobj\tiny_obj_loader.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VertexWeightData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundingBox.cpp" />
@@ -170,10 +172,12 @@
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="RenderPool.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="StencilPool.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="VertexWeightData.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
