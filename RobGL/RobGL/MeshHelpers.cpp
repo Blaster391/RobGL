@@ -262,6 +262,11 @@ namespace rgl {
 
 			std::vector<Joint*> joints;
 
+			std::map<int, int> jointMap;
+			for (int i = 0; i < skin.joints.size(); ++i) {
+				jointMap[skin.joints[i]] = i+1;
+			}
+
 			for (int i = 0; i < inverseBindAccessor.count; ++i) {
 				Joint* j = new Joint;
 				
@@ -271,8 +276,13 @@ namespace rgl {
 				auto& node = model.nodes[skin.joints[i]];
 
 				j->setName(node.name);
-				j->setIndex(skin.joints[i]);
-				j->setChildIndices(node.children);
+				j->setIndex(jointMap[skin.joints[i]]);
+				std::vector<int> children;
+				for (auto& c : node.children) {
+					children.push_back(jointMap[c]);
+				}
+
+				j->setChildIndices(children);
 				j->setScale(glm::vec3(node.scale[0], node.scale[1], node.scale[2]));
 				j->setRotation(glm::vec4(node.rotation[0],node.rotation[1],node.rotation[2],node.rotation[3]));
 				j->setTranslation(glm::vec3(node.translation[0], node.translation[1], node.translation[2]));
