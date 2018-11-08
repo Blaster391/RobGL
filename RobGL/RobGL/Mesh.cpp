@@ -22,7 +22,7 @@ namespace rgl {
 	{
 		_indicies = indicies;
 	}
-	void Mesh::draw()
+	void Mesh::draw(GLuint program)
 	{		
 		glBindVertexArray(arrayObject);
 		if (useIndicies) {
@@ -36,30 +36,11 @@ namespace rgl {
 	}
 	void Mesh::buffer()
 	{
-		useIndicies = (_indicies.size() > 0);
+		beginBuffer();
+		basicBuffer();
+		endBuffer();
 
-		glBindVertexArray(arrayObject);
 
-		glGenBuffers(1, &bufferObject);
-
-		glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
-		glBufferData(GL_ARRAY_BUFFER, _verticies.size() * sizeof(Vertex), _verticies.data(), GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Position));
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,Colour));
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoord));
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-		glEnableVertexAttribArray(3);
-
-		if (useIndicies) {
-			glGenBuffers(1, &indexBuffer);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indicies.size() * sizeof(GLuint), _indicies.data(), GL_STATIC_DRAW);
-		}
-
-		glBindVertexArray(0);
 	}
 	void Mesh::rebuffer()
 	{
@@ -72,5 +53,35 @@ namespace rgl {
 		if (useIndicies) {
 			glDeleteBuffers(1, &indexBuffer);
 		}
+	}
+	void Mesh::beginBuffer()
+	{
+		glBindVertexArray(arrayObject);
+	}
+	void Mesh::basicBuffer()
+	{
+		useIndicies = (_indicies.size() > 0);
+		glGenBuffers(1, &bufferObject);
+
+		glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
+		glBufferData(GL_ARRAY_BUFFER, _verticies.size() * sizeof(Vertex), _verticies.data(), GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Position));
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colour));
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoord));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+		glEnableVertexAttribArray(3);
+
+		if (useIndicies) {
+			glGenBuffers(1, &indexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indicies.size() * sizeof(GLuint), _indicies.data(), GL_STATIC_DRAW);
+		}
+	}
+	void Mesh::endBuffer()
+	{
+		glBindVertexArray(0);
 	}
 }

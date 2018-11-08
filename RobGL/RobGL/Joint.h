@@ -24,6 +24,7 @@ namespace rgl {
 		void setScale(glm::vec3 scale);
 		void setTranslation(glm::vec3 translation);
 
+		glm::mat4 calculateJointMatrix();
 
 	protected:
 		std::vector<Joint*> _children;

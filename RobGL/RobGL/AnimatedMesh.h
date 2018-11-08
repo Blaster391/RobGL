@@ -13,8 +13,14 @@ namespace rgl {
 		std::vector<VertexWeightData> getVerticiesWeightData();
 		void setSkeleton(Skeleton* sk);
 
+		virtual void draw(GLuint program) override;
+
+		virtual void buffer() override;
+
 	private:
 		std::vector<VertexWeightData> _verticiesWeightData;
 		Skeleton* _skeleton;
+		GLuint weightBuffer;
+
 	};
 }

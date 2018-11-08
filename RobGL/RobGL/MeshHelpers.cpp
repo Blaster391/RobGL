@@ -278,6 +278,7 @@ namespace rgl {
 				j->setTranslation(glm::vec3(node.translation[0], node.translation[1], node.translation[2]));
 
 				joints.push_back(j);
+				//TODO root node?
 			}
 
 			Skeleton* s = new Skeleton;

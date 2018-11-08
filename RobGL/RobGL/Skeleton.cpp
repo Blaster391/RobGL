@@ -2,8 +2,9 @@
 
 namespace rgl {
 
-	Skeleton::Skeleton()
+	Skeleton::Skeleton() : _jointMatrices(new glm::mat4[50])
 	{
+
 	}
 
 	Skeleton::~Skeleton()
@@ -12,6 +13,8 @@ namespace rgl {
 			delete j.second;
 		}
 		_joints.clear();
+
+		delete[] _jointMatrices;
 	}
 	void Skeleton::setJoints(std::vector<Joint*> joints)
 	{
@@ -27,5 +30,13 @@ namespace rgl {
 			j->setChildren(children);
 		}
 
+	}
+	glm::mat4 * Skeleton::getJointMatrices()
+	{
+		for (auto& j : _joints) {
+			_jointMatrices[j.first] = j.second->calculateJointMatrix();
+		}
+
+		return _jointMatrices;
 	}
 }

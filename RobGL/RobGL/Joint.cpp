@@ -57,4 +57,12 @@ namespace rgl {
 	{
 		_translation = translation;
 	}
+
+	glm::mat4 Joint::calculateJointMatrix()
+	{
+		//jointMatrix = inverse(globalTransform) * golbalJointTransform * inverseBindMatrix;
+		return glm::mat4();
+	}
+
+
 }

@@ -25,7 +25,7 @@ namespace rgl {
 		}
 
 
-		_mesh->draw();
+		_mesh->draw(program);
 
 		if (_texture != nullptr) {
 			_texture->unbind();
