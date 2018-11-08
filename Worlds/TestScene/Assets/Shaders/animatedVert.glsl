@@ -19,21 +19,6 @@ out Vertex	{
 void main(void)	{
 	vec4 j = Joints;
 
-	if(j.x > 10000){
-		j.x  = 4;
-		gl_Position		= vec4(0.0,0.0,1.0, 1.0);
-		return;
-		
-	}/*
-	if(j.y > 10000){
-		j.y  = 4;
-	}
-	if(j.z > 10000){
-		j.z  = 4;
-	}
-	if(j.w > 10000){
-		j.w  = 4;
-	}*/
 	
 	mat4 skinMatrix = 
 				Weights.x * jointMatrices[int(j.x)] +

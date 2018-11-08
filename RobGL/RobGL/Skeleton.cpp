@@ -33,8 +33,12 @@ namespace rgl {
 		}
 
 	}
+
+	glm::vec3 scale(1, 1, 1);
 	glm::mat4 * Skeleton::getJointMatrices()
 	{
+		_joints[3]->setScale(scale += glm::vec3(0.1f,0.1f,0.1f));
+
 		for (auto& j : _joints) {
 			_jointMatrices[j.first] = j.second->calculateJointMatrix(_globalTransform);
 		}
