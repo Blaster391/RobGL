@@ -9,6 +9,8 @@
 #include <vector>
 #include <External/stb/stb_image.h>
 
+
+
 namespace rgl {
 	Mesh* MeshHelpers::LoadMeshFromObj(std::string filename)
 	{
@@ -210,10 +212,13 @@ namespace rgl {
 		auto weightsBV = model.bufferViews[model.accessors[weightsAccessor].bufferView];
 		auto jointsBV = model.bufferViews[model.accessors[jointsAccessor].bufferView];
 
+
 		auto positionInterator = (glm::vec3*)(model.buffers[positionBV.buffer].data.data() + positionBV.byteOffset);
 		auto texCoordInterator = (glm::vec2*)(model.buffers[texCoordBV.buffer].data.data() + texCoordBV.byteOffset);
 		auto weightsInterator = (glm::vec4*)(model.buffers[weightsBV.buffer].data.data() + weightsBV.byteOffset);
-		auto jointsInterator = (glm::ivec4*)(model.buffers[jointsBV.buffer].data.data() + jointsBV.byteOffset);
+		auto jointsInterator = (glm::u16vec4*)(model.buffers[jointsBV.buffer].data.data() + jointsBV.byteOffset);
+
+	
 
 		for (auto i = 0; i < model.accessors[positionAccessor].count; i++) {
 			Vertex v;
@@ -226,7 +231,7 @@ namespace rgl {
 			v.TexCoord.y = 1 - v.TexCoord.y;
 
 			verticies.push_back(v);
-			vwd.Joints = *(jointsInterator + i); WHAT SIZE IS THIS?????
+			vwd.Joints = *(jointsInterator + i); 
 			vwd.Weights = *(weightsInterator + i);
 
 			weightData.push_back(vwd);
@@ -240,7 +245,47 @@ namespace rgl {
 
 		m->setVerticies(verticies);
 		m->setIndicies(indices);
+		m->setVerticiesWeightData(weightData);
 
+		if (model.skins.size() > 0) {
+
+			auto& skin = model.skins[0];
+
+
+			auto inverseBindAccessor = model.accessors[skin.inverseBindMatrices];
+			
+
+
+			auto inverseBindBV = model.bufferViews[model.accessors[inverseBindAccessor.bufferView].bufferView];
+			
+			auto inverseBindIterator = (glm::mat4*)(model.buffers[inverseBindBV.buffer].data.data() + inverseBindBV.byteOffset);
+
+			std::vector<Joint*> joints;
+
+			for (int i = 0; i < inverseBindAccessor.count; ++i) {
+				Joint* j = new Joint;
+				
+				glm::mat4 inverseBind = *(inverseBindIterator + i);
+				j->setInverseBindMatrix(inverseBind);
+
+				auto& node = model.nodes[skin.joints[i]];
+
+				j->setName(node.name);
+				j->setIndex(skin.joints[i]);
+				j->setChildIndices(node.children);
+				j->setScale(glm::vec3(node.scale[0], node.scale[1], node.scale[2]));
+				j->setRotation(glm::vec4(node.rotation[0],node.rotation[1],node.rotation[2],node.rotation[3]));
+				j->setTranslation(glm::vec3(node.translation[0], node.translation[1], node.translation[2]));
+
+				joints.push_back(j);
+			}
+
+			Skeleton* s = new Skeleton;
+			s->setJoints(joints);
+			m->setSkeleton(s);
+
+
+		}
 
 		m->buffer();
 

@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "Joint.h"
+
 namespace rgl {
 
 	class Skeleton
@@ -9,7 +10,12 @@ namespace rgl {
 	public:
 		Skeleton();
 		~Skeleton();
+
+
+		void setJoints(std::vector<Joint*> joints);
+
 	private:
-		std::map<std::string, Joint*> _joints;
+		std::map<int, Joint*> _joints;
+		Joint* _root;
 	};
 }

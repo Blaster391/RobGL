@@ -9,7 +9,9 @@ namespace rgl {
 
 	AnimatedMesh::~AnimatedMesh()
 	{
+
 	}
+
 	void AnimatedMesh::setVerticiesWeightData(std::vector<VertexWeightData> data)
 	{
 		_verticiesWeightData = data;
@@ -17,5 +19,9 @@ namespace rgl {
 	std::vector<VertexWeightData> AnimatedMesh::getVerticiesWeightData()
 	{
 		return _verticiesWeightData;
+	}
+	void AnimatedMesh::setSkeleton(Skeleton* sk)
+	{
+		_skeleton = sk;
 	}
 }
