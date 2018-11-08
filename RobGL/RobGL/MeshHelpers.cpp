@@ -396,10 +396,7 @@ namespace rgl {
 				unsigned short y = image[x*widthStep + (z* heightStep)*vertsX];
 				verts[x + z * vertsX].Position.y = ((float)y/ maxVal) * yScale;
 
-				std::cout << y << ",";
-
 			}
-			std::cout << std::endl;
 		}
 
 

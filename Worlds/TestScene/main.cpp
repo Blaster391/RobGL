@@ -63,8 +63,8 @@ int main() {
 	stencilShaders.push_back(stencilFragmentShader);
 
 	std::vector<rgl::Shader*> animatedShaders;
-	texturedShaders.push_back(texturedVertexShader);
-	texturedShaders.push_back(texturedFragmentShader);
+	animatedShaders.push_back(animatedVertexShader);
+	animatedShaders.push_back(texturedFragmentShader);
 
 	//TODO camera to camera controller
 	rgl::Camera mainCamera;
@@ -79,7 +79,7 @@ int main() {
 
 	CameraController cameraController(&mainCamera, &i);
 
-	rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
+	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
@@ -139,13 +139,13 @@ int main() {
 	childNode.setPosition(glm::vec3(0, 1.7f, 3.3f));
 	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
 
-	rgl::RenderObject roStencil;
-	//roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10000)) * glm::scale(glm::mat4(1.0f), glm::vec3(1000.0f, 1000.0f, 1.0f));
-	roStencil.setModelMatrix(roPos);
-	roStencil.setTexture(checkerboardTexture);
-	roStencil.setMesh(quadMesh);
-	stencilPool.addRenderObject(&roStencil);
+	//rgl::RenderObject roStencil;
+	////roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
+	//roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10000)) * glm::scale(glm::mat4(1.0f), glm::vec3(1000.0f, 1000.0f, 1.0f));
+	//roStencil.setModelMatrix(roPos);
+	//roStencil.setTexture(checkerboardTexture);
+	//roStencil.setMesh(quadMesh);
+	//stencilPool.addRenderObject(&roStencil);
 
 	//renderer.addRenderPool(&stencilPool);
 	renderer.addRenderPool(&colouredPool);
@@ -184,10 +184,10 @@ int main() {
 			texturedPool.setScissorBounds({200,200,100,100});
 		}
 
-		if (i.isKeyPressed(InputButton::KEYBOARD_J)) {
-			stencil = !stencil;
-			stencilPool.setEnabled(stencil);
-		}
+		//if (i.isKeyPressed(InputButton::KEYBOARD_J)) {
+		//	stencil = !stencil;
+		//	stencilPool.setEnabled(stencil);
+		//}
 
 		if (i.isKeyPressed(InputButton::KEYBOARD_V)) {
 			auto verts = floorMesh->getVertices();

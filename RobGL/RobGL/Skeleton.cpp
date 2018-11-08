@@ -4,7 +4,9 @@ namespace rgl {
 
 	Skeleton::Skeleton() : _jointMatrices(new glm::mat4[50])
 	{
-
+		for (int i = 0; i < 50; ++i) {
+			_jointMatrices[i] = glm::mat4(1);
+		}
 	}
 
 	Skeleton::~Skeleton()
