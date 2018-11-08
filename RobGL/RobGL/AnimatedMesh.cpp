@@ -26,7 +26,7 @@ namespace rgl {
 
 	void AnimatedMesh::draw(GLuint program)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(program, "jointMatrix"), 50, false, (float*)_skeleton->getJointMatrices());
+		glUniformMatrix4fv(glGetUniformLocation(program, "jointMatrices"), 50, false, (float*)_skeleton->getJointMatrices());
 		Mesh::draw(program);
 	}
 

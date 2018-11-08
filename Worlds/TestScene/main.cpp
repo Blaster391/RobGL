@@ -32,6 +32,8 @@ int main() {
 	rgl::Shader* texturedVertexShader = new rgl::Shader("Assets/Shaders/texVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* texturedFragmentShader = new rgl::Shader("Assets/Shaders/texFrag.glsl", GL_FRAGMENT_SHADER);
 
+	rgl::Shader* animatedVertexShader = new rgl::Shader("Assets/Shaders/animatedVert.glsl", GL_VERTEX_SHADER);
+
 	rgl::Shader* stencilVertexShader = new rgl::Shader("Assets/Shaders/stencilVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* stencilFragmentShader = new rgl::Shader("Assets/Shaders/stencilFrag.glsl", GL_FRAGMENT_SHADER);
 
@@ -60,6 +62,10 @@ int main() {
 	stencilShaders.push_back(stencilVertexShader);
 	stencilShaders.push_back(stencilFragmentShader);
 
+	std::vector<rgl::Shader*> animatedShaders;
+	texturedShaders.push_back(texturedVertexShader);
+	texturedShaders.push_back(texturedFragmentShader);
+
 	//TODO camera to camera controller
 	rgl::Camera mainCamera;
 	mainCamera.setProjectionPerspective();
@@ -77,6 +83,7 @@ int main() {
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
+	rgl::RenderPool animatedPool(animatedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
 
 	rgl::RenderObject ro;
@@ -113,7 +120,7 @@ int main() {
 	roAndy.setModelMatrix(roPos);
 	roAndy.setTexture(andyTexture);
 	roAndy.setMesh(ahhhhhh);
-	texturedPool.addRenderObject(&roAndy);
+	animatedPool.addRenderObject(&roAndy);
 
 	rgl::scenes::SceneNode parentNode;
 	parentNode.attachRenderObject(&roAndy);
@@ -143,6 +150,7 @@ int main() {
 	//renderer.addRenderPool(&stencilPool);
 	renderer.addRenderPool(&colouredPool);
 	renderer.addRenderPool(&texturedPool);
+	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
 	bool bilinear = false;
