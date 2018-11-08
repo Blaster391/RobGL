@@ -45,7 +45,11 @@ namespace rgl {
 		//	std::cout << vwd.Weights.x << "," << vwd.Weights.y << "," << vwd.Weights.z << "," << vwd.Weights.w << std::endl;
 		//}
 
-		glVertexAttribPointer(4, 4, GL_UNSIGNED_SHORT, GL_FALSE, sizeof(VertexWeightData), (void*)offsetof(VertexWeightData, Joints));
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(VertexWeightData), (void*)offsetof(VertexWeightData, Joints));
+
+		std::cout << offsetof(VertexWeightData, Joints) << std::endl;
+		std::cout << offsetof(VertexWeightData, Weights) << std::endl;
+
 		glEnableVertexAttribArray(4);
 		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(VertexWeightData), (void*)offsetof(VertexWeightData, Weights));
 	    glEnableVertexAttribArray(5);

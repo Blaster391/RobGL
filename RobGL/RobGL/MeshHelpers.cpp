@@ -234,6 +234,8 @@ namespace rgl {
 			vwd.Joints = *(jointsInterator + i); 
 			vwd.Weights = *(weightsInterator + i);
 
+			//std::cout << vwd.Joints.x << "," << vwd.Joints.y << "," << vwd.Joints.z << "," << vwd.Joints.w << std::endl;
+
 			weightData.push_back(vwd);
 		}
 
@@ -257,14 +259,13 @@ namespace rgl {
 
 
 			auto inverseBindBV = model.bufferViews[model.accessors[inverseBindAccessor.bufferView].bufferView];
-			
 			auto inverseBindIterator = (glm::mat4*)(model.buffers[inverseBindBV.buffer].data.data() + inverseBindBV.byteOffset);
 
 			std::vector<Joint*> joints;
 
 			std::map<int, int> jointMap;
 			for (int i = 0; i < skin.joints.size(); ++i) {
-				jointMap[skin.joints[i]] = i+1;
+				jointMap[skin.joints[i]] = i;
 			}
 
 			for (int i = 0; i < inverseBindAccessor.count; ++i) {

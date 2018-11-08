@@ -25,12 +25,12 @@ namespace rgl {
 	void Mesh::draw(GLuint program)
 	{		
 		glBindVertexArray(arrayObject);
-		if (useIndicies) {
-			glDrawElements(_meshType, _indicies.size(), GL_UNSIGNED_INT, 0);
-		}
-		else {
+		//if (useIndicies) {
+		//	glDrawElements(_meshType, _indicies.size(), GL_UNSIGNED_INT, 0);
+		//}
+		//else {
 			glDrawArrays(_meshType, 0, _verticies.size());
-		}
+		//}
 
 		glBindVertexArray(0);
 	}

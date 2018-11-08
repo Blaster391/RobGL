@@ -5,7 +5,7 @@ namespace rgl {
 	struct VertexWeightData
 	{
 	public:
-		glm::u16vec4 Joints;
+		glm::vec4 Joints;
 		glm::vec4 Weights;
 	};
 }
