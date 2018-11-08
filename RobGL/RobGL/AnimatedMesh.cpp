@@ -46,4 +46,8 @@ namespace rgl {
 
 		endBuffer();
 	}
+	void AnimatedMesh::setGlobalTransform(glm::mat4 transform)
+	{
+		_skeleton->setGlobalTransform(transform);
+	}
 }

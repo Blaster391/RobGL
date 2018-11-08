@@ -24,7 +24,7 @@ namespace rgl {
 		void setScale(glm::vec3 scale);
 		void setTranslation(glm::vec3 translation);
 
-		glm::mat4 calculateJointMatrix();
+		glm::mat4 calculateJointMatrix(glm::mat4 globalTransform);
 
 	protected:
 		std::vector<Joint*> _children;
@@ -38,6 +38,10 @@ namespace rgl {
 		std::string _name;
 		int _index;
 		glm::mat4 _inverseBind;
+
+		glm::mat4 getGlobalTransform();
+		glm::mat4 getGlobalJointTransform();
+		glm::mat4 getLocalJointTransform();
 	};
 
 }

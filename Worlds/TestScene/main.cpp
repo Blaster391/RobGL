@@ -48,7 +48,7 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
-	rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/endmysuffering.gltf");
+	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/endmysuffering.gltf");
 
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
@@ -121,6 +121,8 @@ int main() {
 	roAndy.setTexture(andyTexture);
 	roAndy.setMesh(ahhhhhh);
 	animatedPool.addRenderObject(&roAndy);
+
+	ahhhhhh->setGlobalTransform(roPos);
 
 	rgl::scenes::SceneNode parentNode;
 	parentNode.attachRenderObject(&roAndy);

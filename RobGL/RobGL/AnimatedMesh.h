@@ -17,6 +17,8 @@ namespace rgl {
 
 		virtual void buffer() override;
 
+		void setGlobalTransform(glm::mat4 transform);
+
 	private:
 		std::vector<VertexWeightData> _verticiesWeightData;
 		Skeleton* _skeleton;

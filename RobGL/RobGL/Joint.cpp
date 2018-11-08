@@ -1,4 +1,5 @@
 #include "Joint.h"
+#include <External/glm/gtc/matrix_transform.hpp>
 
 namespace rgl {
 
@@ -58,11 +59,31 @@ namespace rgl {
 		_translation = translation;
 	}
 
-	glm::mat4 Joint::calculateJointMatrix()
+	glm::mat4 Joint::calculateJointMatrix(glm::mat4 globalTransform)
 	{
-		//jointMatrix = inverse(globalTransform) * golbalJointTransform * inverseBindMatrix;
+		glm::mat4 jointMatrix = inverse(globalTransform) * getGlobalJointTransform() * _inverseBind;
 
-		return glm::mat4(1);
+		return jointMatrix;
+	}
+
+
+
+	glm::mat4 Joint::getGlobalJointTransform()
+	{
+		glm::mat4 globalTransform(1);
+		if (_parent != nullptr) {
+			globalTransform = _parent->getGlobalJointTransform();
+		}
+
+		globalTransform = globalTransform * getLocalJointTransform();
+
+		return globalTransform;
+	}
+
+	glm::mat4 Joint::getLocalJointTransform()
+	{
+		glm::vec3 rotate = _rotation;
+		return glm::translate(glm::mat4(1), _translation) * glm::rotate(glm::mat4(1),_rotation.w, rotate)  * glm::scale(glm::mat4(1), _scale);
 	}
 
 
