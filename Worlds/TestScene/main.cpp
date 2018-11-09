@@ -48,7 +48,9 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
-	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/animationtest2.gltf");
+	//rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/animationtest2.gltf");
+
 
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
@@ -116,14 +118,14 @@ int main() {
 
 
 	rgl::RenderObject roAndy;
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
 	roAndy.setModelMatrix(roPos);
 	roAndy.setTexture(andyTexture);
 	roAndy.setMesh(ahhhhhh);
 	ahhhhhh->setActiveAnimation(0);
 	animatedPool.addRenderObject(&roAndy);
 
-	ahhhhhh->setGlobalTransform(roPos);
+	
 
 	rgl::scenes::SceneNode parentNode;
 	parentNode.attachRenderObject(&roAndy);
@@ -141,6 +143,8 @@ int main() {
 	parentNode.setScale(glm::vec3(10, 10, 10));
 	childNode.setPosition(glm::vec3(0, 1.7f, 3.3f));
 	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
+
+	ahhhhhh->setGlobalTransform(roAndy.getModelMatrix());
 
 	//rgl::RenderObject roStencil;
 	////roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
@@ -165,7 +169,7 @@ int main() {
 		w.update(1);
 		i.update(1);
 
-		renderer.update((float)1/60);
+		renderer.update((float)1/120);
 
 		finished = w.ShouldClose();
 

@@ -35,7 +35,7 @@ namespace rgl {
 		if (_activeAnimation != nullptr) {
 			_activeAnimation->update(delta);
 		}
-
+		auto debug = _skeleton->getJointMatrices();
 		glUniformMatrix4fv(glGetUniformLocation(program, "jointMatrices"), 50, false, (float*)_skeleton->getJointMatrices());
 		Mesh::draw(delta,program);
 	}

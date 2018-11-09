@@ -12,7 +12,7 @@ namespace rgl {
 		~Skeleton();
 
 
-		void setJoints(std::vector<Joint*> joints);
+		void setJoints(Joint* root, std::vector<Joint*> joints);
 
 		glm::mat4* getJointMatrices();
 

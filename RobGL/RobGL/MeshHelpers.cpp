@@ -284,33 +284,107 @@ namespace rgl {
 				}
 
 				j->setChildIndices(children);
-				j->setScale(glm::vec3(node.scale[0], node.scale[1], node.scale[2]));
-				j->setRotation(glm::vec4(node.rotation[0],node.rotation[1],node.rotation[2],node.rotation[3]));
-				j->setTranslation(glm::vec3(node.translation[0], node.translation[1], node.translation[2]));
+
+				if (node.scale.size() > 2) {
+					j->setScale(glm::vec3(node.scale[0], node.scale[1], node.scale[2]));
+				}
+				if (node.rotation.size() > 3) {
+					j->setRotation(glm::vec4(node.rotation[0], node.rotation[1], node.rotation[2], node.rotation[3]));
+				}
+				if (node.translation.size() > 2) {
+					j->setTranslation(glm::vec3(node.translation[0], node.translation[1], node.translation[2]));
+				}
 
 				joints.push_back(j);
 				//TODO root node?
 			}
+
+			//auto& rootNode = model.nodes[skin.skeleton];
+			auto& rootNode = model.nodes[skin.skeleton];
+			Joint* root = new Joint;
+			root->setIndex(-1);
+			root->setName(rootNode.name);
+			if (rootNode.scale.size() > 3) {
+				root->setScale(glm::vec3(rootNode.scale[0], rootNode.scale[1], rootNode.scale[2]));
+			}
+			if (rootNode.rotation.size() > 3) {
+				root->setRotation(glm::vec4(rootNode.rotation[0], rootNode.rotation[1], rootNode.rotation[2], rootNode.rotation[3]));
+			}
+			if (rootNode.translation.size() > 2) {
+				root->setTranslation(glm::vec3(rootNode.translation[0], rootNode.translation[1], rootNode.translation[2]));
+			}
+
+
+			root->setInverseBindMatrix(glm::mat4(1));
+
+			Skeleton* s = new Skeleton;
+			s->setJoints(root, joints);
+
+
 			std::vector<Animation> animations;
 			for (auto& a : model.animations) {
-				std::cout << "Animation" << std::endl;
-				std::cout << a.name << std::endl;
 				Animation animation;
-
+				animation.setName(a.name);
+				std::vector<AnimationChannel> channels;
 				for (auto& c : a.channels) {
-					std::cout << "Channel" << std::endl;
-					std::cout << c.target_path << std::endl;
-					
+					auto& joint = joints[jointMap[c.target_node]];
+
+					AnimationChannelAction action;
+					if (c.target_path == "rotation") {
+						action = AnimationChannelAction::Rotate;
+					}
+					else if (c.target_path == "scale") {
+						action = AnimationChannelAction::Scale;
+					}
+					else {
+						action = AnimationChannelAction::Translate;
+					}
+
+					AnimationChannel channel(joint, action);
 
 
+					AnimationSampler sampler;
+					auto& s = a.samplers[c.sampler];
+					//TODO Currently only supports Linear sampling
+					//Also no support for changing weights
+
+					std::vector<float> input;
+					std::vector<glm::vec4> output;
+
+					auto inputAccessor = model.accessors[s.input];
+					auto inputBV = model.bufferViews[model.accessors[inputAccessor.bufferView].bufferView];
+					auto inputIterator = (float*)(model.buffers[inputBV.buffer].data.data() + inputBV.byteOffset);
+
+					for (int i = 0; i < inputAccessor.count; ++i) {
+						input.push_back(*(inputIterator + i));
+					}
+
+					auto outputAccessor = model.accessors[s.output];
+					auto outputBV = model.bufferViews[model.accessors[outputAccessor.bufferView].bufferView];
+
+					if (action == AnimationChannelAction::Rotate) {
+						auto outputIterator = (glm::vec4*)(model.buffers[outputBV.buffer].data.data() + outputBV.byteOffset);
+						for (int i = 0; i < outputAccessor.count; ++i) {
+							output.push_back(*(outputIterator + i));
+						}
+					}
+					else {
+						auto outputIterator = (glm::vec3*)(model.buffers[outputBV.buffer].data.data() + outputBV.byteOffset);
+						for (int i = 0; i < outputAccessor.count; ++i) {
+							output.push_back(glm::vec4(*(outputIterator + i),1));
+						}
+					}
+				
+					sampler.setInput(input);
+					sampler.setOutput(output);
+
+					channel.setSampler(sampler);
+					channels.push_back(channel);
 				}
-
+				animation.setChannels(channels);
 				animations.push_back(animation);
 			}
 
-			
-			Skeleton* s = new Skeleton;
-			s->setJoints(joints);
 			m->setSkeleton(s);
 			m->setAnimations(animations);
 

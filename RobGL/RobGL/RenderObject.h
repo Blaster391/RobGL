@@ -11,6 +11,10 @@ namespace rgl {
 		RenderObject();
 		~RenderObject();
 
+		inline glm::mat4 getModelMatrix() {
+			return _modelMatrix;
+		}
+
 		inline void setModelMatrix(glm::mat4x4 m) {
 			_modelMatrix = m;
 		}

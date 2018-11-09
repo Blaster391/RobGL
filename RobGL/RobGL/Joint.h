@@ -31,15 +31,14 @@ namespace rgl {
 		Joint* _parent = nullptr;
 		std::vector<int> _childrenIndex;
 
-		glm::vec4 _rotation;
-		glm::vec3 _scale;
-		glm::vec3 _translation;
+		glm::vec4 _rotation = glm::vec4(1,1,1,0);
+		glm::vec3 _scale = glm::vec3(1);
+		glm::vec3 _translation = glm::vec3(0);
 
 		std::string _name;
 		int _index;
 		glm::mat4 _inverseBind;
 
-		glm::mat4 getGlobalTransform();
 		glm::mat4 getGlobalJointTransform();
 		glm::mat4 getLocalJointTransform();
 	};

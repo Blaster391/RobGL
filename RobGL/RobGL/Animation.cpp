@@ -19,7 +19,7 @@ namespace rgl {
 		for (auto& c : _channels) {
 			c.update(time);
 		}
-		if (time > 10) {
+		if (time > 5) {
 			time = 0;
 		}
 
@@ -27,5 +27,13 @@ namespace rgl {
 	void Animation::setChannels(std::vector<AnimationChannel> channels)
 	{
 		_channels = channels;
+	}
+	void Animation::setName(std::string name)
+	{
+		_name = name;
+	}
+	std::string Animation::getName()
+	{
+		return _name;
 	}
 }
