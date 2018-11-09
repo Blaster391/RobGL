@@ -34,7 +34,7 @@ namespace rgl {
 		_renderObjects.push_back(r);
 	}
 
-	void rgl::RenderPool::draw()
+	void rgl::RenderPool::draw(float delta)
 	{
 		if (!_enabled) {
 			return;
@@ -57,7 +57,7 @@ namespace rgl {
 
 		for (auto& r : _renderObjects) {
 			if (f.insideFrustum(r)) {
-				r->draw(_program);
+				r->draw(delta, _program);
 			}
 		}
 

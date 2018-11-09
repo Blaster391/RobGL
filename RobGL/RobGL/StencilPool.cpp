@@ -10,7 +10,7 @@ namespace rgl {
 	StencilPool::~StencilPool()
 	{
 	}
-	void StencilPool::draw()
+	void StencilPool::draw(float delta)
 	{
 		if (!_enabled) {
 			return;
@@ -22,7 +22,7 @@ namespace rgl {
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		
 
-		RenderPool::draw();
+		RenderPool::draw(delta);
 
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glStencilFunc(GL_EQUAL, 2, ~0);

@@ -41,13 +41,13 @@ namespace rgl {
 	{
 	}
 
-	void Renderer::update()
+	void Renderer::update(float delta)
 	{
 		clearBuffers();
 
 
 		for (auto& pool : _renderPools) {
-			pool->draw();
+			pool->draw(delta);
 		}
 
 		glDisable(GL_STENCIL_TEST);

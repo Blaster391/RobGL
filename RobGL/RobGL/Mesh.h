@@ -16,7 +16,7 @@ namespace rgl {
 		void setVerticies(std::vector<Vertex> verticies);
 		void setIndicies(std::vector<unsigned int> indicies);
 
-		virtual void draw(GLuint program);
+		virtual void draw(float delta, GLuint program);
 
 		virtual void buffer();
 

@@ -25,10 +25,19 @@ namespace rgl {
 		_skeleton = sk;
 	}
 
-	void AnimatedMesh::draw(GLuint program)
+	void AnimatedMesh::setAnimations(std::vector<Animation> animations)
 	{
+		_animations = animations;
+	}
+
+	void AnimatedMesh::draw(float delta, GLuint program)
+	{
+		if (_activeAnimation != nullptr) {
+			_activeAnimation->update(delta);
+		}
+
 		glUniformMatrix4fv(glGetUniformLocation(program, "jointMatrices"), 50, false, (float*)_skeleton->getJointMatrices());
-		Mesh::draw(program);
+		Mesh::draw(delta,program);
 	}
 
 	void AnimatedMesh::buffer()
@@ -40,16 +49,8 @@ namespace rgl {
 
 		glBindBuffer(GL_ARRAY_BUFFER, weightBuffer);
 		glBufferData(GL_ARRAY_BUFFER, _verticiesWeightData.size() * sizeof(VertexWeightData), _verticiesWeightData.data(), GL_STATIC_DRAW);
-		//for (auto& vwd : _verticiesWeightData) {
-		//	std::cout << vwd.Joints.x << "," << vwd.Joints.y << "," << vwd.Joints.z << "," << vwd.Joints.w << std::endl;
-		//	std::cout << vwd.Weights.x << "," << vwd.Weights.y << "," << vwd.Weights.z << "," << vwd.Weights.w << std::endl;
-		//}
 
 		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(VertexWeightData), (void*)offsetof(VertexWeightData, Joints));
-
-		std::cout << offsetof(VertexWeightData, Joints) << std::endl;
-		std::cout << offsetof(VertexWeightData, Weights) << std::endl;
-
 		glEnableVertexAttribArray(4);
 		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(VertexWeightData), (void*)offsetof(VertexWeightData, Weights));
 	    glEnableVertexAttribArray(5);
@@ -59,5 +60,9 @@ namespace rgl {
 	void AnimatedMesh::setGlobalTransform(glm::mat4 transform)
 	{
 		_skeleton->setGlobalTransform(transform);
+	}
+	void AnimatedMesh::setActiveAnimation(int anim)
+	{
+		_activeAnimation = &_animations[anim];
 	}
 }

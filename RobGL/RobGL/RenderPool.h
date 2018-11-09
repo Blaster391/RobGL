@@ -16,7 +16,7 @@ namespace rgl {
 
 		void addRenderObject(RenderObject* r);
 
-		virtual void draw();
+		virtual void draw(float delta);
 
 		inline Camera* getCamera() { return _camera; }
 		inline void setCamera(Camera* c) { _camera = c; }

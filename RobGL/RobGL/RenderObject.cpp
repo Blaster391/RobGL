@@ -13,7 +13,7 @@ namespace rgl {
 	{
 	}
 
-	void RenderObject::draw(GLuint program)
+	void RenderObject::draw(float delta, GLuint program)
 	{
 		//TODO get is bad?
 		glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, false, (float*)&_modelMatrix);
@@ -25,7 +25,7 @@ namespace rgl {
 		}
 
 
-		_mesh->draw(program);
+		_mesh->draw(delta, program);
 
 		if (_texture != nullptr) {
 			_texture->unbind();
@@ -35,7 +35,7 @@ namespace rgl {
 
 	glm::vec3 RenderObject::getPosition()
 	{
-		return _modelMatrix[3] / _modelMatrix[3].w;
+		return _modelMatrix[3];
 	}
 
 }

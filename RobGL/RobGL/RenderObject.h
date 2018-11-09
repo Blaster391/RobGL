@@ -23,7 +23,7 @@ namespace rgl {
 			_texture = t;
 		}
 
-		virtual void draw(GLuint program);
+		virtual void draw(float delta, GLuint program);
 
 		inline void setBounds(BoundingSphere* bounds) {
 			_bounds = bounds;

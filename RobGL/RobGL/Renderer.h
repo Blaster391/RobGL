@@ -12,7 +12,7 @@ namespace rgl {
 		Renderer(Window& window);
 		~Renderer();
 
-		void update();
+		void update(float delta);
 		void addRenderPool(RenderPool* rp);
 
 

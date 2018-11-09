@@ -291,11 +291,28 @@ namespace rgl {
 				joints.push_back(j);
 				//TODO root node?
 			}
+			std::vector<Animation> animations;
+			for (auto& a : model.animations) {
+				std::cout << "Animation" << std::endl;
+				std::cout << a.name << std::endl;
+				Animation animation;
 
+				for (auto& c : a.channels) {
+					std::cout << "Channel" << std::endl;
+					std::cout << c.target_path << std::endl;
+					
+
+
+				}
+
+				animations.push_back(animation);
+			}
+
+			
 			Skeleton* s = new Skeleton;
 			s->setJoints(joints);
 			m->setSkeleton(s);
-
+			m->setAnimations(animations);
 
 		}
 

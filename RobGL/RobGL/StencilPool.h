@@ -8,7 +8,7 @@ namespace rgl {
 		StencilPool(const std::vector<Shader*>& shaders, Camera* c);
 		~StencilPool();
 
-		virtual void draw();
+		virtual void draw(float delta) override;
 	};
 }
 
