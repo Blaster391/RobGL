@@ -38,6 +38,11 @@ int main() {
 	rgl::Shader* stencilVertexShader = new rgl::Shader("Assets/Shaders/stencilVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* stencilFragmentShader = new rgl::Shader("Assets/Shaders/stencilFrag.glsl", GL_FRAGMENT_SHADER);
 
+	rgl::Shader* texturedVertexShaderNoMVP = new rgl::Shader("Assets/Shaders/texVertNoMVP.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* noRedFXFragmentShader = new rgl::Shader("Assets/Shaders/noRedFragFX.glsl", GL_FRAGMENT_SHADER);
+	rgl::Shader* noBlueFXFragmentShader = new rgl::Shader("Assets/Shaders/noBlueFragFX.glsl", GL_FRAGMENT_SHADER);
+
+
 	rgl::Texture* texture = rgl::TextureLoader::LoadFromFile("Assets/Textures/test.png",false, true);
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
@@ -63,13 +68,20 @@ int main() {
 	texturedShaders.push_back(texturedFragmentShader);
 
 	std::vector<rgl::Shader*> stencilShaders;
-
 	stencilShaders.push_back(stencilVertexShader);
 	stencilShaders.push_back(stencilFragmentShader);
 
 	std::vector<rgl::Shader*> animatedShaders;
 	animatedShaders.push_back(animatedVertexShader);
 	animatedShaders.push_back(texturedFragmentShader);
+
+	std::vector<rgl::Shader*> noRedFXShaders;
+	noRedFXShaders.push_back(texturedVertexShaderNoMVP);
+	noRedFXShaders.push_back(noRedFXFragmentShader);
+
+	std::vector<rgl::Shader*> noBlueFXShaders;
+	noRedFXShaders.push_back(texturedVertexShaderNoMVP);
+	noRedFXShaders.push_back(noBlueFXFragmentShader);
 
 	renderer.enablePostProcessing(texturedShaders);
 
@@ -92,6 +104,9 @@ int main() {
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
 	rgl::RenderPool animatedPool(animatedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
+
+	rgl::PostProcessingFX noRedFX(noRedFXShaders, 1);
+	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
 
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
@@ -164,6 +179,9 @@ int main() {
 	renderer.addRenderPool(&texturedPool);
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
+
+	renderer.addPostProcessingFX(&noRedFX);
+	renderer.addPostProcessingFX(&noBlueFX);
 
 	bool bilinear = false;
 	bool scissor = false;

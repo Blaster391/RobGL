@@ -46,6 +46,10 @@ namespace rgl {
 
 		bool _frustumCulling = true;
 
+		bool beginDraw();
+		void basicDraw(float delta);
+		void endDraw();
+
 	};
 }
 

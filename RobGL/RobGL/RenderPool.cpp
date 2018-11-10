@@ -36,32 +36,14 @@ namespace rgl {
 
 	void rgl::RenderPool::draw(float delta)
 	{
-		if (!_enabled) {
+		if (!beginDraw()) {
 			return;
 		}
 
-		glUseProgram(_program);
+		basicDraw(delta);
 
-		setUniforms();
+		endDraw();
 
-		Frustum f = _camera->getFrustum();
-
-
-		if (_scissor) {
-			glEnable(GL_SCISSOR_TEST);
-			glScissor(_scissorBounds.x, _scissorBounds.y, _scissorBounds.Width, _scissorBounds.Height);
-		}
-		else {
-			glDisable(GL_SCISSOR_TEST);
-		}
-
-		for (auto& r : _renderObjects) {
-			if (f.insideFrustum(r)) {
-				r->draw(delta, _program);
-			}
-		}
-
-		glUseProgram(0);
 	}
 
 	void RenderPool::setScissor(bool active)
@@ -85,6 +67,40 @@ namespace rgl {
 		//TODO these are using gets and that's bad
 		glUniformMatrix4fv(_viewMatrixPosition, 1, false, (float*)&_camera->getViewMatrix());
 		glUniformMatrix4fv(_projectionMatrixPosition, 1, false, (float*)&_camera->getProjectionMatrix());
+	}
+	bool RenderPool::beginDraw()
+	{
+		if (!_enabled) {
+			return false;
+		}
+
+		glUseProgram(_program);
+
+		setUniforms();
+
+		return true;
+	}
+	void RenderPool::basicDraw(float delta)
+	{
+		Frustum f = _camera->getFrustum();
+
+		if (_scissor) {
+			glEnable(GL_SCISSOR_TEST);
+			glScissor(_scissorBounds.x, _scissorBounds.y, _scissorBounds.Width, _scissorBounds.Height);
+		}
+		else {
+			glDisable(GL_SCISSOR_TEST);
+		}
+
+		for (auto& r : _renderObjects) {
+			if (f.insideFrustum(r)) {
+				r->draw(delta, _program);
+			}
+		}
+	}
+	void RenderPool::endDraw()
+	{
+		glUseProgram(0);
 	}
 }
 
