@@ -7,6 +7,7 @@
 #include <RobGL/StencilPool.h>
 
 #include "CameraController.h"
+#include <RobGL/AnimatedRenderObject.h>
 
 #include <RobGL_SceneGraph\SceneNode.h>
 
@@ -48,7 +49,8 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
-	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	//rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/animationtest2.gltf");
 	//rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/animationtest2.gltf");
 
 
@@ -117,7 +119,7 @@ int main() {
 	texturedPool.addRenderObject(&roTex);
 
 
-	rgl::RenderObject roAndy;
+	rgl::AnimatedRenderObject roAndy;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	roAndy.setModelMatrix(roPos);
 	roAndy.setTexture(andyTexture);

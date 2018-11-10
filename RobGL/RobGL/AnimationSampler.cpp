@@ -23,7 +23,7 @@ namespace rgl {
 		}
 
 		//TODO remember value for effeciency
-		int index = 0;
+		int index = -1;
 		for (int i = 0; i < _input.size(); ++i) {
 			if (_input[i] > time) {
 				break;
@@ -35,13 +35,17 @@ namespace rgl {
 			return _output[_input.size() - 1];
 		}
 
-		float startTime = _input[index];
+		float startTime = 0;
 		float endTime = _input[index + 1];
 
-		float lerpValue = startTime / endTime;
-
-		glm::vec4 startPos = _output[index];
+		glm::vec4 startPos = glm::vec4();
 		glm::vec4 endPos = _output[index + 1];
+		if (index > -1) {
+			startTime = _input[index];
+			startPos = _output[index];
+		}
+
+		float lerpValue = startTime / endTime;
 
 		return glm::mix(startPos, endPos, lerpValue);
 	}

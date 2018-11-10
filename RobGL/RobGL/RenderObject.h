@@ -39,10 +39,13 @@ namespace rgl {
 
 		glm::vec3 getPosition();
 
+	protected:
+		glm::mat4x4 _modelMatrix;
+
 	private:
 		Mesh* _mesh = nullptr;
 		Texture* _texture = nullptr;
-		glm::mat4x4 _modelMatrix;
+
 
 		BoundingSphere* _bounds = nullptr;
 	};
