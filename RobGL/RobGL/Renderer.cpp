@@ -2,6 +2,7 @@
 #include <iostream>
 #include "ToScreenRenderPool.h"
 
+
 namespace rgl {
 
 	void GLAPIENTRY
@@ -74,7 +75,7 @@ namespace rgl {
 			unbindFrameBuffers();
 			glDisable(GL_DEPTH_TEST);
 
-			postProcess();
+			postProcess(delta);
 			sendToBackBuffer(delta);
 
 			glEnable(GL_DEPTH_TEST);
@@ -86,6 +87,11 @@ namespace rgl {
 	}
 	void Renderer::addRenderPool(RenderPool* rp) {
 		_renderPools.push_back(rp);
+	}
+
+	void Renderer::addPostProcessingFX(PostProcessingFX * fx)
+	{
+		_postFX.push_back(fx);
 	}
 
 	void Renderer::clearBuffers()
@@ -152,12 +158,16 @@ namespace rgl {
 		glDeleteFramebuffers(1, &_processFBO);
 
 	}
-	void Renderer::postProcess()
+	void Renderer::postProcess(float delta)
 	{
-		//glBindFramebuffer(GL_FRAMEBUFFER, _processFBO);
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _bufferColourTex[1], 0);
-		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+		glBindFramebuffer(GL_FRAMEBUFFER, _processFBO);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
+		for (auto& fx : _postFX) {
+			fx->process(delta,0,0, _bufferColourTex[0], _bufferColourTex[1]);
+		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	}
 	void Renderer::sendToBackBuffer(float delta)

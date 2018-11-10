@@ -7,6 +7,10 @@ namespace rgl {
 		Texture(GLuint texture, bool mipmapped);
 		~Texture();
 
+		inline void setPointer(GLuint texture) {
+			_pointer = texture;
+		}
+
 		inline GLuint pointer() {
 			return _pointer;
 		}

@@ -4,6 +4,7 @@
 #include "RenderPool.h"
 #include <vector>
 #include "Camera.h"
+#include "PostProcessingFX.h"
 
 namespace rgl {
 	class Renderer
@@ -16,7 +17,7 @@ namespace rgl {
 
 		void update(float delta);
 		void addRenderPool(RenderPool* rp);
-
+		void addPostProcessingFX(PostProcessingFX* fx);
 
 	private:
 		void clearBuffers();
@@ -27,12 +28,13 @@ namespace rgl {
 		void unbindFrameBuffers();
 		void freeFramebuffers();
 
-		void postProcess();
+		void postProcess(float delta);
 
 		void sendToBackBuffer(float delta);
 
 		std::vector<RenderPool*> _renderPools;
 		std::vector<RenderPool*> _uiRenderPools;
+		std::vector<PostProcessingFX*> _postFX;
 
 		GLuint _bufferFBO;
 		GLuint _processFBO;
