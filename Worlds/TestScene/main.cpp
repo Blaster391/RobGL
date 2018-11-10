@@ -49,8 +49,8 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
-	//rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
-	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/animationtest2.gltf");
+	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	//rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/animationtest2.gltf");
 	//rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/animationtest2.gltf");
 
 
@@ -63,12 +63,15 @@ int main() {
 	texturedShaders.push_back(texturedFragmentShader);
 
 	std::vector<rgl::Shader*> stencilShaders;
+
 	stencilShaders.push_back(stencilVertexShader);
 	stencilShaders.push_back(stencilFragmentShader);
 
 	std::vector<rgl::Shader*> animatedShaders;
 	animatedShaders.push_back(animatedVertexShader);
 	animatedShaders.push_back(texturedFragmentShader);
+
+	renderer.enablePostProcessing(texturedShaders);
 
 	//TODO camera to camera controller
 	rgl::Camera mainCamera;

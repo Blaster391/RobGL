@@ -40,7 +40,7 @@ namespace rgl {
 		glm::vec3 getPosition();
 
 	protected:
-		glm::mat4x4 _modelMatrix;
+		glm::mat4x4 _modelMatrix = glm::mat4(1);
 
 	private:
 		Mesh* _mesh = nullptr;

@@ -12,12 +12,17 @@ namespace rgl {
 	{
 	}
 
+	void Camera::setProjection(glm::mat4 projection)
+	{
+		_projectionMatrix = projection;
+	}
+
 	void Camera::setProjectionPerspective(float fov)
 	{
 		//TODO remove hardcoded stuffs
 		int width = 800;
 		int height = 600;
-		projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 0.1f, 100.0f);
+		_projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 0.1f, 100.0f);
 	}
 
 	void Camera::setProjectionOrthographic()
@@ -26,7 +31,7 @@ namespace rgl {
 		//TODO remove hardcoded stuffs
 		int width = 800;
 		int height = 600;
-		projectionMatrix = glm::ortho(-width / 2.0f, width / 2.0f,  -height / 2.0f, height / 2.0f, 0.1f, 10000.0f);
+		_projectionMatrix = glm::ortho(-width / 2.0f, width / 2.0f,  -height / 2.0f, height / 2.0f, 0.1f, 10000.0f);
 	}
 	glm::mat4x4 Camera::getViewMatrix()
 	{

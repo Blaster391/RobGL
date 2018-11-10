@@ -39,6 +39,9 @@
     <Filter Include="tinygltf">
       <UniqueIdentifier>{452cd628-a5ad-43d4-a5a9-fac7cb2457ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderPools\PostProcessing">
+      <UniqueIdentifier>{fc7b3b70-60e4-41e4-a553-4b37d380bbcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -128,6 +131,12 @@
     <ClInclude Include="AnimatedRenderObject.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="ToScreenRenderPool.h">
+      <Filter>RenderPools\PostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedScreenCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -204,6 +213,12 @@
     </ClCompile>
     <ClCompile Include="AnimatedRenderObject.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="ToScreenRenderPool.cpp">
+      <Filter>RenderPools\PostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedScreenCamera.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
