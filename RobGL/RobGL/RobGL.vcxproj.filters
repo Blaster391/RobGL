@@ -125,6 +125,9 @@
     <ClInclude Include="AnimationSampler.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="AnimatedRenderObject.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -197,6 +200,9 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="AnimationSampler.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedRenderObject.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>

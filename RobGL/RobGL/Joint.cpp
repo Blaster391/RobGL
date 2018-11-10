@@ -1,5 +1,6 @@
 #include "Joint.h"
 #include <External/glm/gtc/matrix_transform.hpp>
+#include <External/glm/gtc/quaternion.hpp>
 
 namespace rgl {
 
@@ -82,8 +83,8 @@ namespace rgl {
 
 	glm::mat4 Joint::getLocalJointTransform()
 	{
-		glm::vec3 rotate = _rotation;
-		return glm::translate(glm::mat4(1), _translation) * glm::rotate(glm::mat4(1),_rotation.w, rotate)  * glm::scale(glm::mat4(1), _scale);
+		glm::quat rotate(_rotation);
+		return glm::translate(glm::mat4(1), _translation) *  glm::mat4_cast(rotate)  * glm::scale(glm::mat4(1), _scale);
 	}
 
 

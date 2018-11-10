@@ -25,7 +25,7 @@ namespace rgl {
 		for (auto& j : joints) {
 			_joints[j->getIndex()] = j;
 			//Use root as default parent
-			//j->setParent(_root);
+			j->setParent(_root);
 		}
 
 		for (auto& j : joints) {
