@@ -11,11 +11,7 @@ out vec4 fragColour;
 
 
 void main(void)	{
-	if(iteration == 0){
-		vec4 colour = texture(tex,IN.texCoords);
-		colour.b = 0;
-		fragColour = colour;
-	}else{
-		fragColour = texture(tex,IN.texCoords);
-	}
+	vec4 colour = texture(tex,IN.texCoords);
+	colour.b = 0;
+	fragColour = colour;
 }

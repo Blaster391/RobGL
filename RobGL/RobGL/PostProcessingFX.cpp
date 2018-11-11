@@ -18,7 +18,7 @@ namespace rgl {
 
 
 		//TODO set uniforms
-		//glUniform2f(glGetUniformLocation(_program, "pixelSize"), 1.0f / 800, 1.0f / 600);
+		glUniform2f(glGetUniformLocation(_program, "pixelSize"), 1.0f / 800, 1.0f / 600);
 
 		for (int i = 0; i < _iterations; ++i) {
 			
@@ -29,7 +29,7 @@ namespace rgl {
 
 
 			//TODO why do I need this?????
-			glFinish();
+			glFlush();
 
 			GLuint temp = processTex;
 			processTex = displayTex;

@@ -41,7 +41,7 @@ int main() {
 	rgl::Shader* texturedVertexShaderNoMVP = new rgl::Shader("Assets/Shaders/texVertNoMVP.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* noRedFXFragmentShader = new rgl::Shader("Assets/Shaders/noRedFragFX.glsl", GL_FRAGMENT_SHADER);
 	rgl::Shader* noBlueFXFragmentShader = new rgl::Shader("Assets/Shaders/noBlueFragFX.glsl", GL_FRAGMENT_SHADER);
-
+	rgl::Shader* blurFXFragmentShader = new rgl::Shader("Assets/Shaders/blurFragFX.glsl", GL_FRAGMENT_SHADER);
 
 	rgl::Texture* texture = rgl::TextureLoader::LoadFromFile("Assets/Textures/test.png",false, true);
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
@@ -83,6 +83,10 @@ int main() {
 	noBlueFXShaders.push_back(texturedVertexShaderNoMVP);
 	noBlueFXShaders.push_back(noBlueFXFragmentShader);
 
+	std::vector<rgl::Shader*>blurFXShaders;
+	blurFXShaders.push_back(texturedVertexShaderNoMVP);
+	blurFXShaders.push_back(blurFXFragmentShader);
+
 	renderer.enablePostProcessing(texturedShaders);
 
 	//TODO camera to camera controller
@@ -107,6 +111,7 @@ int main() {
 
 	rgl::PostProcessingFX noRedFX(noRedFXShaders, 1);
 	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
+	rgl::PostProcessingFX blurFX(blurFXShaders, 10);
 
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
@@ -180,8 +185,9 @@ int main() {
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
-	renderer.addPostProcessingFX(&noRedFX);
-	renderer.addPostProcessingFX(&noBlueFX);
+	//renderer.addPostProcessingFX(&noRedFX);
+	//renderer.addPostProcessingFX(&noBlueFX);
+	renderer.addPostProcessingFX(&blurFX);
 
 	bool bilinear = false;
 	bool scissor = false;
