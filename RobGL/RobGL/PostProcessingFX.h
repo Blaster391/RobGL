@@ -13,7 +13,7 @@ namespace rgl {
 
 		void setIterations(int iterations) { _iterations = iterations; }
 
-		virtual void process(float delta, GLuint flipTex, GLuint flopTex);
+		virtual void process(float delta, GLuint& displayTex, GLuint& processTex);
 
 	private:
 		int _iterations;

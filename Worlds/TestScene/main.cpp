@@ -80,8 +80,8 @@ int main() {
 	noRedFXShaders.push_back(noRedFXFragmentShader);
 
 	std::vector<rgl::Shader*> noBlueFXShaders;
-	noRedFXShaders.push_back(texturedVertexShaderNoMVP);
-	noRedFXShaders.push_back(noBlueFXFragmentShader);
+	noBlueFXShaders.push_back(texturedVertexShaderNoMVP);
+	noBlueFXShaders.push_back(noBlueFXFragmentShader);
 
 	renderer.enablePostProcessing(texturedShaders);
 

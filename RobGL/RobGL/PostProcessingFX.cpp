@@ -10,7 +10,7 @@ namespace rgl {
 	PostProcessingFX::~PostProcessingFX()
 	{
 	}
-	void PostProcessingFX::process(float delta, GLuint flipTex, GLuint flopTex)
+	void PostProcessingFX::process(float delta, GLuint& displayTex, GLuint& processTex)
 	{
 		if (!beginDraw()) {
 			return;
@@ -22,18 +22,18 @@ namespace rgl {
 
 		for (int i = 0; i < _iterations; ++i) {
 			
-			glUniform1i(glGetUniformLocation(_program, "iteration"), i * 2 + 1);
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, flopTex, 0);
-			_quadTexture->setPointer(flipTex);
+			glUniform1i(glGetUniformLocation(_program, "iteration"), i);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, processTex, 0);
+			_quadTexture->setPointer(displayTex);
 			_quadObject->draw(delta, _program);
 
 
-			glUniform1i(glGetUniformLocation(_program, "iteration"), i*2);
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, flipTex, 0);
-			_quadTexture->setPointer(flipTex);
-			_quadObject->draw(delta, _program);
+			//TODO why do I need this?????
+			glFinish();
 
-
+			GLuint temp = processTex;
+			processTex = displayTex;
+			displayTex = processTex;
 		}
 
 
