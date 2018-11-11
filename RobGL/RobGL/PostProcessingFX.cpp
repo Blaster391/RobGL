@@ -20,6 +20,9 @@ namespace rgl {
 		//TODO set uniforms
 		glUniform2f(glGetUniformLocation(_program, "pixelSize"), 1.0f / 800, 1.0f / 600);
 
+		glUniform1f(glGetUniformLocation(_program, "width"), 800);
+		glUniform1f(glGetUniformLocation(_program, "height"), 600);
+
 		for (int i = 0; i < _iterations; ++i) {
 			
 			glUniform1i(glGetUniformLocation(_program, "iteration"), i);
