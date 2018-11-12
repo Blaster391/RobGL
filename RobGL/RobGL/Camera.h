@@ -29,6 +29,8 @@ namespace rgl {
 
 		Frustum getFrustum();
 
+		glm::vec3 getPosition();
+
 	private:
 		glm::mat4x4 _projectionMatrix;
 

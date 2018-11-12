@@ -92,4 +92,8 @@ namespace rgl {
 
 		return f;
 	}
+	glm::vec3 Camera::getPosition()
+	{
+		return _position;
+	}
 }

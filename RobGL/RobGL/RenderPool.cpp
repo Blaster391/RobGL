@@ -64,7 +64,6 @@ namespace rgl {
 
 	void RenderPool::setUniforms()
 	{
-		//TODO these are using gets and that's bad
 		glUniformMatrix4fv(_viewMatrixPosition, 1, false, (float*)&_camera->getViewMatrix());
 		glUniformMatrix4fv(_projectionMatrixPosition, 1, false, (float*)&_camera->getProjectionMatrix());
 	}

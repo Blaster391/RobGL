@@ -44,6 +44,11 @@ int main() {
 	rgl::Shader* blurFXFragmentShader = new rgl::Shader("Assets/Shaders/blurFragFX.glsl", GL_FRAGMENT_SHADER);
 	rgl::Shader* sobelFXFragmentShader = new rgl::Shader("Assets/Shaders/sobelFragFX.glsl", GL_FRAGMENT_SHADER);
 
+	rgl::Shader* pointLightVertShader = new rgl::Shader("Assets/Shaders/pointLightVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* pointLightFragShader = new rgl::Shader("Assets/Shaders/pointLightFrag.glsl", GL_FRAGMENT_SHADER);
+	rgl::Shader* combineVertShader = new rgl::Shader("Assets/Shaders/combineVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* combineFragShader = new rgl::Shader("Assets/Shaders/combineFrag.glsl", GL_FRAGMENT_SHADER);
+
 	rgl::Texture* texture = rgl::TextureLoader::LoadFromFile("Assets/Textures/test.png",false, true);
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
@@ -55,7 +60,8 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
-	rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	rgl::AnimatedMesh* animatedAndyMesh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	rgl::Mesh* lightSphereMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
 	//rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/animationtest2.gltf");
 	//rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/animationtest2.gltf");
 
@@ -92,7 +98,15 @@ int main() {
 	sobelFXShaders.push_back(texturedVertexShaderNoMVP);
 	sobelFXShaders.push_back(sobelFXFragmentShader);
 
-	renderer.enablePostProcessing(texturedShaders);
+	std::vector<rgl::Shader*>combineShaders;
+	combineShaders.push_back(combineVertShader);
+	combineShaders.push_back(combineFragShader);
+
+	std::vector<rgl::Shader*>pointLightShaders;
+	pointLightShaders.push_back(pointLightVertShader);
+	pointLightShaders.push_back(pointLightFragShader);
+
+
 
 	//TODO camera to camera controller
 	rgl::Camera mainCamera;
@@ -104,6 +118,9 @@ int main() {
 	uiCamera.setProjectionOrthographic();
 	glm::vec3 uiPos(0, 0, 0);
 	uiCamera.setPosition(uiPos);
+
+	renderer.enablePostProcessing(texturedShaders);
+	renderer.enableLighting(pointLightShaders, combineShaders, &mainCamera);
 
 	CameraController cameraController(&mainCamera, &i);
 
@@ -148,12 +165,19 @@ int main() {
 	texturedPool.addRenderObject(&roTex);
 
 
+	rgl::PointLight light(glm::vec4(1,0,0,1));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1, -5)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
+	light.setModelMatrix(roPos);
+	light.setMesh(lightSphereMesh);
+	renderer.addLight(&light);
+
+
 	rgl::AnimatedRenderObject roAndy;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	roAndy.setModelMatrix(roPos);
 	roAndy.setTexture(andyTexture);
-	roAndy.setMesh(ahhhhhh);
-	ahhhhhh->setActiveAnimation(0);
+	roAndy.setMesh(animatedAndyMesh);
+	animatedAndyMesh->setActiveAnimation(0);
 	animatedPool.addRenderObject(&roAndy);
 
 	
@@ -175,7 +199,7 @@ int main() {
 	childNode.setPosition(glm::vec3(0, 1.7f, 3.3f));
 	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
 
-	ahhhhhh->setGlobalTransform(roAndy.getModelMatrix());
+	animatedAndyMesh->setGlobalTransform(roAndy.getModelMatrix());
 
 	//rgl::RenderObject roStencil;
 	////roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
@@ -193,8 +217,8 @@ int main() {
 
 	//renderer.addPostProcessingFX(&noRedFX);
 	//renderer.addPostProcessingFX(&noBlueFX);
-	renderer.addPostProcessingFX(&blurFX);
-	renderer.addPostProcessingFX(&sobelFX);
+	//renderer.addPostProcessingFX(&blurFX);
+	//renderer.addPostProcessingFX(&sobelFX);
 
 	bool bilinear = false;
 	bool scissor = false;

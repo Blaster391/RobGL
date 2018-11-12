@@ -44,7 +44,6 @@ namespace rgl {
 			startTime = _input[index];
 			startPos = _output[index];
 		}
-
 		float lerpValue = startTime / endTime;
 
 		return glm::mix(startPos, endPos, lerpValue);
