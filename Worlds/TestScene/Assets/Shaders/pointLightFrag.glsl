@@ -17,8 +17,10 @@ void main(void)	{
 	vec3 pos = vec3((gl_FragCoord.x * pixelSize.x) , (gl_FragCoord.y * pixelSize.y ) , 0.0);
 	pos.z = texture(depthTex , pos.xy).r;
 
-	 vec3 normal = normalize (texture(normalsTex , pos.xy).xyz *2.0 - 1.0);
+	vec3 normal = normalize (texture(normalsTex , pos.xy).xyz *2.0 - 1.0);
 
+	//vec3 normal = vec3(0,0,1);
+	
 	vec4 clip = inverseProjView * vec4 ( pos * 2.0 - 1.0 , 1.0);
 	 pos = clip.xyz / clip.w;
 

@@ -32,7 +32,7 @@ namespace rgl {
 
 		_quadMesh->draw(delta,_program);
 
-		glActiveTexture(0);
+		glActiveTexture(GL_TEXTURE0);
 
 		endDraw();
 	}
