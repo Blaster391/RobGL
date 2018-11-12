@@ -24,6 +24,7 @@ namespace rgl {
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		glCullFace(GL_FRONT);
 		glBlendFunc(GL_ONE, GL_ONE);
 		
 		glUniform1i(glGetUniformLocation(_program, "depthTex"), 3);
@@ -46,9 +47,12 @@ namespace rgl {
 			l->draw(delta, _program);
 		}
 
-		glActiveTexture(GL_TEXTURE0);
 
+		glActiveTexture(GL_TEXTURE0);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glCullFace(GL_BACK);
 		endDraw();
+
 
 
 	}

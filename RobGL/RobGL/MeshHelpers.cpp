@@ -451,11 +451,11 @@ namespace rgl {
 
 		std::vector<unsigned int> indicies;
 		indicies.push_back(0);
-		indicies.push_back(1);
-		indicies.push_back(2);
 		indicies.push_back(2);
 		indicies.push_back(1);
+		indicies.push_back(2);
 		indicies.push_back(3);
+		indicies.push_back(1);
 
 
 		m->setVerticies(verticies);

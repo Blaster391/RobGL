@@ -166,10 +166,25 @@ int main() {
 
 
 	rgl::PointLight light(glm::vec4(1,0,0,1));
-	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1, -5)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(2, 1, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(15, 15, 15));
 	light.setModelMatrix(roPos);
 	light.setMesh(lightSphereMesh);
 	renderer.addLight(&light);
+
+	rgl::PointLight light2(glm::vec4(0, 1, 0, 1));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(1, 1, 0)) * glm::scale(glm::mat4(1.0f), glm::vec3(20, 20, 20));
+	light2.setModelMatrix(roPos);
+	light2.setMesh(lightSphereMesh);
+	//texturedPool.addRenderObject(&light2);
+	renderer.addLight(&light2);
+
+
+	rgl::PointLight light3(glm::vec4(0, 0, 1, 1));
+	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(3, 1, 3)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
+	light3.setModelMatrix(roPos);
+	light3.setMesh(lightSphereMesh);
+	renderer.addLight(&light3);
+
 
 
 	rgl::AnimatedRenderObject roAndy;
@@ -270,6 +285,10 @@ int main() {
 		if (i.isKeyPressed(InputButton::KEYBOARD_T)) {
 			parentNode.setPosition(glm::vec3(5, 0, -5));
 		}
+
+		light.setColour(glm::vec4((float)rand()/RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX,1));
+		light2.setColour(glm::vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
+		light3.setColour(glm::vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
 	}
 
 	w.shutdown();
