@@ -17,6 +17,8 @@ int main() {
 	Window w;
 	w.startup();
 
+	w.hideCursor();
+
 	Input i;
 	i.startup(&w);
 
@@ -215,6 +217,23 @@ int main() {
 	parentNode.setScale(glm::vec3(10, 10, 10));
 	childNode.setPosition(glm::vec3(0, 1.7f, 3.3f));
 	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
+
+
+	rgl::scenes::SceneNode sunNode;
+	rgl::scenes::SceneNode sunLightNode;
+	sunNode.addChild(&sunLightNode);
+	sunNode.setPosition(glm::vec3(3, 50, 10));
+	sunNode.setScale(glm::vec3(10, 10, 10));
+	sunLightNode.setScale(glm::vec3(100, 100, 100));
+	rgl::RenderObject sun;
+	rgl::PointLight sunLight(glm::vec4(1,1,1,1));
+	sun.setMesh(lightSphereMesh);
+	sunLight.setMesh(lightSphereMesh);
+	sunNode.attachRenderObject(&sun);
+	sunLightNode.attachRenderObject(&sunLight);
+	colouredPool.addRenderObject(&sun);
+	renderer.addLight(&sunLight);
+
 
 	animatedAndyMesh->setGlobalTransform(roAndy.getModelMatrix());
 

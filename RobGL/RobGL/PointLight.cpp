@@ -12,7 +12,7 @@ namespace rgl {
 	}
 	void PointLight::draw(float delta, GLuint program)
 	{
-		glUniform1f(glGetUniformLocation(program, "lightRadius"), _modelMatrix[0].x);
+		glUniform1f(glGetUniformLocation(program, "lightRadius"), _modelMatrix[0].x * 0.5f);
 		glUniform3f(glGetUniformLocation(program, "lightPos"), _modelMatrix[3].x, _modelMatrix[3].y, _modelMatrix[3].z);
 		glUniform4f(glGetUniformLocation(program, "lightColour"), _colour.x, _colour.y, _colour.z, _colour.w);
 

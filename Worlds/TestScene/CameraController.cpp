@@ -11,6 +11,10 @@ CameraController::~CameraController()
 
 void CameraController::update(float delta)
 {
+	auto pos = glm::inverse(_camera->getViewMatrix());
+	
+	delta = delta * 100;
+
 	if (_input->isKeyPressed(InputButton::KEYBOARD_Q)) {
 		_camera->setProjectionOrthographic();
 	}
@@ -18,24 +22,24 @@ void CameraController::update(float delta)
 		_camera->setProjectionPerspective();
 	}		
 	if (_input->isKeyHeld(InputButton::KEYBOARD_W)) {
-		_camera->translate(-glm::vec3(0, 0, 0.1f));
+		_camera->translate(-glm::normalize(pos[2]) * delta);
 	}
 	else if (_input->isKeyHeld(InputButton::KEYBOARD_S)) {
-		_camera->translate(glm::vec3(0, 0, 0.1f));
+		_camera->translate(glm::normalize(pos[2]) * delta);
 	}
 
 	if (_input->isKeyHeld(InputButton::KEYBOARD_A)) {
-		_camera->translate(-glm::vec3(0.1f, 0, 0));
+		_camera->translate(-glm::normalize(pos[0]) * delta);
 	}
 	else if (_input->isKeyHeld(InputButton::KEYBOARD_D)) {
-		_camera->translate(glm::vec3(0.1f, 0, 0));
+		_camera->translate(glm::normalize(pos[0]) * delta);
 	}
 
 	if (_input->isKeyHeld(InputButton::KEYBOARD_Z)) {
-		_camera->translate(glm::vec3(0, 0.1f, 0));
+		_camera->translate(glm::normalize(pos[1]) * delta);
 	}
 	else if (_input->isKeyHeld(InputButton::KEYBOARD_X)) {
-		_camera->translate(-glm::vec3(0, 0.1f, 0));
+		_camera->translate(-glm::normalize(pos[1]) * delta);
 	}
 
 	//TODO sensitivity

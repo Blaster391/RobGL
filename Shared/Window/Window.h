@@ -40,6 +40,12 @@ public:
 		return width;
 	}
 
+	void hideCursor() {
+		glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	void showCursor() {
+		glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 private:
 	GLFWwindow* _window;
 
