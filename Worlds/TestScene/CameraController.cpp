@@ -13,7 +13,7 @@ void CameraController::update(float delta)
 {
 	auto pos = glm::inverse(_camera->getViewMatrix());
 	
-	delta = delta * 100;
+	delta = delta * 20;
 
 	if (_input->isKeyPressed(InputButton::KEYBOARD_Q)) {
 		_camera->setProjectionOrthographic();

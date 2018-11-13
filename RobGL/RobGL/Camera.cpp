@@ -38,6 +38,7 @@ namespace rgl {
 		return 
 			glm::rotate(glm::mat4(1.0f), -_pitch, glm::vec3(1, 0, 0)) *
 			glm::rotate(glm::mat4(1.0f), -_yaw, glm::vec3(0, 1, 0)) *
+			glm::rotate(glm::mat4(1.0f), -_roll, glm::vec3(0, 0, 1)) *
 			glm::translate(glm::mat4(1.0f), -_position);
 	}
 

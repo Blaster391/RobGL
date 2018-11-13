@@ -158,6 +158,9 @@
     <ClInclude Include="CombinePool.h">
       <Filter>RenderPools\Lighting</Filter>
     </ClInclude>
+    <ClInclude Include="Cubemap.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -252,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="CombinePool.cpp">
       <Filter>RenderPools\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Cubemap.cpp">
+      <Filter>Textures</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

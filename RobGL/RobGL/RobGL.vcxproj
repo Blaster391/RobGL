@@ -139,6 +139,7 @@
     <ClInclude Include="Box.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CombinePool.h" />
+    <ClInclude Include="Cubemap.h" />
     <ClInclude Include="FallbackShaders.h" />
     <ClInclude Include="FixedScreenCamera.h" />
     <ClInclude Include="Frustum.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CombinePool.cpp" />
+    <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="FallbackShaders.cpp" />
     <ClCompile Include="FixedScreenCamera.cpp" />
     <ClCompile Include="Frustum.cpp" />
