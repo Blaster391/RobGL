@@ -1,16 +1,16 @@
 #pragma once
 #include "Plane.h"
+#include "RenderObject.h"
 namespace rgl {
-	class RenderObject;
 
 	class Frustum
 	{
 	public:
 		Frustum(Plane* planes);
 		bool insideFrustum(RenderObject* ro);
+		bool insideFrustum(glm::vec3 position);
 		~Frustum();
-	private:
+	protected:
 		Plane* _planes;
 	};
-
 }

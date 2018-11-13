@@ -26,4 +26,12 @@ namespace rgl {
 	Plane::~Plane()
 	{
 	}
+	glm::vec3 Plane::getNormal()
+	{
+		return _normal;
+	}
+	float Plane::getDistance()
+	{
+		return _distance;
+	}
 }

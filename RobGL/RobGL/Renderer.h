@@ -51,8 +51,6 @@ namespace rgl {
 		std::vector<RenderPool*> _uiRenderPools;
 		std::vector<PostProcessingFX*> _postFX;
 
-
-
 		GLuint _bufferFBO;
 
 		GLuint _lightingFBO;

@@ -1,5 +1,7 @@
 #include "Frustum.h"
 #include "RenderObject.h"
+#include "MeshHelpers.h"
+#include <External/glm/gtc/matrix_transform.hpp>
 namespace rgl {
 
 
@@ -19,15 +21,26 @@ namespace rgl {
 			return true;
 		}
 
-		//TODO fix and reenable
+		for (int i = 0; i < 6; ++i) {
+			{
+				if (!bounds->insidePlane(_planes[i])) {
+					return false;
+				}
+			}
+		}
 
-		//for (int i = 0; i < 6; ++i) {
-		//	{
-		//		if (!bounds->insidePlane(_planes[i])) {
-		//			return false;
-		//		}
-		//	}
-		//}
+		return true;
+	}
+
+	bool Frustum::insideFrustum(glm::vec3 position)
+	{
+		for (int i = 0; i < 6; ++i) {
+			{
+				if (!_planes[i].sphereInPlane(position,0.1f)) {
+					return false;
+				}
+			}
+		}
 
 		return true;
 	}
@@ -36,4 +49,6 @@ namespace rgl {
 	{
 		//delete[] _planes;
 	}
+
+
 }

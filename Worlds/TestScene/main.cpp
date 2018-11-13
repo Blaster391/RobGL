@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include <RobGL/Renderer.h>
 #include <Window/Window.h>
 #include <Input/Input.h>
@@ -141,7 +141,7 @@ int main() {
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -10)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	ro.setModelMatrix(roPos);
 	ro.setMesh(triangleMesh);
-	ro.setBounds(new rgl::BoundingSphere(&ro,0.01f));
+	ro.setBounds(new rgl::BoundingSphere(&ro,3.0f));
 	colouredPool.addRenderObject(&ro);
 
 	rgl::RenderObject roFloor;
@@ -234,6 +234,7 @@ int main() {
 	//renderer.addPostProcessingFX(&noBlueFX);
 	//renderer.addPostProcessingFX(&blurFX);
 	//renderer.addPostProcessingFX(&sobelFX);
+
 
 	bool bilinear = false;
 	bool scissor = false;
