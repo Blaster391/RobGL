@@ -47,9 +47,14 @@ namespace rgl {
 		_sampler = sampler;
 	}
 
-	AnimationSampler AnimationChannel::getSampler()
+	AnimationSampler& AnimationChannel::getSampler()
 	{
 		return _sampler;
+	}
+
+	float AnimationChannel::getEndTime()
+	{
+		return _sampler.getEndTime();
 	}
 
 }

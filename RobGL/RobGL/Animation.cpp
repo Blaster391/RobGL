@@ -11,22 +11,31 @@ namespace rgl {
 	{
 	}
 
-	float time = 0;
 	void Animation::update(float delta)
 	{
-		//TODO loop
-		time += delta;
+		_currentTime += delta;
 		for (auto& c : _channels) {
-			c.update(time);
+			c.update(_currentTime);
 		}
-		if (time > 5) {
-			time = 0;
+
+		if (_currentTime > _finishTime) {
+			for (auto& c : _channels) {
+				c.getSampler().reset();
+			}
+			_currentTime = 0;
 		}
 
 	}
 	void Animation::setChannels(std::vector<AnimationChannel> channels)
 	{
 		_channels = channels;
+
+		for (auto& c : channels) {
+			float endTime = c.getEndTime();
+			if (endTime > _finishTime) {
+				_finishTime = endTime;
+			}
+		}
 	}
 	void Animation::setName(std::string name)
 	{

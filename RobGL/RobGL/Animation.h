@@ -16,7 +16,8 @@ namespace rgl {
 	private:
 		std::string _name;
 		std::vector<AnimationChannel> _channels;
-
+		float _currentTime = 0;
+		float _finishTime = 0;
 	};
 }
 

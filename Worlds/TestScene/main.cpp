@@ -6,6 +6,8 @@
 #include <RobGL/MeshHelpers.h>
 #include <RobGL/StencilPool.h>
 
+#include "Timer.h"
+
 #include "CameraController.h"
 #include <RobGL/AnimatedRenderObject.h>
 
@@ -241,15 +243,19 @@ int main() {
 	bool stencil = false;
 	bool stencil2 = false;
 
-	while (!finished) {
-		w.update(1);
-		i.update(1);
+	Timer t;
+	t.start();
 
-		renderer.update((float)1/120);
+	while (!finished) {
+		float delta = t.delta();
+		w.update(delta);
+		i.update(delta);
+
+		renderer.update(delta);
 
 		finished = w.ShouldClose();
 
-		cameraController.update(1);
+		cameraController.update(delta);
 
 		if (i.isKeyPressed(InputButton::KEYBOARD_ESCAPE)) {
 			finished = true;

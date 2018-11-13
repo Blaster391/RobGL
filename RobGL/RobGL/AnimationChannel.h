@@ -21,8 +21,9 @@ namespace rgl {
 		AnimationChannelAction getAction();
 
 		void setSampler(AnimationSampler sampler);
-		AnimationSampler getSampler();
+		AnimationSampler& getSampler();
 
+		float getEndTime();
 
 	private:
 		Joint* _targetJoint;
