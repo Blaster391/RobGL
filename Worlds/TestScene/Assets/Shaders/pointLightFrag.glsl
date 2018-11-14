@@ -19,8 +19,6 @@ void main(void)	{
 
 	vec3 normal = normalize (texture(normalsTex , pos.xy).xyz *2.0 - 1.0);
 
-	//vec3 normal = vec3(0,0,1);
-	
 	vec4 clip = inverseProjView * vec4 ( pos * 2.0 - 1.0 , 1.0);
 	 pos = clip.xyz / clip.w;
 
