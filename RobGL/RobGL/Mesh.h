@@ -20,6 +20,9 @@ namespace rgl {
 
 		virtual void buffer();
 
+		void setHasPregeneratedNormals(bool val);
+		void generateNormals();
+
 		void rebuffer();
 
 		virtual void clear();
@@ -29,16 +32,17 @@ namespace rgl {
 		void endBuffer();
 
 	private:
-		GLuint arrayObject;
-		GLuint bufferObject;
-		GLuint indexBuffer;
+		GLuint _arrayObject;
+		GLuint _bufferObject;
+		GLuint _indexBuffer;
 
 		GLuint	_meshType;
 
 		std::vector<Vertex> _verticies;
 		std::vector<unsigned int> _indicies;
 
-		bool useIndicies;
+		bool _useIndicies;
+		bool _hasPregeneratedNormals = false;
 	};
 
 }

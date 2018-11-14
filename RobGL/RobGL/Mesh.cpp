@@ -1,16 +1,17 @@
 #include "Mesh.h"
 
+#include <External/glm/gtc/matrix_transform.hpp>
 
 namespace rgl {
 	Mesh::Mesh()
 	{
-		glGenVertexArrays(1, &arrayObject);
+		glGenVertexArrays(1, &_arrayObject);
 		_meshType = GL_TRIANGLES;
 
 	}
 	Mesh::~Mesh()
 	{
-		glDeleteVertexArrays(1, &arrayObject);
+		glDeleteVertexArrays(1, &_arrayObject);
 		clear();
 	}
 
@@ -24,8 +25,8 @@ namespace rgl {
 	}
 	void Mesh::draw(float delta, GLuint program)
 	{		
-		glBindVertexArray(arrayObject);
-		if (useIndicies) {
+		glBindVertexArray(_arrayObject);
+		if (_useIndicies) {
 			glDrawElements(_meshType, _indicies.size(), GL_UNSIGNED_INT, 0);
 		}
 		else {
@@ -42,6 +43,47 @@ namespace rgl {
 
 
 	}
+
+	void Mesh::setHasPregeneratedNormals(bool val)
+	{
+		_hasPregeneratedNormals = val;
+	}
+
+	void Mesh::generateNormals()
+	{
+		if (_useIndicies) {
+			for (int i = 0; i < _indicies.size(); i += 3) {
+				unsigned int a = _indicies[i];
+				unsigned int b = _indicies[i + 1];
+				unsigned int c = _indicies[i + 2];
+
+				glm::vec3 normal = glm::cross(_verticies[b].Position - _verticies[a].Position, _verticies[c].Position - _verticies[a].Position);
+
+				_verticies[a].Normal += normal;
+				_verticies[b].Normal += normal;
+				_verticies[c].Normal += normal;
+			}
+
+		}
+		else {
+			for (int i = 0; i < _verticies.size(); i += 3) {
+				glm::vec3 a = _verticies[i].Position;
+				glm::vec3 b = _verticies[i+1].Position;
+				glm::vec3 c = _verticies[i+2].Position;
+
+				glm::vec3 normal = glm::cross(b - a, c - a);
+
+				_verticies[i].Normal = normal;
+				_verticies[i+1].Normal = normal;
+				_verticies[i+2].Normal = normal;
+			}
+		}
+
+		for (int i = 0; i < _verticies.size(); ++i) {
+			_verticies[i].Normal = glm::normalize(_verticies[i].Normal);
+		}
+	}
+
 	void Mesh::rebuffer()
 	{
 		clear();
@@ -49,21 +91,26 @@ namespace rgl {
 	}
 	void Mesh::clear()
 	{
-		glDeleteBuffers(1, &bufferObject);
-		if (useIndicies) {
-			glDeleteBuffers(1, &indexBuffer);
+		glDeleteBuffers(1, &_bufferObject);
+		if (_useIndicies) {
+			glDeleteBuffers(1, &_indexBuffer);
 		}
 	}
 	void Mesh::beginBuffer()
 	{
-		glBindVertexArray(arrayObject);
+		glBindVertexArray(_arrayObject);
 	}
 	void Mesh::basicBuffer()
 	{
-		useIndicies = (_indicies.size() > 0);
-		glGenBuffers(1, &bufferObject);
+		_useIndicies = (_indicies.size() > 0);
 
-		glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
+		if (!_hasPregeneratedNormals) {
+			generateNormals();
+		}
+
+		glGenBuffers(1, &_bufferObject);
+
+		glBindBuffer(GL_ARRAY_BUFFER, _bufferObject);
 		glBufferData(GL_ARRAY_BUFFER, _verticies.size() * sizeof(Vertex), _verticies.data(), GL_STATIC_DRAW);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Position));
 		glEnableVertexAttribArray(0);
@@ -74,9 +121,9 @@ namespace rgl {
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 		glEnableVertexAttribArray(3);
 
-		if (useIndicies) {
-			glGenBuffers(1, &indexBuffer);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+		if (_useIndicies) {
+			glGenBuffers(1, &_indexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indicies.size() * sizeof(GLuint), _indicies.data(), GL_STATIC_DRAW);
 		}
 	}

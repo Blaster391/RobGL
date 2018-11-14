@@ -7,6 +7,6 @@ namespace rgl {
 		glm::vec3 Position;
 		glm::vec4 Colour;
 		glm::vec2 TexCoord;
-		glm::vec3 Normal;
+		glm::vec3 Normal = glm::vec3(0);
 	};
 }
