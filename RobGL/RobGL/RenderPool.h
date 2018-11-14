@@ -16,7 +16,7 @@ namespace rgl {
 
 		void addRenderObject(RenderObject* r);
 
-		virtual void draw(float delta);
+		void draw(float delta);
 
 		inline Camera* getCamera() { return _camera; }
 		inline void setCamera(Camera* c) { _camera = c; }
@@ -47,7 +47,7 @@ namespace rgl {
 		bool _frustumCulling = true;
 
 		bool beginDraw();
-		void basicDraw(float delta);
+		virtual void drawData(float delta);
 		void endDraw();
 
 	};

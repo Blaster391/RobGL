@@ -5,7 +5,7 @@
 
 namespace rgl {
 	class PostProcessingFX
-		: private ToScreenRenderPool
+		: protected ToScreenRenderPool
 	{
 	public:
 		PostProcessingFX(std::vector<Shader*> shaders, int iterations);

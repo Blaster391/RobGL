@@ -46,8 +46,29 @@ namespace rgl {
 		stbi_image_free(image);
 
 
-		Texture* t = new Texture(tex, generateMips);
+		return new Texture(tex, generateMips);
+	}
 
-		return t;
+	Cubemap* TextureLoader::LoadCubemapFromFile(std::vector<std::string> faces, bool generateMips)
+	{
+		int w;
+		int h;
+		int comp;
+
+		GLuint tex;
+		glGenTextures(1, &tex);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, tex);
+
+
+		for (int i = 0; i < faces.size(); ++i) {
+			unsigned char* image = stbi_load(faces[i].c_str(), &w, &h, &comp, STBI_default);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			stbi_image_free(image);
+		}
+		glTexParameterf(GL_TEXTURE_MAX_ANISOTROPY, GL_TEXTURE_CUBE_MAP, 16);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		return new Cubemap(tex, generateMips);
 	}
 }

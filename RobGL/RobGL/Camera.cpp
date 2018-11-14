@@ -22,7 +22,7 @@ namespace rgl {
 		//TODO remove hardcoded stuffs
 		int width = 800;
 		int height = 600;
-		_projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 0.1f, 1000.0f);
+		_projectionMatrix =  glm::perspective(fov, (float)width / (float)height, 0.1f, 100000.0f);
 	}
 
 	void Camera::setProjectionOrthographic()

@@ -18,23 +18,25 @@ namespace rgl {
 		delete _camera;
 	}
 
-	void CombinePool::draw(float delta)
+	void CombinePool::drawData(float delta)
 	{
-		beginDraw();
 
-		glUniform1i(glGetUniformLocation(_program,"colourTex"), 2);		glUniform1i(glGetUniformLocation(_program, "emissiveTex"), 3);
+		glUniform1i(glGetUniformLocation(_program,"colourTex"), 2);
+		glUniform1i(glGetUniformLocation(_program, "emissiveTex"), 3);
 		glUniform1i(glGetUniformLocation(_program, "specularTex"), 4);
 		
-		glActiveTexture(GL_TEXTURE2);		glBindTexture(GL_TEXTURE_2D, _bufferColourTex);
-		glActiveTexture(GL_TEXTURE3);		glBindTexture(GL_TEXTURE_2D, _emissiveTex);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, _bufferColourTex);
 
-		glActiveTexture(GL_TEXTURE4);		glBindTexture(GL_TEXTURE_2D, _specularTex);
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, _emissiveTex);
+
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, _specularTex);
 
 		_quadObject->draw(delta,_program);
 
 		glActiveTexture(GL_TEXTURE0);
-
-		endDraw();
 	}
 
 }

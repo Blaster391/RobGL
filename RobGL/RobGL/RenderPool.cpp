@@ -34,13 +34,13 @@ namespace rgl {
 		_renderObjects.push_back(r);
 	}
 
-	void rgl::RenderPool::draw(float delta)
+	void RenderPool::draw(float delta)
 	{
 		if (!beginDraw()) {
 			return;
 		}
 
-		basicDraw(delta);
+		drawData(delta);
 
 		endDraw();
 
@@ -79,7 +79,7 @@ namespace rgl {
 
 		return true;
 	}
-	void RenderPool::basicDraw(float delta)
+	void RenderPool::drawData(float delta)
 	{
 		Frustum f = _camera->getFrustum();
 

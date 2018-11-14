@@ -2,7 +2,7 @@
 #include "RenderPool.h"
 #include "PointLight.h"
 namespace rgl {
-	class LightPool : RenderPool
+	class LightPool : public RenderPool
 	{
 	public:
 		LightPool(const std::vector<Shader*>& shaders, Camera* c, GLuint depthTex, GLuint normalsTex);
@@ -10,7 +10,7 @@ namespace rgl {
 
 		void addLight(PointLight* light);
 
-		virtual void draw(float delta) override;
+		virtual void drawData(float delta) override;
 	private:
 
 		std::vector<PointLight*> _lights;

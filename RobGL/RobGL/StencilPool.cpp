@@ -10,19 +10,15 @@ namespace rgl {
 	StencilPool::~StencilPool()
 	{
 	}
-	void StencilPool::draw(float delta)
+	void StencilPool::drawData(float delta)
 	{
-		if (!_enabled) {
-			return;
-		}
-
 		glEnable(GL_STENCIL_TEST);
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 		glStencilFunc(GL_ALWAYS, 2, ~0);
 		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 		
 
-		RenderPool::draw(delta);
+		RenderPool::drawData(delta);
 
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glStencilFunc(GL_EQUAL, 2, ~0);

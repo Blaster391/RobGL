@@ -161,6 +161,9 @@
     <ClInclude Include="Cubemap.h">
       <Filter>Textures</Filter>
     </ClInclude>
+    <ClInclude Include="SkyboxFX.h">
+      <Filter>PostProcessingFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -258,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="Cubemap.cpp">
       <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxFX.cpp">
+      <Filter>PostProcessingFX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ namespace rgl {
 		~CombinePool();
 
 
-		virtual void draw(float delta) override;
+		virtual void drawData(float delta) override;
 	protected:
 		RenderObject* _quadObject;
 		Texture* _quadTexture;

@@ -12,6 +12,8 @@
 #include <RobGL/AnimatedRenderObject.h>
 
 #include <RobGL_SceneGraph\SceneNode.h>
+#include <RobGL\SkyboxFX.h>
+
 
 int main() {
 	Window w;
@@ -48,6 +50,10 @@ int main() {
 	rgl::Shader* blurFXFragmentShader = new rgl::Shader("Assets/Shaders/blurFragFX.glsl", GL_FRAGMENT_SHADER);
 	rgl::Shader* sobelFXFragmentShader = new rgl::Shader("Assets/Shaders/sobelFragFX.glsl", GL_FRAGMENT_SHADER);
 
+	rgl::Shader* skyboxFXVertShader = new rgl::Shader("Assets/Shaders/skyboxVertFX.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* skyboxFXFragShader = new rgl::Shader("Assets/Shaders/skyboxFragFX.glsl", GL_FRAGMENT_SHADER);
+
+
 	rgl::Shader* pointLightVertShader = new rgl::Shader("Assets/Shaders/pointLightVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* pointLightFragShader = new rgl::Shader("Assets/Shaders/pointLightFrag.glsl", GL_FRAGMENT_SHADER);
 	rgl::Shader* combineVertShader = new rgl::Shader("Assets/Shaders/combineVert.glsl", GL_VERTEX_SHADER);
@@ -57,6 +63,14 @@ int main() {
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
 	rgl::Texture* checkerboardTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/chessboard.tga", true, false);
+
+	rgl::Cubemap* skyboxTex = rgl::TextureLoader::LoadCubemapFromFile({
+		"Assets/Textures/cubemaps/rusted_west.jpg",
+		"Assets/Textures/cubemaps/rusted_east.jpg",
+		"Assets/Textures/cubemaps/rusted_down.jpg",
+		"Assets/Textures/cubemaps/rusted_up.jpg",
+		"Assets/Textures/cubemaps/rusted_north.jpg" ,
+		"Assets/Textures/cubemaps/rusted_south.jpg" }, true);
 
 	rgl::Mesh* triangleMesh = rgl::MeshHelpers::GenerateTriangle();
 	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
@@ -111,6 +125,10 @@ int main() {
 	pointLightShaders.push_back(pointLightFragShader);
 
 
+	std::vector<rgl::Shader*>skyboxFXShaders;
+	skyboxFXShaders.push_back(skyboxFXVertShader);
+	skyboxFXShaders.push_back(skyboxFXFragShader);
+
 
 	//TODO camera to camera controller
 	rgl::Camera mainCamera;
@@ -124,7 +142,7 @@ int main() {
 	uiCamera.setPosition(uiPos);
 
 	renderer.enablePostProcessing(texturedShaders);
-	renderer.enableLighting(pointLightShaders, combineShaders, &mainCamera);
+	//renderer.enableLighting(pointLightShaders, combineShaders, &mainCamera);
 
 	CameraController cameraController(&mainCamera, &i);
 
@@ -139,6 +157,7 @@ int main() {
 	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
 	rgl::PostProcessingFX blurFX(blurFXShaders, 10);
 	rgl::PostProcessingFX sobelFX(sobelFXShaders, 1);
+	rgl::SkyboxFX skyboxFX(skyboxFXShaders, skyboxTex, &mainCamera);
 
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
@@ -251,7 +270,8 @@ int main() {
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
-	//renderer.addPostProcessingFX(&noRedFX);
+	//renderer.addPostProcessingFX(&skyboxFX);
+	renderer.addPostProcessingFX(&noRedFX);
 	//renderer.addPostProcessingFX(&noBlueFX);
 	//renderer.addPostProcessingFX(&blurFX);
 	//renderer.addPostProcessingFX(&sobelFX);

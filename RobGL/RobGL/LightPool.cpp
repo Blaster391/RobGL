@@ -18,9 +18,8 @@ namespace rgl {
 		_renderObjects.push_back(light);
 	}
 
-	void LightPool::draw(float delta)
+	void LightPool::drawData(float delta)
 	{
-		beginDraw();
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -51,7 +50,6 @@ namespace rgl {
 		glActiveTexture(GL_TEXTURE0);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glCullFace(GL_BACK);
-		endDraw();
 
 
 

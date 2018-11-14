@@ -158,6 +158,7 @@
     <ClInclude Include="RenderPool.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SkyboxFX.h" />
     <ClInclude Include="StencilPool.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="RenderPool.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="SkyboxFX.cpp" />
     <ClCompile Include="StencilPool.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
