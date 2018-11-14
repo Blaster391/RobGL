@@ -25,7 +25,7 @@ namespace rgl {
 		void addRenderPool(RenderPool* rp);
 		void addPostProcessingFX(PostProcessingFX* fx);
 
-
+		Texture* getDepthTexture();
 
 	private:
 		void clearBuffers();

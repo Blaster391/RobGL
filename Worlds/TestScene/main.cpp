@@ -67,10 +67,10 @@ int main() {
 	rgl::Cubemap* skyboxTex = rgl::TextureLoader::LoadCubemapFromFile({
 		"Assets/Textures/cubemaps/rusted_west.jpg",
 		"Assets/Textures/cubemaps/rusted_east.jpg",
-		"Assets/Textures/cubemaps/rusted_down.jpg",
 		"Assets/Textures/cubemaps/rusted_up.jpg",
-		"Assets/Textures/cubemaps/rusted_north.jpg" ,
-		"Assets/Textures/cubemaps/rusted_south.jpg" }, true);
+		"Assets/Textures/cubemaps/rusted_down.jpg",
+		"Assets/Textures/cubemaps/rusted_south.jpg" ,
+		"Assets/Textures/cubemaps/rusted_north.jpg" }, true);
 
 	rgl::Mesh* triangleMesh = rgl::MeshHelpers::GenerateTriangle();
 	rgl::Mesh* quadMesh = rgl::MeshHelpers::GenerateQuad();
@@ -157,7 +157,7 @@ int main() {
 	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
 	rgl::PostProcessingFX blurFX(blurFXShaders, 10);
 	rgl::PostProcessingFX sobelFX(sobelFXShaders, 1);
-	rgl::SkyboxFX skyboxFX(skyboxFXShaders, skyboxTex, &mainCamera);
+	rgl::SkyboxFX skyboxFX(skyboxFXShaders, skyboxTex, renderer.getDepthTexture(), &mainCamera);
 
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
@@ -270,9 +270,10 @@ int main() {
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
-	//renderer.addPostProcessingFX(&skyboxFX);
+	
 	renderer.addPostProcessingFX(&noRedFX);
-	//renderer.addPostProcessingFX(&noBlueFX);
+	renderer.addPostProcessingFX(&noBlueFX);
+	renderer.addPostProcessingFX(&skyboxFX);
 	//renderer.addPostProcessingFX(&blurFX);
 	//renderer.addPostProcessingFX(&sobelFX);
 

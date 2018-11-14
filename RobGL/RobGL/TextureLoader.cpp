@@ -65,7 +65,10 @@ namespace rgl {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 			stbi_image_free(image);
 		}
-		glTexParameterf(GL_TEXTURE_MAX_ANISOTROPY, GL_TEXTURE_CUBE_MAP, 16);
+		//glTexParameterf(GL_TEXTURE_MAX_ANISOTROPY, GL_TEXTURE_CUBE_MAP, 16);
+
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 

@@ -38,6 +38,8 @@ namespace rgl {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
+		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
 
 	}
 
@@ -122,6 +124,11 @@ namespace rgl {
 		_postFX.push_back(fx);
 	}
 
+	Texture * Renderer::getDepthTexture()
+	{
+		return new Texture(_bufferDepthTex,false);
+	}
+
 	void Renderer::clearBuffers()
 	{
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
@@ -188,6 +195,7 @@ namespace rgl {
 	void Renderer::bindFrameBuffers()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, _bufferFBO);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _bufferColourTex[0], 0);
 	}
 	void Renderer::unbindFrameBuffers()
 	{
@@ -238,8 +246,8 @@ namespace rgl {
 	void Renderer::postProcess(float delta)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, _processFBO);
-		glClearColor(0.2f, 0.2f, 0.2f, 0.2f);
-		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	/*	glClearColor(0.2f, 0.2f, 0.2f, 0.2f);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);*/
 
 		for (auto& fx : _postFX) {
 			fx->process(delta, _bufferColourTex[0], _bufferColourTex[1]);
