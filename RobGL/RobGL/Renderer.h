@@ -63,7 +63,7 @@ namespace rgl {
 		GLuint _bufferNormalTex;
 
 		Window _window;
-		RenderPool* _toScreenRenderPool;
+		ToScreenRenderPool* _toScreenRenderPool;
 		LightPool* _lightPool;
 		CombinePool* _combinePool;
 		glm::vec4 _ambientColour;

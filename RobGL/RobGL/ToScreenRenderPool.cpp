@@ -21,4 +21,8 @@ namespace rgl {
 		delete _quadObject;
 		delete _quadTexture;
 	}
+	void ToScreenRenderPool::setRenderTexture(GLuint tex)
+	{
+		_quadTexture->setPointer(tex);
+	}
 }

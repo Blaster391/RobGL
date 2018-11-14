@@ -3,7 +3,7 @@
 #include "MeshHelpers.h"
 
 namespace rgl {
-	CombinePool::CombinePool(const std::vector<Shader*>& shaders, GLuint bufferColourTex, GLuint emissiveTex, GLuint specularTex) : 
+	CombinePool::CombinePool(const std::vector<Shader*>& shaders, GLuint& bufferColourTex, GLuint emissiveTex, GLuint specularTex) : 
 		RenderPool(shaders, new FixedScreenCamera), _bufferColourTex(bufferColourTex), _emissiveTex(emissiveTex), _specularTex(specularTex)
 	{
 		_camera->setProjectionOrthographic();

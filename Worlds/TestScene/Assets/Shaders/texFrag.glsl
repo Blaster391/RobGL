@@ -12,7 +12,6 @@ out vec4 fragColour[2];
 void main(void)	{
 
 
-
 	fragColour[0] = texture(tex,IN.texCoords);
 	fragColour[1] = vec4(IN.normals,1);
 }

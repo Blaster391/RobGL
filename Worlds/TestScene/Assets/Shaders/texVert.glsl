@@ -17,5 +17,7 @@ void main(void)	{
 	gl_Position		= projMatrix * viewMatrix * modelMatrix * vec4(Position, 1.0);
 
 	OUT.texCoords		= TexCoords;
-	OUT.normals = Normals;
+	
+	mat3 normalMatrix = transpose(inverse(mat3(modelMatrix)));
+	OUT.normals = normalize(normalMatrix * Normals);
 }

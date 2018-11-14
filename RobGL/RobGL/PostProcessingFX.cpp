@@ -30,13 +30,9 @@ namespace rgl {
 			_quadTexture->setPointer(displayTex);
 			_quadObject->draw(delta, _program);
 
-
-			//TODO why do I need this?????
-			glFlush();
-
 			GLuint temp = processTex;
 			processTex = displayTex;
-			displayTex = processTex;
+			displayTex = temp;
 		}
 
 

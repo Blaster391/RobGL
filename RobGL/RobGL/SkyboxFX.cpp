@@ -17,12 +17,9 @@ namespace rgl {
 			return;
 		}
 
-
 		glUniform1i(glGetUniformLocation(_program, "skybox"), 2);
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, _skyboxTex->pointer());
-
-
 
 		glUniform1i(glGetUniformLocation(_program, "depthTex"), 3);
 		glActiveTexture(GL_TEXTURE3);
@@ -35,11 +32,9 @@ namespace rgl {
 
 		_quadMesh->draw(delta, _program);
 
-		glFlush();
-
 		GLuint temp = processTex;
 		processTex = displayTex;
-		displayTex = processTex;
+		displayTex = temp;
 
 		glActiveTexture(GL_TEXTURE0);
 

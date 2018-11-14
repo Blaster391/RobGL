@@ -260,7 +260,7 @@ namespace rgl {
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
+		_toScreenRenderPool->setRenderTexture(_bufferColourTex[0]);
 		_toScreenRenderPool->draw(delta);
 	}
 }

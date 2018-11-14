@@ -7,6 +7,8 @@ namespace rgl {
 	public:
 		ToScreenRenderPool(std::vector<Shader*> shaders, GLuint colourTex);
 		virtual ~ToScreenRenderPool();
+
+		void setRenderTexture(GLuint tex);
 	protected:
 		RenderObject* _quadObject;
 		Texture* _quadTexture;
