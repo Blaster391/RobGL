@@ -140,6 +140,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CombinePool.h" />
     <ClInclude Include="Cubemap.h" />
+    <ClInclude Include="DirectionalLightUniform.h" />
     <ClInclude Include="FallbackShaders.h" />
     <ClInclude Include="FixedScreenCamera.h" />
     <ClInclude Include="Frustum.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="tinygltf\tiny_gltf.h" />
     <ClInclude Include="tinyobj\tiny_obj_loader.h" />
     <ClInclude Include="ToScreenRenderPool.h" />
+    <ClInclude Include="BaseUniform.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexWeightData.h" />
   </ItemGroup>
@@ -178,6 +180,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CombinePool.cpp" />
     <ClCompile Include="Cubemap.cpp" />
+    <ClCompile Include="DirectionalLightUniform.cpp" />
     <ClCompile Include="FallbackShaders.cpp" />
     <ClCompile Include="FixedScreenCamera.cpp" />
     <ClCompile Include="Frustum.cpp" />
@@ -200,6 +203,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="ToScreenRenderPool.cpp" />
+    <ClCompile Include="BaseUniform.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexWeightData.cpp" />
   </ItemGroup>

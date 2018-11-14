@@ -5,6 +5,7 @@
 #include "glad/glad.h"
 #include "Camera.h"
 #include "Box.h"
+#include "BaseUniform.h"
 
 namespace rgl {
 	//TODO split into more classes - make it "CameraRenderPool"/"UI Render Pool" etc
@@ -27,10 +28,14 @@ namespace rgl {
 		void setEnabled(bool active);
 
 
+		void addUniformData(BaseUniform* uniform);
+
 	protected:
 		void setUniforms();
 
 		std::vector<RenderObject*> _renderObjects;
+
+		std::vector<BaseUniform*> _uniforms;
 
 		Camera* _camera = nullptr;
 

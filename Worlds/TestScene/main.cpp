@@ -12,8 +12,8 @@
 #include <RobGL/AnimatedRenderObject.h>
 
 #include <RobGL_SceneGraph\SceneNode.h>
-#include <RobGL\SkyboxFX.h>
-
+#include <RobGL/SkyboxFX.h>
+#include <RobGL/DirectionalLightUniform.h>
 
 int main() {
 	Window w;
@@ -142,16 +142,23 @@ int main() {
 	uiCamera.setPosition(uiPos);
 
 	renderer.enablePostProcessing(texturedShaders);
-	//renderer.enableLighting(pointLightShaders, combineShaders, &mainCamera);
+	renderer.enableLighting(pointLightShaders, combineShaders, &mainCamera);
 
 	CameraController cameraController(&mainCamera, &i);
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
+	rgl::DirectionalLightUniform directionalLightUniform(glm::vec4(1,1,0,1),glm::vec3(0,100,0), glm::rotate(glm::mat4(1), 0.0f, glm::vec3(0,0,0)));
+
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
 	rgl::RenderPool animatedPool(animatedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
+
+	colouredPool.addUniformData(&directionalLightUniform);
+	texturedPool.addUniformData(&directionalLightUniform);
+	animatedPool.addUniformData(&directionalLightUniform);
+	transparentTexturedPool.addUniformData(&directionalLightUniform);
 
 	rgl::PostProcessingFX noRedFX(noRedFXShaders, 1);
 	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
@@ -270,10 +277,10 @@ int main() {
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
-	
-	renderer.addPostProcessingFX(&noRedFX);
-	renderer.addPostProcessingFX(&noBlueFX);
 	renderer.addPostProcessingFX(&skyboxFX);
+	//renderer.addPostProcessingFX(&noRedFX);
+	//renderer.addPostProcessingFX(&noBlueFX);
+
 	//renderer.addPostProcessingFX(&blurFX);
 	//renderer.addPostProcessingFX(&sobelFX);
 

@@ -61,11 +61,19 @@ namespace rgl {
 		_enabled = active;
 	}
 
+	void RenderPool::addUniformData(BaseUniform * uniform)
+	{
+		_uniforms.push_back(uniform);
+	}
+
 
 	void RenderPool::setUniforms()
 	{
 		glUniformMatrix4fv(_viewMatrixPosition, 1, false, (float*)&_camera->getViewMatrix());
 		glUniformMatrix4fv(_projectionMatrixPosition, 1, false, (float*)&_camera->getProjectionMatrix());
+		for (auto& u : _uniforms) {
+			u->apply(_program);
+		}
 	}
 	bool RenderPool::beginDraw()
 	{
