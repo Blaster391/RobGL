@@ -250,7 +250,7 @@ int main() {
 	sunNode.addChild(&sunLightNode);
 	sunNode.setPosition(glm::vec3(3, 50, 10));
 	sunNode.setScale(glm::vec3(10, 10, 10));
-	sunLightNode.setScale(glm::vec3(10, 10, 10));
+	sunLightNode.setScale(glm::vec3(100, 100, 100));
 	rgl::RenderObject sun;
 	rgl::PointLight sunLight(glm::vec4(1,1,1,1));
 	sun.setMesh(lightSphereMesh);
