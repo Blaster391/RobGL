@@ -1,6 +1,7 @@
 #version 460 core
 
 uniform sampler2D tex;
+
 uniform int iteration;
 uniform vec2 pixelSize;
 

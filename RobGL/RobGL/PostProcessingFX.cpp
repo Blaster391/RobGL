@@ -30,6 +30,8 @@ namespace rgl {
 			_quadTexture->setPointer(displayTex);
 			_quadObject->draw(delta, _program);
 
+			//glFlush();
+
 			GLuint temp = processTex;
 			processTex = displayTex;
 			displayTex = temp;
