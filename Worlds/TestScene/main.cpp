@@ -162,7 +162,7 @@ int main() {
 
 	rgl::PostProcessingFX noRedFX(noRedFXShaders, 1);
 	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
-	rgl::PostProcessingFX blurFX(blurFXShaders, 1);
+	rgl::PostProcessingFX blurFX(blurFXShaders, 100);
 	rgl::PostProcessingFX sobelFX(sobelFXShaders, 1);
 	rgl::SkyboxFX skyboxFX(skyboxFXShaders, skyboxTex, renderer.getDepthTexture(), &mainCamera);
 
@@ -282,7 +282,7 @@ int main() {
 
 	//renderer.addPostProcessingFX(&noBlueFX);
 
-	renderer.addPostProcessingFX(&blurFX);
+	//renderer.addPostProcessingFX(&blurFX);
 	//renderer.addPostProcessingFX(&sobelFX);
 
 
