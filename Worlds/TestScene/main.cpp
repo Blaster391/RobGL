@@ -33,8 +33,8 @@ int main() {
 
 
 	//Setup world
-	rgl::Shader* colouredVertexShader = new rgl::Shader("Assets/Shaders/testVert.glsl", GL_VERTEX_SHADER);
-	rgl::Shader* colouredFragmentShader = new rgl::Shader("Assets/Shaders/testFrag.glsl", GL_FRAGMENT_SHADER);
+	rgl::Shader* colouredVertexShader = new rgl::Shader("Assets/Shaders/colourVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* colouredFragmentShader = new rgl::Shader("Assets/Shaders/colourFrag.glsl", GL_FRAGMENT_SHADER);
 
 	rgl::Shader* texturedVertexShader = new rgl::Shader("Assets/Shaders/texVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* texturedFragmentShader = new rgl::Shader("Assets/Shaders/texFrag.glsl", GL_FRAGMENT_SHADER);
@@ -250,7 +250,7 @@ int main() {
 	sunNode.addChild(&sunLightNode);
 	sunNode.setPosition(glm::vec3(3, 50, 10));
 	sunNode.setScale(glm::vec3(10, 10, 10));
-	sunLightNode.setScale(glm::vec3(100, 100, 100));
+	sunLightNode.setScale(glm::vec3(10, 10, 10));
 	rgl::RenderObject sun;
 	rgl::PointLight sunLight(glm::vec4(1,1,1,1));
 	sun.setMesh(lightSphereMesh);

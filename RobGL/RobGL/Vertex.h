@@ -5,7 +5,7 @@ namespace rgl {
 	{
 	public:
 		glm::vec3 Position;
-		glm::vec4 Colour;
+		glm::vec4 Colour = glm::vec4(1);
 		glm::vec2 TexCoord;
 		glm::vec3 Normal = glm::vec3(0);
 	};

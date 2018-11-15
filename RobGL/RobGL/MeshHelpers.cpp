@@ -32,7 +32,7 @@ namespace rgl {
 
 		std::vector<Vertex> verticies;
 		std::vector<unsigned int> indices;
-		bool hasNormals = false;
+
 		// Loop over shapes
 		for (size_t s = 0; s < shapes.size(); s++) {
 			// Loop over faces(polygon)
@@ -50,13 +50,7 @@ namespace rgl {
 					tinyobj::real_t vy = attrib.vertices[3 * idx.vertex_index + 1];
 					tinyobj::real_t vz = attrib.vertices[3 * idx.vertex_index + 2];
 					vert.Position = (glm::vec3(vx, vy, vz));
-					if (attrib.normals.size() > 3 * idx.normal_index) {
-						hasNormals = true;
-						tinyobj::real_t nx = attrib.normals[3 * idx.normal_index + 0];
-						tinyobj::real_t ny = attrib.normals[3 * idx.normal_index + 1];
-						tinyobj::real_t nz = attrib.normals[3 * idx.normal_index + 2];
-						vert.Normal = (glm::vec3(nx, ny, nz));
-					}
+					
 					if (attrib.texcoords.size() > 2 * idx.texcoord_index) {
 						tinyobj::real_t tx = attrib.texcoords[2 * idx.texcoord_index + 0];
 						tinyobj::real_t ty = attrib.texcoords[2 * idx.texcoord_index + 1];
@@ -82,9 +76,8 @@ namespace rgl {
 		Mesh* m = new Mesh();
 
 		m->setVerticies(verticies);
-		m->setHasPregeneratedNormals(hasNormals);
-		//TODO indicies
 
+		//Normals are calculated during buffer
 		m->buffer();
 	
 		return m;
