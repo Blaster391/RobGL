@@ -34,11 +34,11 @@ void main(void)	{
 	
 	gl_Position		= projMatrix * viewMatrix * modelMatrix * skinMatrix * vec4(Position, 1.0);
 
-	OUT.worldPos = Position;
+	OUT.worldPos    =  (modelMatrix * vec4(Position,1)).xyz;
 	OUT.texCoords = TexCoords;
 	
 	mat3 normalMatrix = transpose(inverse(mat3(modelMatrix)));
 	
 	OUT.normals = normalize(normalMatrix * Normals);
-	OUT.shadowProj = (shadowMatrix * vec4((OUT.worldPos,1)));
+	OUT.shadowProj = (shadowMatrix * (modelMatrix * vec4(Position,1)));
 }

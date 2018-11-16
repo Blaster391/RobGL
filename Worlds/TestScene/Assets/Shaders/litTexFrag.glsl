@@ -10,6 +10,9 @@ uniform vec3 cameraPos;
 
 uniform int useShadows;
 
+
+uniform mat4 shadowMatrix;
+
 in Vertex	{
 	vec3 worldPos;
 	vec2 texCoords;
@@ -33,6 +36,8 @@ void main(void)	{
 	
 	float rFactor = max(0.0, dot(halfDir,normals));
 	float sFactor = pow(rFactor,50);
+
+	
 	
 	if(useShadows == 1){
 		if(IN.shadowProj.w > 0.0){
@@ -40,19 +45,25 @@ void main(void)	{
 			projCoords = projCoords * 0.5 + 0.5; 
 			float currentDepth = projCoords.z;  
 			float closestDepth = texture(shadowTex, projCoords.xy).r;
-			float bias = 0.005;
+			float bias = max(0.05 * (1.0 - dot(normals, lightDirection)), 0.005);  
 			if(currentDepth - bias > closestDepth){
-				shadow = closestDepth;
+				shadow = 0.10f;
 			}
+			
 		}
 	}
 	
 	//Unlit
 	fragColour[0] = texture(tex,IN.texCoords);
+	
 	//Normals
 	fragColour[1] = vec4(normals,1);
 	//Emissive
 	fragColour[2] = vec4(lightColour.rgb * lambert * shadow, 1);
 	//Specular
 	fragColour[3] = vec4(((lightColour.rgb * sFactor) * 0.33f * shadow),1);
+
+	
+	//FOR DEBUGGING
+	//fragColour[3] = vec4(debug.x,debug.y,debug.z,1);
 }

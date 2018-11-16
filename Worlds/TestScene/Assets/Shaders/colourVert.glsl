@@ -22,5 +22,5 @@ void main(void)	{
 	OUT.worldPos    =  (modelMatrix * vec4(Position,1)).xyz;
 	OUT.colour		= Colour;
 	OUT.normals 	= Normals;
-	OUT.shadowProj = (shadowMatrix * vec4((OUT.worldPos,1)));
+	OUT.shadowProj = (shadowMatrix * (modelMatrix * vec4(Position,1)));
 }

@@ -24,5 +24,5 @@ void main(void)	{
 	
 	mat3 normalMatrix = transpose(inverse(mat3(modelMatrix)));
 	OUT.normals = normalize(normalMatrix * Normals);
-	OUT.shadowProj = (shadowMatrix * vec4((OUT.worldPos,1)));
+	OUT.shadowProj = (shadowMatrix * (modelMatrix * vec4(Position,1)));
 }

@@ -1,5 +1,8 @@
 #include "DirectionalLightUniform.h"
 #include "Camera.h"
+
+#include <iostream>
+
 namespace rgl {
 
 	DirectionalLightUniform::DirectionalLightUniform(glm::vec4 colour, glm::vec3 direction, Camera* shadowPositionCamera) 
@@ -19,7 +22,9 @@ namespace rgl {
 		glUniform3f(glGetUniformLocation(program, "lightPosition"), position.x, position.y, position.z);
 		glUniform3f(glGetUniformLocation(program, "lightDirection"), _direction.x, _direction.y, _direction.z);
 
-		glUniformMatrix4fv(glGetUniformLocation(program, "shadowMatrix"), 1, false, (float*)&(_shadowCamera->getProjectionMatrix() * _shadowCamera->getViewMatrix()));
+		auto shadowMatrix = _shadowCamera->getProjectionMatrix() * _shadowCamera->getViewMatrix();
+
+		glUniformMatrix4fv(glGetUniformLocation(program, "shadowMatrix"), 1, false, (float*)&(shadowMatrix));
 
 
 		//Enable shadows in shader

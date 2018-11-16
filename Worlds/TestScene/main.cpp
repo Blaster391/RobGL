@@ -82,10 +82,12 @@ int main() {
 	rgl::Mesh* hatMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 	rgl::Mesh* floorMesh = rgl::MeshHelpers::GenerateHeightMap(16,16,10, "Assets/Textures/heightmap.png");
 
-	rgl::AnimatedMesh* animatedAndyMesh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	//rgl::AnimatedMesh* animatedAndyMesh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+
+	rgl::Mesh* animatedAndyMesh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/ankyanim.gltf");
+
 	rgl::Mesh* lightSphereMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
-	//rgl::AnimatedMesh* ahhhhhh = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/animationtest2.gltf");
-	//rgl::Mesh* ahhhhhh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/animationtest2.gltf");
+
 
 
 	std::vector<rgl::Shader*> colouredShaders;
@@ -154,13 +156,13 @@ int main() {
 
 	rgl::DirectionalLightCamera directionalLightCamera(glm::vec4(1, 1, 1, 1), glm::vec3(0, 1, 1));
 	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera.getUniformData();
-	directionalLightCamera.setProjectionPerspective();
-	directionalLightCamera.setPosition(glm::vec3(0,100,0));
-	directionalLightCamera.pitch(-1);
+	directionalLightCamera.setProjectionPerspective(5,100);
+	directionalLightCamera.setPosition(glm::vec3(10,20,10));
+	directionalLightCamera.pitch(-3.14 / 3);
 
 	renderer.enablePostProcessing(texturedUnlitShaders);
 	renderer.enableDeferredLighting(pointLightShaders, combineShaders, &mainCamera);
-	renderer.enableShadowMapping(shadowMapShaders, &directionalLightCamera, 512);
+	renderer.enableShadowMapping(shadowMapShaders, &directionalLightCamera, 2160);
 
 	directionalLightUniform->setShadowTexture(renderer.getShadowMapTexture());
 
@@ -233,14 +235,14 @@ int main() {
 	light3.setMesh(lightSphereMesh);
 	renderer.addLight(&light3);
 
-
-	rgl::AnimatedRenderObject roAndy;
+	rgl::RenderObject roAndy;
+	//rgl::AnimatedRenderObject roAndy;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	roAndy.setModelMatrix(roPos);
 	roAndy.setTexture(andyTexture);
 	roAndy.setMesh(animatedAndyMesh);
-	animatedAndyMesh->setActiveAnimation(0);
-	animatedPool.addRenderObject(&roAndy);
+	//animatedAndyMesh->setActiveAnimation(0);
+	texturedPool.addRenderObject(&roAndy);
 	
 
 	rgl::scenes::SceneNode parentNode;
@@ -255,8 +257,8 @@ int main() {
 	colouredPool.addRenderObject(&roChild);
 	parentNode.addChild(&childNode);
 
-	parentNode.setPosition(glm::vec3(0, 0, -5));
-	parentNode.setScale(glm::vec3(10, 10, 10));
+	parentNode.setPosition(glm::vec3(10, 0, 10));
+	parentNode.setScale(glm::vec3(1, 1, 1));
 	childNode.setPosition(glm::vec3(0, 1.7f, 3.3f));
 	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
 
@@ -277,7 +279,7 @@ int main() {
 	//renderer.addLight(&sunLight);
 
 
-	animatedAndyMesh->setGlobalTransform(roAndy.getModelMatrix());
+	//animatedAndyMesh->setGlobalTransform(roAndy.getModelMatrix());
 
 	//rgl::RenderObject roStencil;
 	////roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -1)) * glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
@@ -304,7 +306,8 @@ int main() {
 	renderer.addRenderObjectToShadowPool(&roAndy);
 	renderer.addRenderObjectToShadowPool(&ro);
 	renderer.addRenderObjectToShadowPool(&roFloor);
-	
+	renderer.addRenderObjectToShadowPool(&roChild);
+
 	bool bilinear = false;
 	bool scissor = false;
 	bool stencil = false;
@@ -314,6 +317,7 @@ int main() {
 	t.start();
 
 	while (!finished) {
+
 		float delta = t.delta();
 		w.update(delta);
 		i.update(delta);
