@@ -25,13 +25,9 @@ namespace rgl {
 		_projectionMatrix =  glm::perspective(fov, (float)width / (float)height, n, f);
 	}
 
-	void Camera::setProjectionOrthographic()
+	void Camera::setProjectionOrthographic(float n, float f, float width, float height)
 	{
-
-		//TODO remove hardcoded stuffs
-		int width = 800;
-		int height = 600;
-		_projectionMatrix = glm::ortho(-width / 2.0f, width / 2.0f,  -height / 2.0f, height / 2.0f, 0.1f, 10.0f);
+		_projectionMatrix = glm::ortho(-width / 2.0f, width / 2.0f,  -height / 2.0f, height / 2.0f, n, f);
 	}
 	glm::mat4x4 Camera::getViewMatrix()
 	{
@@ -103,5 +99,13 @@ namespace rgl {
 	glm::vec3 Camera::getPosition()
 	{
 		return _position;
+	}
+	glm::vec3 Camera::getDirection()
+	{
+		glm::vec3 direction;
+		direction.x = cos(_yaw)*cos(_pitch);
+		direction.y = sin(_yaw)*cos(_pitch);
+		direction.z = sin(_pitch);
+		return direction;
 	}
 }

@@ -18,6 +18,8 @@ namespace rgl {
 
 		auto position = _shadowCamera->getPosition();
 
+		glm::vec3 direction = _shadowCamera->getDirection();
+
 		glUniform4f(glGetUniformLocation(program, "lightColour"), _colour.r, _colour.g, _colour.b, _colour.a);
 		glUniform3f(glGetUniformLocation(program, "lightPosition"), position.x, position.y, position.z);
 		glUniform3f(glGetUniformLocation(program, "lightDirection"), _direction.x, _direction.y, _direction.z);

@@ -17,7 +17,7 @@ namespace rgl {
 
 		void setProjection(glm::mat4 projection);
 		void setProjectionPerspective(float n = 0.1f, float f = 1000.0f, float fov = 45.0f);
-		void setProjectionOrthographic();
+		void setProjectionOrthographic(float n = 0.1f, float f = 1000.0f, float width = 800, float height = 600);
 
 		virtual glm::mat4x4 getViewMatrix();
 		virtual glm::mat4x4 getProjectionMatrix() { return _projectionMatrix; }
@@ -30,6 +30,7 @@ namespace rgl {
 		Frustum getFrustum();
 
 		glm::vec3 getPosition();
+		glm::vec3 getDirection();
 
 	private:
 		glm::mat4x4 _projectionMatrix;
