@@ -20,8 +20,8 @@ namespace rgl {
 
 	void LightPool::drawData(float delta)
 	{
-		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
+		//glClearColor(0, 0, 0, 1);
+		//glClear(GL_COLOR_BUFFER_BIT);
 
 		glCullFace(GL_FRONT);
 		glBlendFunc(GL_ONE, GL_ONE);
@@ -37,10 +37,6 @@ namespace rgl {
 
 		//TODO !!!
 		glUniform2f(glGetUniformLocation(_program, "pixelSize"), 1.0f / 800, 1.0f / 600);
-
-		auto cameraPos = _camera->getPosition();
-
-		glUniform3f(glGetUniformLocation(_program, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
 
 		for (auto& l : _renderObjects) {
 			l->draw(delta, _program);

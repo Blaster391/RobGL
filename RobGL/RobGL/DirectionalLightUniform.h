@@ -7,14 +7,14 @@ namespace rgl {
 		public BaseUniform
 	{
 	public:
-		DirectionalLightUniform(glm::vec4 colour, glm::vec3 position, glm::mat4 rotation);
+		DirectionalLightUniform(glm::vec4 colour, glm::vec3 position, glm::vec3 direction);
 		~DirectionalLightUniform();
 
 		virtual void apply(GLuint program) override;
 	private:
 		glm::vec4 _colour;
 		glm::vec3 _position;
-		glm::mat4 _rotation;
+		glm::vec3 _direction;
 
 	};
 }

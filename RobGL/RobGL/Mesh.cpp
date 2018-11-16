@@ -104,9 +104,9 @@ namespace rgl {
 	{
 		_useIndicies = (_indicies.size() > 0);
 
-		if (!_hasPregeneratedNormals) {
-			generateNormals();
-		}
+
+		generateNormals();
+		
 
 		glGenBuffers(1, &_bufferObject);
 

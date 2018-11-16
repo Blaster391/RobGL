@@ -13,7 +13,7 @@
 
 #include <RobGL_SceneGraph\SceneNode.h>
 #include <RobGL/SkyboxFX.h>
-#include <RobGL/DirectionalLightUniform.h>
+#include <RobGL/DirectionalLightCamera.h>
 
 int main() {
 	Window w;
@@ -38,6 +38,7 @@ int main() {
 
 	rgl::Shader* texturedVertexShader = new rgl::Shader("Assets/Shaders/texVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* texturedFragmentShader = new rgl::Shader("Assets/Shaders/texFrag.glsl", GL_FRAGMENT_SHADER);
+	rgl::Shader* litTexturedFragmentShader = new rgl::Shader("Assets/Shaders/litTexFrag.glsl", GL_FRAGMENT_SHADER);
 
 	rgl::Shader* animatedVertexShader = new rgl::Shader("Assets/Shaders/animatedVert.glsl", GL_VERTEX_SHADER);
 
@@ -90,7 +91,7 @@ int main() {
 
 	std::vector<rgl::Shader*> texturedShaders;
 	texturedShaders.push_back(texturedVertexShader);
-	texturedShaders.push_back(texturedFragmentShader);
+	texturedShaders.push_back(litTexturedFragmentShader);
 
 	std::vector<rgl::Shader*> stencilShaders;
 	stencilShaders.push_back(stencilVertexShader);
@@ -98,7 +99,7 @@ int main() {
 
 	std::vector<rgl::Shader*> animatedShaders;
 	animatedShaders.push_back(animatedVertexShader);
-	animatedShaders.push_back(texturedFragmentShader);
+	animatedShaders.push_back(litTexturedFragmentShader);
 
 	std::vector<rgl::Shader*> noRedFXShaders;
 	noRedFXShaders.push_back(texturedVertexShaderNoMVP);
@@ -124,6 +125,10 @@ int main() {
 	pointLightShaders.push_back(pointLightVertShader);
 	pointLightShaders.push_back(pointLightFragShader);
 
+	std::vector<rgl::Shader*> texturedUnlitShaders;
+	texturedUnlitShaders.push_back(texturedVertexShader);
+	texturedUnlitShaders.push_back(texturedFragmentShader);
+
 
 	std::vector<rgl::Shader*>skyboxFXShaders;
 	skyboxFXShaders.push_back(skyboxFXVertShader);
@@ -141,24 +146,25 @@ int main() {
 	glm::vec3 uiPos(0, 0, 0);
 	uiCamera.setPosition(uiPos);
 
-	renderer.enablePostProcessing(texturedShaders);
-	renderer.enableLighting(pointLightShaders, combineShaders, &mainCamera);
+	renderer.enablePostProcessing(texturedUnlitShaders);
+	renderer.enableDeferredLighting(pointLightShaders, combineShaders, &mainCamera);
 
 	CameraController cameraController(&mainCamera, &i);
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
-	rgl::DirectionalLightUniform directionalLightUniform(glm::vec4(1,1,0,1),glm::vec3(0,100,0), glm::rotate(glm::mat4(1), 0.0f, glm::vec3(0,0,0)));
+	rgl::DirectionalLightCamera directionalLightCamera(glm::vec4(1,1,1,1),glm::vec3(0,100,0), glm::vec3(0, 1,1));
+	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera.getUniformData();
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
 	rgl::RenderPool animatedPool(animatedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
 
-	colouredPool.addUniformData(&directionalLightUniform);
-	texturedPool.addUniformData(&directionalLightUniform);
-	animatedPool.addUniformData(&directionalLightUniform);
-	transparentTexturedPool.addUniformData(&directionalLightUniform);
+	colouredPool.addUniformData(directionalLightUniform);
+	texturedPool.addUniformData(directionalLightUniform);
+	animatedPool.addUniformData(directionalLightUniform);
+	transparentTexturedPool.addUniformData(directionalLightUniform);
 
 	rgl::PostProcessingFX noRedFX(noRedFXShaders, 1);
 	rgl::PostProcessingFX noBlueFX(noBlueFXShaders, 1);
@@ -216,7 +222,6 @@ int main() {
 	renderer.addLight(&light3);
 
 
-
 	rgl::AnimatedRenderObject roAndy;
 	roPos = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2)) * glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10));
 	roAndy.setModelMatrix(roPos);
@@ -224,7 +229,6 @@ int main() {
 	roAndy.setMesh(animatedAndyMesh);
 	animatedAndyMesh->setActiveAnimation(0);
 	animatedPool.addRenderObject(&roAndy);
-
 	
 
 	rgl::scenes::SceneNode parentNode;
@@ -245,20 +249,20 @@ int main() {
 	childNode.setScale(glm::vec3(0.03f, 0.03f, 0.03f));
 
 
-	rgl::scenes::SceneNode sunNode;
-	rgl::scenes::SceneNode sunLightNode;
-	sunNode.addChild(&sunLightNode);
-	sunNode.setPosition(glm::vec3(3, 50, 10));
-	sunNode.setScale(glm::vec3(10, 10, 10));
-	sunLightNode.setScale(glm::vec3(100, 100, 100));
-	rgl::RenderObject sun;
-	rgl::PointLight sunLight(glm::vec4(1,1,1,1));
-	sun.setMesh(lightSphereMesh);
-	sunLight.setMesh(lightSphereMesh);
-	sunNode.attachRenderObject(&sun);
-	sunLightNode.attachRenderObject(&sunLight);
-	colouredPool.addRenderObject(&sun);
-	renderer.addLight(&sunLight);
+	//rgl::scenes::SceneNode sunNode;
+	//rgl::scenes::SceneNode sunLightNode;
+	//sunNode.addChild(&sunLightNode);
+	//sunNode.setPosition(glm::vec3(3, 50, 10));
+	//sunNode.setScale(glm::vec3(10, 10, 10));
+	//sunLightNode.setScale(glm::vec3(100, 100, 100));
+	//rgl::RenderObject sun;
+	//rgl::PointLight sunLight(glm::vec4(1,1,1,1));
+	//sun.setMesh(lightSphereMesh);
+	//sunLight.setMesh(lightSphereMesh);
+	//sunNode.attachRenderObject(&sun);
+	//sunLightNode.attachRenderObject(&sunLight);
+	//colouredPool.addRenderObject(&sun);
+	//renderer.addLight(&sunLight);
 
 
 	animatedAndyMesh->setGlobalTransform(roAndy.getModelMatrix());

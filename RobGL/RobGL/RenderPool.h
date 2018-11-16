@@ -8,7 +8,7 @@
 #include "BaseUniform.h"
 
 namespace rgl {
-	//TODO split into more classes - make it "CameraRenderPool"/"UI Render Pool" etc
+
 	class RenderPool
 	{
 	public:
@@ -45,9 +45,6 @@ namespace rgl {
 
 		bool _scissor = false;
 		Box _scissorBounds;
-
-		GLuint _viewMatrixPosition;
-		GLuint _projectionMatrixPosition;
 
 		bool _frustumCulling = true;
 

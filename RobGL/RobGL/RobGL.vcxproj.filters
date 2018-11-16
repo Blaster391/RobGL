@@ -51,7 +51,7 @@
     <Filter Include="RenderPools\Lighting">
       <UniqueIdentifier>{5774245b-16c8-4e2a-9923-dd4f758756ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Uniforms">
+    <Filter Include="Shaders\Uniforms">
       <UniqueIdentifier>{c139b73b-66f9-45c0-bb49-aaaf5c1c15d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -168,10 +168,10 @@
       <Filter>PostProcessingFX</Filter>
     </ClInclude>
     <ClInclude Include="BaseUniform.h">
-      <Filter>Uniforms</Filter>
+      <Filter>Shaders\Uniforms</Filter>
     </ClInclude>
     <ClInclude Include="DirectionalLightUniform.h">
-      <Filter>Uniforms</Filter>
+      <Filter>Shaders\Uniforms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,10 +275,10 @@
       <Filter>PostProcessingFX</Filter>
     </ClCompile>
     <ClCompile Include="BaseUniform.cpp">
-      <Filter>Uniforms</Filter>
+      <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
     <ClCompile Include="DirectionalLightUniform.cpp">
-      <Filter>Uniforms</Filter>
+      <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

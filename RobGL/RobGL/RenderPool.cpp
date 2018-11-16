@@ -19,11 +19,6 @@ namespace rgl {
 			glGetProgramInfoLog(_program, sizeof(error), NULL, error);
 			std::cout << error << std::endl;
 		}
-
-		glUseProgram(_program);
-		_viewMatrixPosition = glGetUniformLocation(_program, "viewMatrix");
-		_projectionMatrixPosition = glGetUniformLocation(_program, "projMatrix");
-		glUseProgram(0);
 	}
 
 	RenderPool::~RenderPool()
@@ -69,8 +64,10 @@ namespace rgl {
 
 	void RenderPool::setUniforms()
 	{
-		glUniformMatrix4fv(_viewMatrixPosition, 1, false, (float*)&_camera->getViewMatrix());
-		glUniformMatrix4fv(_projectionMatrixPosition, 1, false, (float*)&_camera->getProjectionMatrix());
+		glUniformMatrix4fv(glGetUniformLocation(_program, "viewMatrix"), 1, false, (float*)&_camera->getViewMatrix());
+		glUniformMatrix4fv(glGetUniformLocation(_program, "projMatrix"), 1, false, (float*)&_camera->getProjectionMatrix());
+		glm::vec3 cameraPos = _camera->getPosition();
+		glUniform3f(glGetUniformLocation(_program, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
 		for (auto& u : _uniforms) {
 			u->apply(_program);
 		}

@@ -14,6 +14,7 @@ layout(location = 4) in vec4 Joints;
 layout(location = 5) in vec4 Weights;
 
 out Vertex	{
+	vec3 worldPos;
 	vec2 texCoords;
 	vec3 normals;
 } OUT;
@@ -29,6 +30,7 @@ void main(void)	{
 	
 	gl_Position		= projMatrix * viewMatrix * modelMatrix * skinMatrix * vec4(Position, 1.0);
 
+	OUT.worldPos = Position;
 	OUT.texCoords = TexCoords;
 	
 	mat3 normalMatrix = transpose(inverse(mat3(modelMatrix)));
