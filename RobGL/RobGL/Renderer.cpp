@@ -66,6 +66,7 @@ namespace rgl {
 	{
 		setupShadowMap(shadowMapSize);
 		_shadowmapPool = new ShadowmapPool(shadowShaders, shadowViewport);
+		_shadowMap = true;
 	}
 
 
@@ -79,15 +80,16 @@ namespace rgl {
 
 	void Renderer::update(float delta)
 	{
+		if (_shadowMap) {
+			drawShadows(delta);
+		}
+
 		if (_postProcess) {
 			bindFrameBuffers();
 		}
 
 		clearBuffers();
 
-		if (_shadowMap) {
-			drawShadows(delta);
-		}
 
 		for (auto& pool : _renderPools) {
 			pool->draw(delta);
@@ -284,6 +286,7 @@ namespace rgl {
 	void Renderer::drawShadows(float delta)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, _shadowFBO);
+		glEnable(GL_DEPTH_TEST);
 		glViewport(0, 0, _shadowMapSize, _shadowMapSize);
 		_shadowmapPool->draw(delta);
 		glViewport(0, 0, _window.getCurrentWidth(), _window.getCurrentHeight());

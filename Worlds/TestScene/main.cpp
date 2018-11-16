@@ -156,7 +156,7 @@ int main() {
 	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera.getUniformData();
 	directionalLightCamera.setProjectionPerspective();
 	directionalLightCamera.setPosition(glm::vec3(0,100,0));
-	directionalLightCamera.pitch(1);
+	directionalLightCamera.pitch(-1);
 
 	renderer.enablePostProcessing(texturedUnlitShaders);
 	renderer.enableDeferredLighting(pointLightShaders, combineShaders, &mainCamera);

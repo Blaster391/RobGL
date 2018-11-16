@@ -19,7 +19,7 @@ namespace rgl {
 		glUniform3f(glGetUniformLocation(program, "lightPosition"), position.x, position.y, position.z);
 		glUniform3f(glGetUniformLocation(program, "lightDirection"), _direction.x, _direction.y, _direction.z);
 
-		glUniformMatrix4fv(glGetUniformLocation(program, "shadowMatrix"), 1, false, (float*)&_shadowCamera->getViewMatrix());
+		glUniformMatrix4fv(glGetUniformLocation(program, "shadowMatrix"), 1, false, (float*)&(_shadowCamera->getProjectionMatrix() * _shadowCamera->getViewMatrix()));
 
 
 		//Enable shadows in shader

@@ -35,7 +35,14 @@ void main(void)	{
 	
 	if(useShadows == 1){
 		if(IN.shadowProj.w > 0.0){
-		//	shadow = textureProj(shadowTex, IN.shadowProj);
+			vec3 projCoords = IN.shadowProj.xyz / IN.shadowProj.w;
+			projCoords = projCoords * 0.5 + 0.5; 
+			float currentDepth = projCoords.z;  
+			float closestDepth = texture(shadowTex, projCoords.xy).r;
+			float bias = 0.005;
+			if(currentDepth - bias > closestDepth){
+				shadow = closestDepth;
+			}
 		}
 	}
 	
