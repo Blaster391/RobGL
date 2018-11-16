@@ -140,6 +140,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CombinePool.h" />
     <ClInclude Include="Cubemap.h" />
+    <ClInclude Include="DirectionalLightCamera.h" />
     <ClInclude Include="DirectionalLightUniform.h" />
     <ClInclude Include="FallbackShaders.h" />
     <ClInclude Include="FixedScreenCamera.h" />
@@ -158,6 +159,8 @@
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="RenderPool.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShadowmapPool.h" />
+    <ClInclude Include="ShadowMatrixUniform.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SkyboxFX.h" />
     <ClInclude Include="StencilPool.h" />
@@ -180,6 +183,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CombinePool.cpp" />
     <ClCompile Include="Cubemap.cpp" />
+    <ClCompile Include="DirectionalLightCamera.cpp" />
     <ClCompile Include="DirectionalLightUniform.cpp" />
     <ClCompile Include="FallbackShaders.cpp" />
     <ClCompile Include="FixedScreenCamera.cpp" />
@@ -197,6 +201,8 @@
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="RenderPool.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShadowmapPool.cpp" />
+    <ClCompile Include="ShadowMatrixUniform.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SkyboxFX.cpp" />
     <ClCompile Include="StencilPool.cpp" />

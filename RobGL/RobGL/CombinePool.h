@@ -4,7 +4,7 @@ namespace rgl {
 	class CombinePool : public RenderPool
 	{
 	public:
-		CombinePool(const std::vector<Shader*>& shaders, GLuint& bufferColourTex, GLuint emissiveTex, GLuint specularTex, bool useShadows = false, GLuint shadowTex = 0);
+		CombinePool(const std::vector<Shader*>& shaders, GLuint& bufferColourTex, GLuint emissiveTex, GLuint specularTex);
 		~CombinePool();
 
 
@@ -16,8 +16,6 @@ namespace rgl {
 		GLuint& _bufferColourTex;
 		GLuint _emissiveTex;
 		GLuint _specularTex;
-		GLuint _shadowTex;
-		bool _useShadows;
 	};
 
 }

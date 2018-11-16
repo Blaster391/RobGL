@@ -173,6 +173,15 @@
     <ClInclude Include="DirectionalLightUniform.h">
       <Filter>Shaders\Uniforms</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowmapPool.h">
+      <Filter>RenderPools\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLightCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMatrixUniform.h">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -278,6 +287,15 @@
       <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
     <ClCompile Include="DirectionalLightUniform.cpp">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowmapPool.cpp">
+      <Filter>RenderPools\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLightCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMatrixUniform.cpp">
       <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
   </ItemGroup>

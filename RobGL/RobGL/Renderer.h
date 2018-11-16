@@ -18,7 +18,7 @@ namespace rgl {
 
 		void enablePostProcessing(std::vector<Shader*> toScreenShaders);
 		void enableDeferredLighting(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* camera);
-		void enableShadowMapping(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* shadowViewport);
+		void enableShadowMapping(std::vector<Shader*>& shadowShaders, Camera* shadowViewport, int shadowMapSize);
 
 		void update(float delta);
 
@@ -26,6 +26,10 @@ namespace rgl {
 		void addLight(PointLight* light);
 		void addRenderPool(RenderPool* rp);
 		void addPostProcessingFX(PostProcessingFX* fx);
+
+		void addRenderObjectToShadowPool(RenderObject* ro);
+
+		GLuint getShadowMapTexture() { return _shadowTex; }
 
 		Texture* getDepthTexture();
 
@@ -44,7 +48,6 @@ namespace rgl {
 		void freeFramebuffers();
 
 		void drawShadows(float delta);
-		void combineShadowBuffers(float delta);
 		void drawLights(float delta);
 		void combineLightBuffers(float delta);
 
@@ -73,7 +76,6 @@ namespace rgl {
 		Window _window;
 		ToScreenRenderPool* _toScreenRenderPool;
 		LightPool* _lightPool;
-		CombinePool* _shadowCombinePool;
 		CombinePool* _lightCombinePool;
 		glm::vec4 _ambientColour;
 
@@ -83,6 +85,7 @@ namespace rgl {
 
 		int _shadowMapSize;
 		ShadowmapPool* _shadowmapPool;
+
 	};
 }
 

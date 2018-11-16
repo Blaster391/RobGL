@@ -6,7 +6,7 @@ namespace rgl {
 		public Camera
 	{
 	public:
-		DirectionalLightCamera(glm::vec4 colour, glm::vec3 position, glm::vec3 direction);
+		DirectionalLightCamera(glm::vec4 colour, glm::vec3 direction);
 		~DirectionalLightCamera();
 
 		DirectionalLightUniform* getUniformData() { return _uniformData; }

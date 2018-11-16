@@ -2,9 +2,9 @@
 namespace rgl {
 
 
-	DirectionalLightCamera::DirectionalLightCamera(glm::vec4 colour, glm::vec3 position, glm::vec3 direction) : Camera()
+	DirectionalLightCamera::DirectionalLightCamera(glm::vec4 colour, glm::vec3 direction) : Camera()
 	{
-		_uniformData = new DirectionalLightUniform(colour, position, direction);
+		_uniformData = new DirectionalLightUniform(colour, direction, this);
 	}
 
 

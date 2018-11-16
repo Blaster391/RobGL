@@ -54,9 +54,12 @@ int main() {
 	rgl::Shader* skyboxFXVertShader = new rgl::Shader("Assets/Shaders/skyboxVertFX.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* skyboxFXFragShader = new rgl::Shader("Assets/Shaders/skyboxFragFX.glsl", GL_FRAGMENT_SHADER);
 
+	rgl::Shader* shadowMapVertShader = new rgl::Shader("Assets/Shaders/shadowMapVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* shadowMapFragShader = new rgl::Shader("Assets/Shaders/shadowMapFrag.glsl", GL_FRAGMENT_SHADER);
 
 	rgl::Shader* pointLightVertShader = new rgl::Shader("Assets/Shaders/pointLightVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* pointLightFragShader = new rgl::Shader("Assets/Shaders/pointLightFrag.glsl", GL_FRAGMENT_SHADER);
+
 	rgl::Shader* combineVertShader = new rgl::Shader("Assets/Shaders/combineVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* combineFragShader = new rgl::Shader("Assets/Shaders/combineFrag.glsl", GL_FRAGMENT_SHADER);
 
@@ -129,6 +132,9 @@ int main() {
 	texturedUnlitShaders.push_back(texturedVertexShader);
 	texturedUnlitShaders.push_back(texturedFragmentShader);
 
+	std::vector<rgl::Shader*> shadowMapShaders;
+	shadowMapShaders.push_back(shadowMapVertShader);
+	shadowMapShaders.push_back(shadowMapFragShader);
 
 	std::vector<rgl::Shader*>skyboxFXShaders;
 	skyboxFXShaders.push_back(skyboxFXVertShader);
@@ -146,15 +152,21 @@ int main() {
 	glm::vec3 uiPos(0, 0, 0);
 	uiCamera.setPosition(uiPos);
 
+	rgl::DirectionalLightCamera directionalLightCamera(glm::vec4(1, 1, 1, 1), glm::vec3(0, 1, 1));
+	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera.getUniformData();
+	directionalLightCamera.setProjectionPerspective();
+	directionalLightCamera.setPosition(glm::vec3(0,100,0));
+	directionalLightCamera.pitch(1);
+
 	renderer.enablePostProcessing(texturedUnlitShaders);
 	renderer.enableDeferredLighting(pointLightShaders, combineShaders, &mainCamera);
+	renderer.enableShadowMapping(shadowMapShaders, &directionalLightCamera, 512);
+
+	directionalLightUniform->setShadowTexture(renderer.getShadowMapTexture());
 
 	CameraController cameraController(&mainCamera, &i);
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
-
-	rgl::DirectionalLightCamera directionalLightCamera(glm::vec4(1,1,1,1),glm::vec3(0,100,0), glm::vec3(0, 1,1));
-	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera.getUniformData();
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
@@ -289,7 +301,10 @@ int main() {
 	//renderer.addPostProcessingFX(&blurFX);
 	//renderer.addPostProcessingFX(&sobelFX);
 
-
+	renderer.addRenderObjectToShadowPool(&roAndy);
+	renderer.addRenderObjectToShadowPool(&ro);
+	renderer.addRenderObjectToShadowPool(&roFloor);
+	
 	bool bilinear = false;
 	bool scissor = false;
 	bool stencil = false;

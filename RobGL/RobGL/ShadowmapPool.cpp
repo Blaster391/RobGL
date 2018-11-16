@@ -1,10 +1,10 @@
 #include "ShadowmapPool.h"
 
 namespace rgl {
-	ShadowmapPool::ShadowmapPool()
+
+	ShadowmapPool::ShadowmapPool(const std::vector<Shader*>& shaders, Camera * c) : RenderPool(shaders, c)
 	{
 	}
-
 
 	ShadowmapPool::~ShadowmapPool()
 	{
@@ -16,7 +16,6 @@ namespace rgl {
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 
 		RenderPool::drawData(delta);
-
 
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	}

@@ -6,6 +6,7 @@ in Vertex	{
 	vec3 worldPos;
 	vec2 texCoords;
 	vec3 normals;
+	vec4 shadowProj;
 } IN;
 
 out vec4 fragColour[4];

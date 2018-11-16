@@ -4,7 +4,7 @@ namespace rgl {
 	class ShadowmapPool : public RenderPool
 	{
 	public:
-		ShadowmapPool();
+		ShadowmapPool(const std::vector<Shader*>& shaders, Camera* c);
 		~ShadowmapPool();
 
 		virtual void drawData(float delta) override;

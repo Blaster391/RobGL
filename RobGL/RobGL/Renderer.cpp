@@ -62,6 +62,12 @@ namespace rgl {
 		glEnable(GL_DEPTH_TEST);
 	}
 
+	void Renderer::enableShadowMapping(std::vector<Shader*>& shadowShaders, Camera * shadowViewport, int shadowMapSize)
+	{
+		setupShadowMap(shadowMapSize);
+		_shadowmapPool = new ShadowmapPool(shadowShaders, shadowViewport);
+	}
+
 
 	Renderer::~Renderer()
 	{
@@ -78,6 +84,10 @@ namespace rgl {
 		}
 
 		clearBuffers();
+
+		if (_shadowMap) {
+			drawShadows(delta);
+		}
 
 		for (auto& pool : _renderPools) {
 			pool->draw(delta);
@@ -126,6 +136,11 @@ namespace rgl {
 		_postFX.push_back(fx);
 	}
 
+	void Renderer::addRenderObjectToShadowPool(RenderObject * ro)
+	{
+		_shadowmapPool->addRenderObject(ro);
+	}
+
 	Texture * Renderer::getDepthTexture()
 	{
 		return new Texture(_bufferDepthTex,false);
@@ -170,9 +185,7 @@ namespace rgl {
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _shadowMapSize, _shadowMapSize,0,GL_DEPTH_COMPONENT,GL_FLOAT,nullptr);
-
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _shadowMapSize, _shadowMapSize,0, GL_DEPTH_COMPONENT,GL_FLOAT,nullptr);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -274,13 +287,6 @@ namespace rgl {
 		glViewport(0, 0, _shadowMapSize, _shadowMapSize);
 		_shadowmapPool->draw(delta);
 		glViewport(0, 0, _window.getCurrentWidth(), _window.getCurrentHeight());
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-
-	void Renderer::combineShadowBuffers(float delta)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, _bufferFBO);
-		_shadowCombinePool->draw(delta);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
