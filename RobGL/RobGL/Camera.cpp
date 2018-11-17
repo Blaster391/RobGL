@@ -17,11 +17,8 @@ namespace rgl {
 		_projectionMatrix = projection;
 	}
 
-	void Camera::setProjectionPerspective(float n, float f, float fov)
+	void Camera::setProjectionPerspective(float width, float height, float n, float f, float fov)
 	{
-		//TODO remove hardcoded stuffs
-		int width = 800;
-		int height = 600;
 		_projectionMatrix =  glm::perspective(fov, (float)width / (float)height, n, f);
 	}
 

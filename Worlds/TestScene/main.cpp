@@ -147,9 +147,8 @@ int main() {
 	skyboxFXShaders.push_back(skyboxFXFragShader);
 
 
-	//TODO camera to camera controller
 	rgl::Camera mainCamera;
-	mainCamera.setProjectionPerspective();
+	mainCamera.setProjectionPerspective(800,600);
 	glm::vec3 cameraPos(0, 0, 10);
 	mainCamera.setPosition(cameraPos);
 
@@ -315,7 +314,7 @@ int main() {
 
 	auto resizeCallback = [&](int width, int height) {
 		std::cout << "Window resized" << std::endl;
-
+		mainCamera.setProjectionPerspective(width, height);
 		renderer.resize(width, height);
 
 	};
@@ -326,6 +325,8 @@ int main() {
 	bool scissor = false;
 	bool stencil = false;
 	bool stencil2 = false;
+
+	bool windowed = true;
 
 	Timer t;
 	t.start();
@@ -356,6 +357,16 @@ int main() {
 			scissor = !scissor;
 			texturedPool.setScissor(scissor);
 			texturedPool.setScissorBounds({200,200,100,100});
+		}
+
+		if (i.isKeyPressed(InputButton::KEYBOARD_O)) {
+			windowed = !windowed;
+			if (windowed) {
+				w.setWindowedMode();
+			}
+			else {
+				w.setFullScreen();
+			}
 		}
 
 		//if (i.isKeyPressed(InputButton::KEYBOARD_J)) {

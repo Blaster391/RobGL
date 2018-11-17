@@ -19,7 +19,7 @@ void CameraController::update(float delta)
 		_camera->setProjectionOrthographic();
 	}
 	if (_input->isKeyPressed(InputButton::KEYBOARD_R)) {
-		_camera->setProjectionPerspective();
+		_camera->setProjectionPerspective(800,600);
 	}		
 	if (_input->isKeyHeld(InputButton::KEYBOARD_W)) {
 		_camera->translate(-glm::normalize(pos[2]) * delta);

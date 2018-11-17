@@ -46,6 +46,19 @@ public:
 	void showCursor() {
 		glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
+
+	void setFullScreen() {
+
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		glfwSetWindowMonitor(_window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+
+	}
+
+	void setWindowedMode() {
+		glfwSetWindowMonitor(_window, nullptr, 10, 10, DEFAULT_WIDTH, DEFAULT_HEIGHT, 0);
+	}
+
 private:
 	GLFWwindow* _window;
 
