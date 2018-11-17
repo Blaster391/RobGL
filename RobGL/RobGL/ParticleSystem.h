@@ -12,6 +12,9 @@ namespace rgl {
 
 		virtual void draw(float delta);
 
+		float getParticleSize();
+		void setParticleSize(float size);
+
 		void setModelMatrix(glm::mat4x4 modelMatrix);
 		glm::mat4 getModelMatrix();
 	private:
@@ -19,6 +22,8 @@ namespace rgl {
 		GLuint _particleBuffer;
 		Vertex* _vertexBufferData;
 		int _numberOfParticles;
+
+		float _particleSize = 0.1f;
 
 		glm::mat4x4 _modelMatrix;
 	};

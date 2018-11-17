@@ -59,13 +59,23 @@ namespace rgl {
 			colour = 0;
 		}
 		for (int i = 0; i < _numberOfParticles; ++i) {
-			_vertexBufferData[i].Position = glm::vec3(colour, i * colour, 0);
+			_vertexBufferData[i].Position = glm::vec3(sin(colour * i), i * colour, 0);
 			_vertexBufferData[i].Colour = glm::vec4(colour, 0, 1, 1);
+
+
 		}
 
 		glDrawArrays(GL_POINTS, 0, _numberOfParticles);
 		//glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+	}
+	float ParticleSystem::getParticleSize()
+	{
+		return _particleSize;
+	}
+	void ParticleSystem::setParticleSize(float size)
+	{
+		_particleSize = size;
 	}
 	void ParticleSystem::setModelMatrix(glm::mat4x4 modelMatrix)
 	{

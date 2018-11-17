@@ -184,7 +184,7 @@ int main() {
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
-	rgl::ParticleSystem fireParticles(10);
+	rgl::ParticleSystem fireParticles(10000);
 	fireParticles.setModelMatrix(glm::mat4(1));
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);

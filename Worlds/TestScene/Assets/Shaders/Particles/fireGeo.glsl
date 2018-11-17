@@ -4,6 +4,8 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 
+uniform float particleSize;
+
 layout(points) in;
 layout(triangle_strip, max_vertices = 4) out;
 
@@ -20,35 +22,34 @@ out Vertex	{
 
 void main(void)	{
 
-	for(int i = 0; i < gl_in.length(); ++i){
 
-		gl_Position = gl_in[i].gl_Position;
-		OUT.colour = IN[0].colour;
-		OUT.normals = IN[0].normals;
-		OUT.texCoords = vec2(0,0);
-		EmitVertex();
-		
-		gl_Position = gl_in[i].gl_Position + vec4(0.1,0,0,1);
-		OUT.colour = IN[0].colour;
-		OUT.normals = IN[0].normals;
-		OUT.texCoords = vec2(0,0);
-		EmitVertex();
+	gl_Position = gl_in[0].gl_Position + vec4(particleSize,particleSize,0,1);
+	OUT.colour = IN[0].colour;
+	OUT.normals = IN[0].normals;
+	OUT.texCoords = vec2(0,0);
+	EmitVertex();
+	
+	gl_Position = gl_in[0].gl_Position + vec4(-particleSize,particleSize,0,1);
+	OUT.colour = IN[0].colour;
+	OUT.normals = IN[0].normals;
+	OUT.texCoords = vec2(0,0);
+	EmitVertex();
 
-		
-		gl_Position = gl_in[i].gl_Position + vec4(0,0.1,0,1);
-		OUT.colour = IN[0].colour;
-		OUT.normals = IN[0].normals;
-		OUT.texCoords = vec2(0,0);
-		EmitVertex();
-		
-		gl_Position = gl_in[i].gl_Position + vec4(0.1,0.1,0,1);
-		OUT.colour = IN[0].colour;
-		OUT.normals = IN[0].normals;
-		OUT.texCoords = vec2(0,0);
-		EmitVertex();
-		
-		
-		EndPrimitive();
-	}
+	
+	gl_Position = gl_in[0].gl_Position + vec4(particleSize,-particleSize,0,1);
+	OUT.colour = IN[0].colour;
+	OUT.normals = IN[0].normals;
+	OUT.texCoords = vec2(0,0);
+	EmitVertex();
+	
+	gl_Position = gl_in[0].gl_Position + vec4(-particleSize,-particleSize,0,1);
+	OUT.colour = IN[0].colour;
+	OUT.normals = IN[0].normals;
+	OUT.texCoords = vec2(0,0);
+	EmitVertex();
+	
+	
+	EndPrimitive();
+	
 	
 }
