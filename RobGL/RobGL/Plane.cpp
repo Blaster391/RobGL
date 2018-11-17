@@ -1,5 +1,6 @@
 #include "Plane.h"
 #include <External/glm/geometric.hpp>
+
 namespace rgl {
 
 	Plane::Plane(const glm::vec4 & normal, bool normalise)
@@ -26,6 +27,7 @@ namespace rgl {
 	Plane::~Plane()
 	{
 	}
+
 	glm::vec3 Plane::getNormal()
 	{
 		return _normal;

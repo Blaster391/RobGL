@@ -11,6 +11,6 @@ namespace rgl {
 		bool insideFrustum(glm::vec3 position);
 		~Frustum();
 	protected:
-		Plane* _planes;
+		Plane _planes[6];
 	};
 }

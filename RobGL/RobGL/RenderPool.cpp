@@ -101,6 +101,7 @@ namespace rgl {
 				r->draw(delta, _program);
 			}
 		}
+
 	}
 	void RenderPool::endDraw()
 	{

@@ -5,8 +5,7 @@
 namespace rgl {
 
 
-	Frustum::Frustum(Plane * planes)
-		: _planes(new Plane[6])
+	Frustum::Frustum(Plane* planes)
 	{
 		for (int i = 0; i < 6; ++i) {
 			_planes[i] = planes[i];
@@ -16,6 +15,7 @@ namespace rgl {
 	bool Frustum::insideFrustum(RenderObject* ro)
 	{
 		auto bounds = ro->getBounds();
+
 		//If no bounds set, assume inside
 		if (bounds == nullptr) {
 			return true;
@@ -47,7 +47,6 @@ namespace rgl {
 
 	Frustum::~Frustum()
 	{
-		//delete[] _planes;
 	}
 
 
