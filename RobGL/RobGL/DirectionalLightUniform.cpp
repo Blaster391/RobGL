@@ -20,14 +20,13 @@ namespace rgl {
 
 		glm::vec3 direction = _shadowCamera->getDirection();
 
-		glUniform4f(glGetUniformLocation(program, "lightColour"), _colour.r, _colour.g, _colour.b, _colour.a);
-		glUniform3f(glGetUniformLocation(program, "lightPosition"), position.x, position.y, position.z);
-		glUniform3f(glGetUniformLocation(program, "lightDirection"), _direction.x, _direction.y, _direction.z);
+		glUniform4fv(glGetUniformLocation(program, "lightColour"),1, (float*)&_colour);
+		glUniform3fv(glGetUniformLocation(program, "lightPosition"),1, (float*)&position);
+		glUniform3fv(glGetUniformLocation(program, "lightDirection"),1, (float*)&_direction);
 
 		auto shadowMatrix = _shadowCamera->getProjectionMatrix() * _shadowCamera->getViewMatrix();
 
 		glUniformMatrix4fv(glGetUniformLocation(program, "shadowMatrix"), 1, false, (float*)&(shadowMatrix));
-
 
 		//Enable shadows in shader
 		glUniform1i(glGetUniformLocation(program, "useShadows"), 1);

@@ -37,12 +37,9 @@ namespace rgl {
 			l->draw(delta, _program);
 		}
 
-
 		glActiveTexture(GL_TEXTURE0);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glCullFace(GL_BACK);
-
-
 
 	}
 
