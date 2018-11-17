@@ -3,9 +3,10 @@
 
 namespace rgl {
 
-	LightPool::LightPool(const std::vector<Shader*>& shaders, Camera* c, GLuint depthTex, GLuint normalsTex) : 
+	LightPool::LightPool(const std::vector<Shader*>& shaders,  Camera* c, ScreenInformationUniform* screenInfoUnform, GLuint depthTex, GLuint normalsTex) :
 		RenderPool(shaders, c), _depthTex(depthTex), _normalsTex(normalsTex)
 	{
+		addUniformData(screenInfoUnform);
 	}
 
 
@@ -20,8 +21,6 @@ namespace rgl {
 
 	void LightPool::drawData(float delta)
 	{
-		//glClearColor(0, 0, 0, 1);
-		//glClear(GL_COLOR_BUFFER_BIT);
 
 		glCullFace(GL_FRONT);
 		glBlendFunc(GL_ONE, GL_ONE);
@@ -33,10 +32,6 @@ namespace rgl {
 		glBindTexture(GL_TEXTURE_2D, _depthTex);
 		glActiveTexture(GL_TEXTURE4);
 		glBindTexture(GL_TEXTURE_2D, _normalsTex);
-
-
-		//TODO !!!
-		glUniform2f(glGetUniformLocation(_program, "pixelSize"), 1.0f / 800, 1.0f / 600);
 
 		for (auto& l : _renderObjects) {
 			l->draw(delta, _program);

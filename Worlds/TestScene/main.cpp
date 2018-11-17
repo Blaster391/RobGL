@@ -16,7 +16,7 @@
 #include <RobGL/DirectionalLightCamera.h>
 
 
-
+#include <RobGL/ScreenInformationUniform.h>
 
 
 int main() {
@@ -163,8 +163,10 @@ int main() {
 	directionalLightCamera.setPosition(glm::vec3(40,40,40));
 	directionalLightCamera.pitch(-3.14 / 3);
 
+	rgl::ScreenInformationUniform screenInfoUniform(800,600);
+
 	renderer.enablePostProcessing(texturedUnlitShaders);
-	renderer.enableDeferredLighting(pointLightShaders, combineShaders, &mainCamera);
+	renderer.enableDeferredLighting(pointLightShaders, combineShaders, &mainCamera, &screenInfoUniform);
 	renderer.enableShadowMapping(shadowMapShaders, &directionalLightCamera, 2160);
 
 	directionalLightUniform->setShadowTexture(renderer.getShadowMapTexture());
@@ -298,6 +300,8 @@ int main() {
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
 
+	//blurFx.addUniformData(&screenInfoUnform);
+
 	renderer.addPostProcessingFX(&skyboxFX);
 	//renderer.addPostProcessingFX(&noRedFX);
 
@@ -313,10 +317,9 @@ int main() {
 
 
 	auto resizeCallback = [&](int width, int height) {
-		std::cout << "Window resized" << std::endl;
 		mainCamera.setProjectionPerspective(width, height);
+		screenInfoUniform.updateScreenSize(width, height);
 		renderer.resize(width, height);
-
 	};
 
 	w.setWindowResizeCallback(resizeCallback);

@@ -179,7 +179,10 @@
     <ClInclude Include="DirectionalLightCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowMatrixUniform.h">
+    <ClInclude Include="ScreenInformationUniform.h">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraUniform.h">
       <Filter>Shaders\Uniforms</Filter>
     </ClInclude>
   </ItemGroup>
@@ -295,7 +298,10 @@
     <ClCompile Include="DirectionalLightCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShadowMatrixUniform.cpp">
+    <ClCompile Include="ScreenInformationUniform.cpp">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraUniform.cpp">
       <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
   </ItemGroup>

@@ -50,14 +50,14 @@ namespace rgl {
 		_postProcess = true;
 	}
 
-	void Renderer::enableDeferredLighting(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* camera)
+	void Renderer::enableDeferredLighting(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* camera, ScreenInformationUniform* screenInformationUniform)
 	{
 		glDisable(GL_DEPTH_TEST);
 		_lit = true;
 		if (!_postProcess) {
 			std::cout << "Post processing must be enabled for lighting to function correctly!" << std::endl;
 		}
-		_lightPool = new LightPool(lightingShaders, camera, _bufferDepthTex, _bufferNormalTex);
+		_lightPool = new LightPool(lightingShaders, camera, screenInformationUniform, _bufferDepthTex, _bufferNormalTex);
 		_lightCombinePool = new CombinePool(combineShaders,_bufferColourTex[0],_lightEmissiveTex, _lightSpecularTex);
 		glEnable(GL_DEPTH_TEST);
 	}

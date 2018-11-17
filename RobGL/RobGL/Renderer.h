@@ -17,7 +17,7 @@ namespace rgl {
 		~Renderer();
 
 		void enablePostProcessing(std::vector<Shader*> toScreenShaders);
-		void enableDeferredLighting(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* camera);
+		void enableDeferredLighting(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* camera, ScreenInformationUniform* screenInformationUniform);
 		void enableShadowMapping(std::vector<Shader*>& shadowShaders, Camera* shadowViewport, int shadowMapSize);
 
 		void update(float delta);
