@@ -10,7 +10,7 @@ namespace rgl {
 		virtual ~ParticlePool();
 
 	protected:
-		virtual void drawData(float delta);
+		virtual void drawData(float delta) override;
 		ParticleSystem* _particles;
 	};
 

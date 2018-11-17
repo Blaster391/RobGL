@@ -17,7 +17,7 @@
 
 
 #include <RobGL/ScreenInformationUniform.h>
-
+#include <RobGL/ParticlePool.h>
 
 int main() {
 	Window w;
@@ -66,6 +66,11 @@ int main() {
 
 	rgl::Shader* combineVertShader = new rgl::Shader("Assets/Shaders/combineVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* combineFragShader = new rgl::Shader("Assets/Shaders/combineFrag.glsl", GL_FRAGMENT_SHADER);
+
+	//Particles
+	rgl::Shader* fireVertShader = new rgl::Shader("Assets/Shaders/Particles/fireVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* fireFragShader = new rgl::Shader("Assets/Shaders/Particles/fireFrag.glsl", GL_FRAGMENT_SHADER);
+	rgl::Shader* fireGeoShader = new rgl::Shader("Assets/Shaders/Particles/fireGeo.glsl", GL_GEOMETRY_SHADER);
 
 	rgl::Texture* texture = rgl::TextureLoader::LoadFromFile("Assets/Textures/test.png",false, true);
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
@@ -146,6 +151,10 @@ int main() {
 	skyboxFXShaders.push_back(skyboxFXVertShader);
 	skyboxFXShaders.push_back(skyboxFXFragShader);
 
+	std::vector<rgl::Shader*>fireParticleShaders;
+	fireParticleShaders.push_back(fireVertShader);
+	fireParticleShaders.push_back(fireFragShader);
+	fireParticleShaders.push_back(fireGeoShader);
 
 	rgl::Camera mainCamera;
 	mainCamera.setProjectionPerspective(800,600);
@@ -175,10 +184,14 @@ int main() {
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
+	rgl::ParticleSystem fireParticles(10);
+	fireParticles.setModelMatrix(glm::mat4(1));
+
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
 	rgl::RenderPool texturedPool(texturedShaders, &mainCamera);
 	rgl::RenderPool animatedPool(animatedShaders, &mainCamera);
 	rgl::RenderPool transparentTexturedPool(texturedShaders, &mainCamera);
+	rgl::ParticlePool fireParticlesPool(fireParticleShaders,&mainCamera,&fireParticles);
 
 	colouredPool.addUniformData(directionalLightUniform);
 	texturedPool.addUniformData(directionalLightUniform);
@@ -295,6 +308,7 @@ int main() {
 	//stencilPool.addRenderObject(&roStencil);
 
 	//renderer.addRenderPool(&stencilPool);
+	renderer.addRenderPool(&fireParticlesPool);
 	renderer.addRenderPool(&colouredPool);
 	renderer.addRenderPool(&texturedPool);
 	renderer.addRenderPool(&animatedPool);

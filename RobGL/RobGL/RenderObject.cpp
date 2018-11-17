@@ -15,7 +15,6 @@ namespace rgl {
 
 	void RenderObject::draw(float delta, GLuint program)
 	{
-		//TODO get is bad?
 		glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, false, (float*)&_modelMatrix);
 
 		//TODO failover tex?

@@ -9,20 +9,18 @@ uniform vec3 cameraPos;
 
 uniform int useShadows;
 
-
-
 in Vertex	{
-	vec3 worldPos;
 	vec4 colour;
 	vec3 normals;
-	vec4 shadowProj;
+	vec2 texCoords;
 } IN;
+
 
 out vec4 fragColour[4];
 
 void main(void)	{	
 
-	float shadow = 1.0f;
+/*	float shadow = 1.0f;
 
 	vec3 normals = normalize(IN.normals);
 
@@ -46,14 +44,14 @@ void main(void)	{
 				shadow = 0.10f;
 			}	
 		}
-	}
+	}*/
 	
 	//Unlit
 	fragColour[0] = IN.colour;
 	//Normals
-	fragColour[1] = vec4(normals,1);
+	fragColour[1] = IN.colour;
 	//Emissive
-	fragColour[2] = vec4(lightColour.rgb * lambert * shadow, 1);
+	fragColour[2] = IN.colour;
 	//Specular
-	fragColour[3] = vec4(((lightColour.rgb * sFactor) * 0.33f * shadow),1);
+	fragColour[3] = IN.colour;
 }

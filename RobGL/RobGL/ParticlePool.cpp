@@ -12,6 +12,7 @@ namespace rgl {
 
 	void ParticlePool::drawData(float delta)
 	{
+		glUniformMatrix4fv(glGetUniformLocation(_program, "modelMatrix"), 1, false, (float*)&_particles->getModelMatrix());
 		_particles->draw(delta);
 	}
 }
