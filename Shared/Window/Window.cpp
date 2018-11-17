@@ -34,7 +34,7 @@ void Window::startup()
 	//16x antialias
 	glfwWindowHint(GLFW_SAMPLES, 16);
 
-	_window = glfwCreateWindow(WIDTH, HEIGHT, "RobGL", nullptr, nullptr);
+	_window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "RobGL", nullptr, nullptr);
 
 	glfwMakeContextCurrent(_window);
 
@@ -43,6 +43,12 @@ void Window::startup()
 	glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 		static_cast<Window*>(glfwGetWindowUserPointer(window))->onKeyPress(key, scancode, action, mods);
 	});
+
+	glfwSetFramebufferSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
+		static_cast<Window*>(glfwGetWindowUserPointer(window))->onWindowResize(width, height);
+	});
+
+	glfwGetFramebufferSize(_window, &_currentWidth, &_currentHeight);
 
 	_failed = !_window;
 }
@@ -72,10 +78,21 @@ std::pair<double, double> Window::getCursorPosition() {
 
 void Window::onKeyPress(int key, int scancode, int action, int mods)
 {
-	keycallback(key, scancode, action, mods);
+	_keycallback(key, scancode, action, mods);
+}
+
+void Window::onWindowResize(int width, int height)
+{
+	glfwGetFramebufferSize(_window, &_currentWidth, &_currentHeight);
+	_windowResizeCallback(width, height);
 }
 
 void Window::setInputCallback(std::function<void(int key, int scancode, int action, int mods)> callback)
 {
-	keycallback = callback;
+	_keycallback = callback;
+}
+
+void Window::setWindowResizeCallback(std::function<void(int width, int height)> func)
+{
+	_windowResizeCallback = func;
 }

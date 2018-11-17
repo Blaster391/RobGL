@@ -33,6 +33,8 @@ namespace rgl {
 
 		Texture* getDepthTexture();
 
+		void resize(int width, int height);
+
 	private:
 		void clearBuffers();
 		void swapBuffers();

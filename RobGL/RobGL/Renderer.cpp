@@ -148,6 +148,15 @@ namespace rgl {
 		return new Texture(_bufferDepthTex,false);
 	}
 
+	void Renderer::resize(int width, int height)
+	{
+		freeFramebuffers();
+		if (_shadowMap) {
+			setupFramebuffers(width, height);
+		}
+		
+	}
+
 	void Renderer::clearBuffers()
 	{
 		/*glClearStencil(1);*/

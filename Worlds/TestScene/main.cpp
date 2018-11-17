@@ -15,6 +15,10 @@
 #include <RobGL/SkyboxFX.h>
 #include <RobGL/DirectionalLightCamera.h>
 
+
+
+
+
 int main() {
 	Window w;
 	w.startup();
@@ -307,6 +311,16 @@ int main() {
 	renderer.addRenderObjectToShadowPool(&ro);
 	renderer.addRenderObjectToShadowPool(&roFloor);
 	renderer.addRenderObjectToShadowPool(&roChild);
+
+
+	auto resizeCallback = [&](int width, int height) {
+		std::cout << "Window resized" << std::endl;
+
+		renderer.resize(width, height);
+
+	};
+
+	w.setWindowResizeCallback(resizeCallback);
 
 	bool bilinear = false;
 	bool scissor = false;

@@ -15,6 +15,7 @@ public:
 	bool ShouldClose();
 
 	void setInputCallback(std::function<void(int, int, int, int)> func);
+	void setWindowResizeCallback(std::function<void(int width, int height)> func);
 
 	inline bool hasFailed() {
 		return _failed;
@@ -25,19 +26,18 @@ public:
 	}
 
 	void onKeyPress(int key, int scancode, int action, int mods);
+	void onWindowResize(int width, int height);
+
 	std::pair<double, double> getCursorPosition();
 
-	//TODO better
 	inline int getCurrentHeight() {
-		int width, height;
-		glfwGetWindowSize(_window,&width, &height);
-		return height;
+
+		return _currentHeight;
 	}
 
 	inline int getCurrentWidth() {
-		int width, height;
-		glfwGetWindowSize(_window, &width, &height);
-		return width;
+		glfwGetWindowSize(_window, &_currentWidth, &_currentHeight);
+		return _currentWidth;
 	}
 
 	void hideCursor() {
@@ -51,9 +51,13 @@ private:
 
 	bool _failed = false;
 
-	const int WIDTH = 800;
-	const int HEIGHT = 600;
+	const int DEFAULT_WIDTH = 800;
+	const int DEFAULT_HEIGHT = 600;
 
-	std::function<void(int key, int scancode, int action, int mods)> keycallback;
+	int _currentHeight = DEFAULT_HEIGHT;
+	int _currentWidth = DEFAULT_WIDTH;
+
+	std::function<void(int key, int scancode, int action, int mods)> _keycallback;
+	std::function<void(int width, int height)> _windowResizeCallback;
 };
 
