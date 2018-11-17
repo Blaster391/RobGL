@@ -54,6 +54,9 @@
     <Filter Include="Shaders\Uniforms">
       <UniqueIdentifier>{c139b73b-66f9-45c0-bb49-aaaf5c1c15d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderPools\Particles">
+      <UniqueIdentifier>{992767de-1cbc-49a1-a886-e73a02342f74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -182,8 +185,11 @@
     <ClInclude Include="ScreenInformationUniform.h">
       <Filter>Shaders\Uniforms</Filter>
     </ClInclude>
-    <ClInclude Include="CameraUniform.h">
-      <Filter>Shaders\Uniforms</Filter>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePool.h">
+      <Filter>RenderPools\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -301,8 +307,11 @@
     <ClCompile Include="ScreenInformationUniform.cpp">
       <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
-    <ClCompile Include="CameraUniform.cpp">
-      <Filter>Shaders\Uniforms</Filter>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePool.cpp">
+      <Filter>RenderPools\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

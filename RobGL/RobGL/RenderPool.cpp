@@ -66,8 +66,8 @@ namespace rgl {
 	{
 		glUniformMatrix4fv(glGetUniformLocation(_program, "viewMatrix"), 1, false, (float*)&_camera->getViewMatrix());
 		glUniformMatrix4fv(glGetUniformLocation(_program, "projMatrix"), 1, false, (float*)&_camera->getProjectionMatrix());
-		glm::vec3 cameraPos = _camera->getPosition();
-		glUniform3f(glGetUniformLocation(_program, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
+		glUniform3fv(glGetUniformLocation(_program, "cameraPos"),1, (float*)&_camera->getPosition());
+
 		for (auto& u : _uniforms) {
 			u->apply(_program);
 		}

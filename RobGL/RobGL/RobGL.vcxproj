@@ -138,7 +138,6 @@
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraUniform.h" />
     <ClInclude Include="CombinePool.h" />
     <ClInclude Include="Cubemap.h" />
     <ClInclude Include="DirectionalLightCamera.h" />
@@ -153,6 +152,8 @@
     <ClInclude Include="LightPool.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshHelpers.h" />
+    <ClInclude Include="ParticlePool.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="PostProcessingFX.h" />
@@ -182,7 +183,6 @@
     <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraUniform.cpp" />
     <ClCompile Include="CombinePool.cpp" />
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="DirectionalLightCamera.cpp" />
@@ -196,6 +196,8 @@
     <ClCompile Include="LightPool.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshHelpers.cpp" />
+    <ClCompile Include="ParticlePool.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PostProcessingFX.cpp" />
