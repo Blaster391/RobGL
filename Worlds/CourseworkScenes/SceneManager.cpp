@@ -40,4 +40,6 @@ bool SceneManager::update(float delta)
 	}
 
 	_scenes[_activeScene]->draw(delta);
+
+	return true;
 }

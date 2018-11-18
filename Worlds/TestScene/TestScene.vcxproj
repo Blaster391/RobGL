@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -104,7 +104,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

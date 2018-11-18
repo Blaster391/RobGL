@@ -1,7 +1,7 @@
 #pragma once
-
-#include <Input/Input.h>
 #include "BaseScene.h"
+#include <Input/Input.h>
+
 #include <vector>
 
 class SceneManager

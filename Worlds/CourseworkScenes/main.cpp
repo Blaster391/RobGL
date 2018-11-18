@@ -1,9 +1,11 @@
+#include "ValleyScene.h"
+#include "SpaceScene.h"
+
 #include "SceneManager.h"
 #include <Input/Input.h>
 #include <Window/Window.h>
 #include "Timer.h"
-#include "ValleyScene.h"
-#include "SpaceScene.h"
+
 int main() {
 
 	Window window;
@@ -13,9 +15,9 @@ int main() {
 	input.startup(&window);
 
 	//Setup scene manager
-	SceneManager sceneManager;
-	ValleyScene valleyScene;
-	SpaceScene spaceScene;
+	SceneManager sceneManager(&input);
+	ValleyScene valleyScene(window);
+	SpaceScene spaceScene(window);
 
 	sceneManager.addScene(&valleyScene);
 	sceneManager.addScene(&spaceScene);

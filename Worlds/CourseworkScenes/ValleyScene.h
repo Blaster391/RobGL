@@ -4,7 +4,7 @@
 class ValleyScene : public BaseScene
 {
 public:
-	ValleyScene();
+	ValleyScene(Window& window);
 	~ValleyScene();
 
 private:

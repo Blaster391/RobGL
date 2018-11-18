@@ -3,9 +3,7 @@
 class SpaceScene : public BaseScene
 {
 public:
-	SpaceScene();
-	~SpaceScene();
-
-
+	SpaceScene(Window& window);
+	virtual ~SpaceScene();
 };
 

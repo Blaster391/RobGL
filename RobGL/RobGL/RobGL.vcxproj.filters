@@ -57,6 +57,9 @@
     <Filter Include="RenderPools\Particles">
       <UniqueIdentifier>{992767de-1cbc-49a1-a886-e73a02342f74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Text">
+      <UniqueIdentifier>{555992a4-d5c6-4049-96f6-d1e1d17da29f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -191,6 +194,12 @@
     <ClInclude Include="ParticlePool.h">
       <Filter>RenderPools\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="UITextFX.h">
+      <Filter>Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -312,6 +321,12 @@
     </ClCompile>
     <ClCompile Include="ParticlePool.cpp">
       <Filter>RenderPools\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextFX.cpp">
+      <Filter>Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Text</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

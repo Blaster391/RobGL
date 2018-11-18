@@ -5,7 +5,7 @@
 class BaseScene
 {
 public:
-	BaseScene();
+	BaseScene(Window& window);
 	~BaseScene();
 
 	virtual void onResize(int width, int height);

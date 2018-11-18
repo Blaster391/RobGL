@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Configuration)\;..\..\extlibs\</AdditionalLibraryDirectories>
@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Configuration)\;..\..\extlibs\</AdditionalLibraryDirectories>
@@ -104,7 +104,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -133,12 +133,16 @@
   <ItemGroup>
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpaceScene.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="ValleyScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpaceScene.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="ValleyScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

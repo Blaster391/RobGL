@@ -1,11 +1,8 @@
 #include "SpaceScene.h"
 
-
-
-SpaceScene::SpaceScene()
+SpaceScene::SpaceScene(Window & window) : BaseScene(window)
 {
 }
-
 
 SpaceScene::~SpaceScene()
 {

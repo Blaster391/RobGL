@@ -1,11 +1,9 @@
 #include "ValleyScene.h"
 
 
-
-ValleyScene::ValleyScene()
+ValleyScene::ValleyScene(Window& window) : BaseScene(window)
 {
 }
-
 
 ValleyScene::~ValleyScene()
 {
