@@ -56,7 +56,7 @@ namespace rgl {
 		float h = ch.Size.y * _scale;
 
 		//Screen space model matrix
-		glm::mat4 modelMatrix = glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)) * glm::scale(glm::mat4(1), glm::vec3(w,h,1) * 0.01f);
+		glm::mat4 modelMatrix = glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)) * glm::scale(glm::mat4(1), glm::vec3(w,h,1) * 0.005f);
 
 		_quadObject->setModelMatrix(modelMatrix);
 
@@ -67,7 +67,7 @@ namespace rgl {
 
 
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		return xOrigin + (ch.Advance * (1.0/64.0f) * (1.0/200)); // Bitshift by 6 to get value in pixels (2^6 = 64)
+		return xOrigin + (ch.Advance * (1.0/64.0f) * (1.0/400)); // Bitshift by 6 to get value in pixels (2^6 = 64)
 
 
 

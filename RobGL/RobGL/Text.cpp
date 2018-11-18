@@ -16,7 +16,7 @@ namespace rgl {
 			std::cout << "Freetype : failed to load font file" << std::endl;
 		}
 			
-		FT_Set_Pixel_Sizes(face, 0, 48);
+		FT_Set_Pixel_Sizes(face, 0, 96);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
 

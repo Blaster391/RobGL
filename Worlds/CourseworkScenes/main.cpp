@@ -31,7 +31,7 @@ int main() {
 	};
 	window.setWindowResizeCallback(resizeCallback);
 
-
+	bool windowed = false;
 
 	Timer _frameTimer;
 	_frameTimer.start();
@@ -48,6 +48,17 @@ int main() {
 		}
 		if (window.ShouldClose()) {
 			finished = true;
+		}
+
+
+		if (input.isKeyPressed(InputButton::KEYBOARD_O)) {
+			windowed = !windowed;
+			if (windowed) {
+				window.setWindowedMode();
+			}
+			else {
+				window.setFullScreen();
+			}
 		}
 	}
 
