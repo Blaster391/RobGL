@@ -60,6 +60,11 @@ int main() {
 				window.setFullScreen();
 			}
 		}
+
+
+		if (input.isKeyPressed(InputButton::KEYBOARD_ESCAPE)) {
+			finished = true;
+		}
 	}
 
 	input.shutdown();

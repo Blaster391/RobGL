@@ -10,6 +10,7 @@ SceneManager::~SceneManager()
 
 void SceneManager::addScene(BaseScene * scene)
 {
+	_scenes.push_back(scene);
 }
 
 void SceneManager::onResize(int width, int height)
