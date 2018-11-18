@@ -1,9 +1,10 @@
 #include "UITextFX.h"
 
 namespace rgl {
-	UITextFX::UITextFX(std::vector<Shader*> shaders, Text* alphabet) : PostProcessingFX(shaders,1),  _alphabet(alphabet)
+	UITextFX::UITextFX(std::vector<Shader*>& shaders, Text* alphabet) : PostProcessingFX(shaders,1),  _alphabet(alphabet)
 	{
 	}
+
 	void UITextFX::setText(std::string text)
 	{
 		_text = text;
@@ -36,7 +37,7 @@ namespace rgl {
 		glUniform3f(glGetUniformLocation(_program, "textColor"), _colour.x, _colour.y, _colour.z);
 		glActiveTexture(GL_TEXTURE0);
 
-		int xOrigin = 0;
+		float xOrigin = 0;
 		for (auto& c : _text) {
 			xOrigin = drawCharacter(c, xOrigin);
 		}
@@ -48,11 +49,11 @@ namespace rgl {
 		endDraw();
 	}
 
-	int UITextFX::drawCharacter(char c, int xOrigin)
+	float UITextFX::drawCharacter(char c, float xOrigin)
 	{
 		Character ch = _alphabet->getCharacter(c);
 
-		float xpos = _xPos + xOrigin + ch.Bearing.x * _scale;
+		float xpos = -1 + _xPos + xOrigin;
 		float ypos = _yPos - (ch.Size.y - ch.Bearing.y) * _scale;
 
 		float w = ch.Size.x * _scale;
@@ -82,7 +83,7 @@ namespace rgl {
 
 
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		return xOrigin + (ch.Advance >> 6) * _scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+		return xOrigin + 0.1f; // Bitshift by 6 to get value in pixels (2^6 = 64)
 
 
 

@@ -5,7 +5,7 @@ namespace rgl {
 	class UITextFX : public PostProcessingFX
 	{
 	public:
-		UITextFX(std::vector<Shader*> shaders, Text* alphabet);
+		UITextFX(std::vector<Shader*>& shaders, Text* alphabet);
 		void setText(std::string text);
 		void setPosition(float x, float y);
 		void setScale(float scale);
@@ -22,7 +22,7 @@ namespace rgl {
 		Text* _alphabet;
 
 		//Returns position of the origin of the next character
-		int drawCharacter(char c, int xOrigin);
+		float drawCharacter(char c, float xOrigin);
 	};
 
 }

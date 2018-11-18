@@ -32,8 +32,7 @@ namespace rgl {
 			GLuint texture;
 			glGenTextures(1, &texture);
 			glBindTexture(GL_TEXTURE_2D, texture);
-			glTexImage2D(
-				GL_TEXTURE_2D,
+			glTexImage2D(GL_TEXTURE_2D,
 				0,
 				GL_RED,
 				face->glyph->bitmap.width,

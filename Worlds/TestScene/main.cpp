@@ -19,6 +19,8 @@
 #include <RobGL/ScreenInformationUniform.h>
 #include <RobGL/ParticlePool.h>
 
+#include <RobGL/UITextFX.h>
+
 int main() {
 	Window w;
 	w.startup();
@@ -67,6 +69,10 @@ int main() {
 	rgl::Shader* combineVertShader = new rgl::Shader("Assets/Shaders/combineVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* combineFragShader = new rgl::Shader("Assets/Shaders/combineFrag.glsl", GL_FRAGMENT_SHADER);
 
+	//Text
+	rgl::Shader* textVertShader = new rgl::Shader("Assets/Shaders/textVert.glsl", GL_VERTEX_SHADER);
+	rgl::Shader* textFragShader = new rgl::Shader("Assets/Shaders/textFrag.glsl", GL_FRAGMENT_SHADER);
+
 	//Particles
 	rgl::Shader* fireVertShader = new rgl::Shader("Assets/Shaders/Particles/fireVert.glsl", GL_VERTEX_SHADER);
 	rgl::Shader* fireFragShader = new rgl::Shader("Assets/Shaders/Particles/fireFrag.glsl", GL_FRAGMENT_SHADER);
@@ -77,6 +83,7 @@ int main() {
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
 	rgl::Texture* checkerboardTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/chessboard.tga", true, false);
 	rgl::Texture* particleTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/particle.tga", true, false);
+
 
 
 	rgl::Cubemap* skyboxTex = rgl::TextureLoader::LoadCubemapFromFile({
@@ -98,8 +105,6 @@ int main() {
 	rgl::Mesh* animatedAndyMesh = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/ankyanim.gltf");
 
 	rgl::Mesh* lightSphereMesh = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
-
-
 
 	std::vector<rgl::Shader*> colouredShaders;
 	colouredShaders.push_back(colouredVertexShader);
@@ -158,6 +163,10 @@ int main() {
 	fireParticleShaders.push_back(fireFragShader);
 	fireParticleShaders.push_back(fireGeoShader);
 
+	std::vector<rgl::Shader*> textShaders;
+	textShaders.push_back(textVertShader);
+	textShaders.push_back(textFragShader);
+
 	rgl::Camera mainCamera;
 	mainCamera.setProjectionPerspective(800,600);
 	glm::vec3 cameraPos(0, 0, 10);
@@ -186,6 +195,9 @@ int main() {
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
+	rgl::Text alphabet("Assets/Fonts/comic.ttf");
+
+
 	rgl::ParticleSystem fireParticles(10000);
 	fireParticles.setTexture(particleTexture);
 	fireParticles.setModelMatrix(glm::mat4(1));
@@ -206,6 +218,12 @@ int main() {
 	rgl::PostProcessingFX blurFX(blurFXShaders, 100);
 	rgl::PostProcessingFX sobelFX(sobelFXShaders, 1);
 	rgl::SkyboxFX skyboxFX(skyboxFXShaders, skyboxTex, renderer.getDepthTexture(), &mainCamera);
+	rgl::UITextFX uiText(textShaders, &alphabet);
+
+	uiText.setScale(0.25f);
+	uiText.setText("text 123");
+	uiText.setColour(glm::vec4(1, 1, 1, 1));
+	uiText.setPosition(0.1f, 0.5f);
 
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
@@ -321,6 +339,7 @@ int main() {
 	//blurFx.addUniformData(&screenInfoUnform);
 
 	renderer.addPostProcessingFX(&skyboxFX);
+	renderer.addPostProcessingFX(&uiText);
 	//renderer.addPostProcessingFX(&noRedFX);
 
 	//renderer.addPostProcessingFX(&noBlueFX);

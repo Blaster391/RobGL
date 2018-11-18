@@ -79,7 +79,7 @@
       <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Configuration)\;..\..\extlibs\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -92,7 +92,7 @@
       <AdditionalIncludeDirectories>../../Shared;../../RobGL;../../SubSystems;../../Shared/External/freetype</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Configuration)\;..\..\extlibs\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
