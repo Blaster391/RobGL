@@ -54,7 +54,7 @@ namespace rgl {
 
 	void ParticleSystem::draw(float delta)
 	{
-		glDisable(GL_DEPTH_TEST);
+		//glDisable(GL_DEPTH_TEST);
 		glBindVertexArray(_arrayObject);
 
 		offset = offset + delta;

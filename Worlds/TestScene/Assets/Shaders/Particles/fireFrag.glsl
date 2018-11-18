@@ -48,6 +48,12 @@ void main(void)	{
 	
 	vec4 texColour =  texture(tex, IN.texCoords);
 	
+	if(texColour.a < 0.5f){
+		discard;
+	}
+	
+	texColour.a  = 1;
+	
 	vec4 combinedColour = texColour * IN.colour;
 	
 	//Unlit

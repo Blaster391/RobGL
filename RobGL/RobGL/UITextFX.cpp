@@ -32,15 +32,24 @@ namespace rgl {
 			return;
 		}
 
+
+
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, processTex, 0);
 
 		glUniform3f(glGetUniformLocation(_program, "textColor"), _colour.x, _colour.y, _colour.z);
 		glActiveTexture(GL_TEXTURE0);
 
+		glUniform1i(glGetUniformLocation(_program, "textTex"), 2);
+	
+
+		_quadTexture->setPointer(displayTex);
+
 		float xOrigin = 0;
 		for (auto& c : _text) {
 			xOrigin = drawCharacter(c, xOrigin);
 		}
+
+
 
 		GLuint temp = processTex;
 		processTex = displayTex;
@@ -53,37 +62,35 @@ namespace rgl {
 	{
 		Character ch = _alphabet->getCharacter(c);
 
-		float xpos = -1 + _xPos + xOrigin;
+		float xpos = _xPos + xOrigin;
 		float ypos = _yPos - (ch.Size.y - ch.Bearing.y) * _scale;
+
+		ypos = _yPos;
 
 		float w = ch.Size.x * _scale;
 		float h = ch.Size.y * _scale;
 
 		//Screen space model matrix
-		glm::mat4 modelMatrix = glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)) * glm::scale(glm::mat4(1), glm::vec3(w,h,1) * 0.01f);
+		//glm::mat4 modelMatrix = glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)) * glm::scale(glm::mat4(1), glm::vec3(w,h,1) * 0.01f);
 
-		_quadObject->setModelMatrix(modelMatrix);
+	//	_quadObject->setModelMatrix(modelMatrix);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		glActiveTexture(GL_TEXTURE0);
 
-		_quadTexture->setPointer(ch.TextureID);
+		glUniform1f(glGetUniformLocation(_program, "textHeight"), h);
+		glUniform1f(glGetUniformLocation(_program, "textWidth"), w);
 
-		// Update VBO for each character
-		//GLfloat vertices[6][4] = {
-		//	{ xpos,     ypos + h,   0.0, 0.0 },
-		//	{ xpos,     ypos,       0.0, 1.0 },
-		//	{ xpos + w, ypos,       1.0, 1.0 },
+		glUniform1f(glGetUniformLocation(_program, "textScale"), w);
 
-		//	{ xpos,     ypos + h,   0.0, 0.0 },
-		//	{ xpos + w, ypos,       1.0, 1.0 },
-		//	{ xpos + w, ypos + h,   1.0, 0.0 }
-		//};
-		//// Render glyph texture over quad
-		//glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		glUniform1f(glGetUniformLocation(_program, "xpos"), xpos);
+		glUniform1f(glGetUniformLocation(_program, "ypos"), ypos);
 
 		_quadObject->draw(0,_program);
 
 
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		return xOrigin + 0.1f; // Bitshift by 6 to get value in pixels (2^6 = 64)
+		return xOrigin + (ch.Advance); // Bitshift by 6 to get value in pixels (2^6 = 64)
 
 
 

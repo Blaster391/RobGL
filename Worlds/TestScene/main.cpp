@@ -221,9 +221,11 @@ int main() {
 	rgl::UITextFX uiText(textShaders, &alphabet);
 
 	uiText.setScale(0.25f);
-	uiText.setText("text 123");
+	uiText.setText("FPS: 9999");
 	uiText.setColour(glm::vec4(1, 1, 1, 1));
-	uiText.setPosition(0.1f, 0.5f);
+	uiText.setPosition(0.1f, 0.75f);
+
+
 
 	rgl::RenderObject ro;
 	glm::mat4x4 roPos;
@@ -338,8 +340,11 @@ int main() {
 
 	//blurFx.addUniformData(&screenInfoUnform);
 
+	uiText.addUniformData(&screenInfoUniform);
+
 	renderer.addPostProcessingFX(&skyboxFX);
 	renderer.addPostProcessingFX(&uiText);
+
 	//renderer.addPostProcessingFX(&noRedFX);
 
 	//renderer.addPostProcessingFX(&noBlueFX);
