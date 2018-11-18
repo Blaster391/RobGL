@@ -32,7 +32,7 @@ namespace rgl {
 			return;
 		}
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, processTex, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, displayTex, 0);
 
 		glUniform3f(glGetUniformLocation(_program, "textColor"), _colour.x, _colour.y, _colour.z);
 		glActiveTexture(GL_TEXTURE0);
@@ -41,10 +41,6 @@ namespace rgl {
 		for (auto& c : _text) {
 			xOrigin = drawCharacter(c, xOrigin);
 		}
-
-		GLuint temp = processTex;
-		processTex = displayTex;
-		displayTex = temp;
 
 		endDraw();
 	}
@@ -66,18 +62,6 @@ namespace rgl {
 
 		_quadTexture->setPointer(ch.TextureID);
 
-		// Update VBO for each character
-		//GLfloat vertices[6][4] = {
-		//	{ xpos,     ypos + h,   0.0, 0.0 },
-		//	{ xpos,     ypos,       0.0, 1.0 },
-		//	{ xpos + w, ypos,       1.0, 1.0 },
-
-		//	{ xpos,     ypos + h,   0.0, 0.0 },
-		//	{ xpos + w, ypos,       1.0, 1.0 },
-		//	{ xpos + w, ypos + h,   1.0, 0.0 }
-		//};
-		//// Render glyph texture over quad
-		//glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
 		_quadObject->draw(0,_program);
 
