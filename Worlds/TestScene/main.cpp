@@ -76,6 +76,8 @@ int main() {
 	rgl::Texture* transparentTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga",true, true);
 	rgl::Texture* andyTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png",true, true);
 	rgl::Texture* checkerboardTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/chessboard.tga", true, false);
+	rgl::Texture* particleTexture = rgl::TextureLoader::LoadFromFile("Assets/Textures/particle.tga", true, false);
+
 
 	rgl::Cubemap* skyboxTex = rgl::TextureLoader::LoadCubemapFromFile({
 		"Assets/Textures/cubemaps/rusted_west.jpg",
@@ -185,6 +187,7 @@ int main() {
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
 	rgl::ParticleSystem fireParticles(10000);
+	fireParticles.setTexture(particleTexture);
 	fireParticles.setModelMatrix(glm::mat4(1));
 
 	rgl::RenderPool colouredPool(colouredShaders, &mainCamera);
@@ -308,11 +311,12 @@ int main() {
 	//stencilPool.addRenderObject(&roStencil);
 
 	//renderer.addRenderPool(&stencilPool);
-	renderer.addRenderPool(&fireParticlesPool);
+
 	renderer.addRenderPool(&colouredPool);
 	renderer.addRenderPool(&texturedPool);
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
+	renderer.addRenderPool(&fireParticlesPool);
 
 	//blurFx.addUniformData(&screenInfoUnform);
 

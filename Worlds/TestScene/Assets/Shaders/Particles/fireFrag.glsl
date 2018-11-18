@@ -1,6 +1,6 @@
 #version 460 core
 
-uniform sampler2D shadowTex;
+uniform sampler2D tex;
 
 uniform vec4 lightColour;
 uniform vec3 lightDirection;
@@ -46,12 +46,16 @@ void main(void)	{
 		}
 	}*/
 	
+	vec4 texColour =  texture(tex, IN.texCoords);
+	
+	vec4 combinedColour = texColour * IN.colour;
+	
 	//Unlit
-	fragColour[0] = IN.colour;
+	fragColour[0] = combinedColour;
 	//Normals
-	fragColour[1] = IN.colour;
+	fragColour[1] = vec4(0,0,0,0);
 	//Emissive
-	fragColour[2] = IN.colour;
+	fragColour[2] = combinedColour;
 	//Specular
-	fragColour[3] = IN.colour;
+	fragColour[3] = vec4(0,0,0,0);
 }

@@ -41,19 +41,22 @@ namespace rgl {
 
 	ParticleSystem::~ParticleSystem()
 	{
+
 		glBindBuffer(GL_ARRAY_BUFFER, _particleBuffer);
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDeleteBuffers(1, &_particleBuffer);
 		glDeleteVertexArrays(1, &_arrayObject);
+
 	}
 
 	float colour = 0;
 
 	void ParticleSystem::draw(float delta)
 	{
+		glDisable(GL_DEPTH_TEST);
 		glBindVertexArray(_arrayObject);
-		//glBindBuffer(GL_ARRAY_BUFFER, _particleBuffer);
+
 		colour = colour + delta;
 		if (colour > 1) {
 			colour = 0;
@@ -65,9 +68,17 @@ namespace rgl {
 
 		}
 
+		if (_texture != nullptr) {
+			_texture->bind();
+		}
+
 		glDrawArrays(GL_POINTS, 0, _numberOfParticles);
-		//glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		if (_texture != nullptr) {
+			_texture->unbind();
+		}
 		glBindVertexArray(0);
+		glEnable(GL_DEPTH_TEST);
 	}
 	float ParticleSystem::getParticleSize()
 	{
@@ -84,5 +95,17 @@ namespace rgl {
 	glm::mat4 ParticleSystem::getModelMatrix()
 	{
 		return _modelMatrix;
+	}
+	Vertex * ParticleSystem::getParticleBuffer()
+	{
+		return _vertexBufferData;
+	}
+	Texture * ParticleSystem::getTexture()
+	{
+		return _texture;
+	}
+	void ParticleSystem::setTexture(Texture * tex)
+	{
+		_texture = tex;
 	}
 }

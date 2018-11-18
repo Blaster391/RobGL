@@ -18,8 +18,7 @@ void main(void)	{
 	if(depth != 1){
 		fragColour = texture(tex,texCoords);
 	}else{
-		fragColour = texture(skybox, vsViewDirection);
+		//Additive blend for transparent textures that don't write to the depth buffer (i.e particles)
+		fragColour = texture(skybox, vsViewDirection) + texture(tex,texCoords);
 	}
-
-	//fragColour = vec4(1,0,0,1);
 }
