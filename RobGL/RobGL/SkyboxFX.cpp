@@ -17,6 +17,8 @@ namespace rgl {
 			return;
 		}
 
+		glDepthFunc(GL_LEQUAL);
+
 		glUniform1i(glGetUniformLocation(_program, "skybox"), 2);
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, _skyboxTex->pointer());
@@ -40,6 +42,8 @@ namespace rgl {
 		displayTex = temp;
 
 	
+		glDepthFunc(GL_LESS);
+
 
 		endDraw();
 	}
