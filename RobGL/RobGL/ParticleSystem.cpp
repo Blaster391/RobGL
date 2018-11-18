@@ -50,22 +50,21 @@ namespace rgl {
 
 	}
 
-	float colour = 0;
+	float offset = 0;
 
 	void ParticleSystem::draw(float delta)
 	{
 		glDisable(GL_DEPTH_TEST);
 		glBindVertexArray(_arrayObject);
 
-		colour = colour + delta;
-		if (colour > 1) {
-			colour = 0;
+		offset = offset + delta;
+		if (offset > 3.14 * 2) {
+			offset = 0;
 		}
 		for (int i = 0; i < _numberOfParticles; ++i) {
-			_vertexBufferData[i].Position = glm::vec3(sin(colour * i), i * colour, 0);
-			_vertexBufferData[i].Colour = glm::vec4(colour, 0, 1, 1);
-
-
+			_vertexBufferData[i].Position = glm::vec3(sin(offset + i), i*0.01f, cos(offset + i));
+			float colour = offset / (3.14 * 2);
+			_vertexBufferData[i].Colour = glm::vec4(colour, 0.2f, 1 - colour, 1);
 		}
 
 		if (_texture != nullptr) {
