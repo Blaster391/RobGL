@@ -198,7 +198,7 @@ int main() {
 	rgl::Text alphabet("Assets/Fonts/comic.ttf");
 
 
-	rgl::ParticleSystem fireParticles(10000);
+	rgl::ParticleSystem fireParticles(100);
 	fireParticles.setTexture(particleTexture);
 	fireParticles.setModelMatrix(glm::mat4(1));
 
@@ -376,11 +376,25 @@ int main() {
 	Timer t;
 	t.start();
 
+
+	int frames = 0;
+	float second = 0;
+
 	while (!finished) {
 
 		float delta = t.delta();
 		w.update(delta);
 		i.update(delta);
+
+		second += delta;
+		frames++;
+		if (second > 1) {
+			second = 0;
+
+			uiText.setText("FPS: " + std::to_string(frames));
+			frames = 0;
+		}
+
 
 		renderer.update(delta);
 

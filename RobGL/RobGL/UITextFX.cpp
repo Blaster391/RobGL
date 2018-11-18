@@ -50,7 +50,7 @@ namespace rgl {
 		Character ch = _alphabet->getCharacter(c);
 
 		float xpos = -1 + _xPos + xOrigin;
-		float ypos = _yPos - (ch.Size.y - ch.Bearing.y) * _scale;
+		float ypos = _yPos;
 
 		float w = ch.Size.x * _scale;
 		float h = ch.Size.y * _scale;
@@ -67,7 +67,7 @@ namespace rgl {
 
 
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		return xOrigin + 0.1f; // Bitshift by 6 to get value in pixels (2^6 = 64)
+		return xOrigin + (ch.Advance * (1.0/64.0f) * (1.0/200)); // Bitshift by 6 to get value in pixels (2^6 = 64)
 
 
 
