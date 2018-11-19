@@ -36,7 +36,7 @@ void main(void)	{
 	vec3 viewDir = normalize((cameraPos - IN.worldPos));
 	vec3 halfDir = normalize(incident + viewDir);
 	
-	float rFactor = max(0.0, dot(halfDir,normals));
+	float rFactor = max(0.0, dot(halfDir,normals) - 0.3f);
 	float sFactor = pow(rFactor,50);
 
 	

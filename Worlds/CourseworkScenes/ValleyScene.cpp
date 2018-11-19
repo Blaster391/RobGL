@@ -44,7 +44,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 	valleyRenderPool->addUniformData(textureUniform);
 	_renderer.addRenderPool(valleyRenderPool);
 
-	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("ValleyFloorFragment") }, mainCamera);
+	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
 	_renderer.addRenderPool(dinosaurRenderPool);
 
 	//Setup render objects

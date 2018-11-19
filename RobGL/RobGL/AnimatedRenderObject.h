@@ -15,8 +15,11 @@ namespace rgl {
 		}
 
 		virtual void draw(float delta, GLuint program) override;
+
+		void setAnimation(int anim);
 	protected:
 		AnimatedMesh* _mesh;
+
 	};
 
 }
