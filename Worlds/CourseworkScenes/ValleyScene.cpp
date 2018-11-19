@@ -67,7 +67,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 		rgl::AnimatedRenderObject* dino = new rgl::AnimatedRenderObject;
 		dino->setMesh(assets->getAnimatedMesh("anky"));
 		dino->setTexture(assets->getTexture("anky"));
-
+		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(0, 0, i * 5)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)));
 		_dinos.push_back(dino);
 		dinosaurRenderPool->addRenderObject(dino);
 	}

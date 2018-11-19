@@ -16,21 +16,23 @@ namespace rgl {
 		void setSkeleton(Skeleton* sk);
 		void setAnimations(std::vector<Animation> animations);
 
+
+
 		virtual void draw(float delta, GLuint program) override;
 
 		virtual void buffer() override;
 
-		void setGlobalTransform(glm::mat4 transform);
-		void setActiveAnimation(int anim);
 
+		Skeleton* generateSkeleton();
+
+		Animation getAnimation(int animation);
 
 	private:
 		std::vector<VertexWeightData> _verticiesWeightData;
 		std::vector<Animation> _animations;
 
-		Animation* _activeAnimation = nullptr;
+		Skeleton* _baseSkeleton;
 
-		Skeleton* _skeleton = nullptr;
 		GLuint weightBuffer;
 
 	};

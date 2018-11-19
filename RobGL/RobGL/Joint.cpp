@@ -67,8 +67,6 @@ namespace rgl {
 		return jointMatrix;
 	}
 
-
-
 	glm::mat4 Joint::getGlobalJointTransform()
 	{
 		glm::mat4 globalTransform(1);

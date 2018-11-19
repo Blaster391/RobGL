@@ -18,6 +18,9 @@ namespace rgl {
 
 		void setGlobalTransform(glm::mat4 transform);
 
+		Joint* getRoot();
+		std::map<int, Joint*> getJoints();
+
 	private:
 		std::map<int, Joint*> _joints;
 		Joint* _root;

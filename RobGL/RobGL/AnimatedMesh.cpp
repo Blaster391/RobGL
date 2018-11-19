@@ -22,7 +22,7 @@ namespace rgl {
 	}
 	void AnimatedMesh::setSkeleton(Skeleton* sk)
 	{
-		_skeleton = sk;
+		_baseSkeleton = sk;
 	}
 
 	void AnimatedMesh::setAnimations(std::vector<Animation> animations)
@@ -32,11 +32,7 @@ namespace rgl {
 
 	void AnimatedMesh::draw(float delta, GLuint program)
 	{
-		if (_activeAnimation != nullptr) {
-			_activeAnimation->update(delta);
-		}
-		auto debug = _skeleton->getJointMatrices();
-		glUniformMatrix4fv(glGetUniformLocation(program, "jointMatrices"), 50, false, (float*)_skeleton->getJointMatrices());
+
 		Mesh::draw(delta,program);
 	}
 
@@ -57,12 +53,24 @@ namespace rgl {
 
 		endBuffer();
 	}
-	void AnimatedMesh::setGlobalTransform(glm::mat4 transform)
+
+	Skeleton* AnimatedMesh::generateSkeleton()
 	{
-		_skeleton->setGlobalTransform(transform);
+		Joint* baseRoot = _baseSkeleton->getRoot();
+		auto baseJoints = _baseSkeleton->getJoints();
+
+		Joint* root = new Joint(*baseRoot);
+		std::vector<Joint*> joints;
+		for (auto& j : baseJoints) {
+			joints.push_back(new Joint(*j.second));
+		}
+
+		Skeleton* sk = new Skeleton;
+		sk->setJoints(root, joints);
+		return sk;
 	}
-	void AnimatedMesh::setActiveAnimation(int anim)
+	Animation AnimatedMesh::getAnimation(int animation)
 	{
-		_activeAnimation = &_animations[anim];
+		return _animations[animation];
 	}
 }

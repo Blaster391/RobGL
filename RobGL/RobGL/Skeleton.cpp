@@ -50,4 +50,12 @@ namespace rgl {
 	{
 		_globalTransform = transform;
 	}
+	Joint * Skeleton::getRoot()
+	{
+		return _root;
+	}
+	std::map<int, Joint*> Skeleton::getJoints()
+	{
+		return _joints;
+	}
 }

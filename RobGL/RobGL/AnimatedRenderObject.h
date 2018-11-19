@@ -11,14 +11,25 @@ namespace rgl {
 
 		inline void setMesh(AnimatedMesh* m) {
 			_mesh = m;
+			if (_skeleton != nullptr) {
+				delete _skeleton;
+			}
+			_skeleton = m->generateSkeleton();
+			_activeAnimation = m->getAnimation(0);
 			RenderObject::setMesh(m);
 		}
 
 		virtual void draw(float delta, GLuint program) override;
 
-		void setAnimation(int anim);
+		void setGlobalTransform(glm::mat4 transform);
+		void setActiveAnimation(int anim);
+
 	protected:
 		AnimatedMesh* _mesh;
+
+		Animation _activeAnimation;
+
+		Skeleton* _skeleton = nullptr;
 
 	};
 
