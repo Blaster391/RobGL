@@ -15,19 +15,19 @@ namespace rgl {
 				delete _skeleton;
 			}
 			_skeleton = m->generateSkeleton();
-			_activeAnimation = m->getAnimation(0);
+			setActiveAnimation(0);
 			RenderObject::setMesh(m);
 		}
 
 		virtual void draw(float delta, GLuint program) override;
 
 		void setGlobalTransform(glm::mat4 transform);
-		void setActiveAnimation(int anim);
+		void setActiveAnimation(int anim, float offset = 0.0f);
 
 	protected:
 		AnimatedMesh* _mesh;
-
 		Animation _activeAnimation;
+
 
 		Skeleton* _skeleton = nullptr;
 

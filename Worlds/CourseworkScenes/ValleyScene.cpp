@@ -4,6 +4,8 @@
 #include <RobGL/DirectionalLightCamera.h>
 #include <RobGL/AdditionalTextureUniform.h>
 
+#include "Random.h"
+
 ValleyScene::ValleyScene(Window& window, Input& i) : BaseScene(window, i)
 {
 }
@@ -45,6 +47,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 	_renderer.addRenderPool(valleyRenderPool);
 
 	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	dinosaurRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(dinosaurRenderPool);
 
 	//Setup render objects
@@ -67,7 +70,10 @@ void ValleyScene::setupScene(AssetPack * assets)
 		rgl::AnimatedRenderObject* dino = new rgl::AnimatedRenderObject;
 		dino->setMesh(assets->getAnimatedMesh("anky"));
 		dino->setTexture(assets->getTexture("anky"));
-		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(0, 0, i * 5)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)));
+		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, -3, i + 70 + 10*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
+		
+		//Randomly displace the animation
+		dino->setActiveAnimation(0, Random::random() * 2);
 		_dinos.push_back(dino);
 		dinosaurRenderPool->addRenderObject(dino);
 	}
@@ -107,5 +113,27 @@ void ValleyScene::draw(float delta)
 		_frames = 0;
 	}
 
+	updateDinos(delta);
+
 	BaseScene::draw(delta);
+}
+
+void ValleyScene::updateDinos(float delta)
+{
+	for (auto& d : _dinos) {
+
+		auto currentMatrix = d->getModelMatrix();
+
+		if (currentMatrix[3].x < 0) {
+			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, -150)));
+		}
+		else {
+			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, DINO_SPEED*delta)));
+		}
+
+		
+
+		
+
+	}
 }

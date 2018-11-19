@@ -13,6 +13,10 @@ namespace rgl {
 		void setName(std::string name);
 
 		std::string getName();
+
+		std::vector<AnimationChannel>& getChannels() {
+			return _channels;
+		}
 	private:
 		std::string _name;
 		std::vector<AnimationChannel> _channels;

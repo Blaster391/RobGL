@@ -37,8 +37,6 @@ void main(void)	{
 	float rFactor = max(0.0, dot(halfDir,normals));
 	float sFactor = pow(rFactor,50);
 
-	
-	
 	if(useShadows == 1){
 		if(IN.shadowProj.w > 0.0){
 			vec3 projCoords = IN.shadowProj.xyz / IN.shadowProj.w;
@@ -49,7 +47,6 @@ void main(void)	{
 			if(currentDepth - bias > closestDepth){
 				shadow = 0.10f;
 			}
-			
 		}
 	}
 	

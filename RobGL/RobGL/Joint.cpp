@@ -62,7 +62,7 @@ namespace rgl {
 
 	glm::mat4 Joint::calculateJointMatrix(glm::mat4 globalTransform)
 	{
-		glm::mat4 jointMatrix = inverse(globalTransform) * getGlobalJointTransform() * _inverseBind;
+		glm::mat4 jointMatrix = /*globalTransform **/ getGlobalJointTransform() * _inverseBind;
 
 		return jointMatrix;
 	}

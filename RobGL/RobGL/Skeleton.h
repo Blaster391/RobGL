@@ -21,10 +21,15 @@ namespace rgl {
 		Joint* getRoot();
 		std::map<int, Joint*> getJoints();
 
+		Joint* getJoint(int idx) {
+			return _joints[idx];
+		}
+
 	private:
 		std::map<int, Joint*> _joints;
 		Joint* _root;
 		glm::mat4* _jointMatrices;
 		glm::mat4 _globalTransform;
+
 	};
 }

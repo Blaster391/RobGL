@@ -20,6 +20,7 @@ namespace rgl {
 	}
 	void Skeleton::setJoints(Joint* root, std::vector<Joint*> joints)
 	{
+		_joints.clear();
 		_root = root;
 
 		for (auto& j : joints) {

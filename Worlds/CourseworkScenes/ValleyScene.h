@@ -16,9 +16,12 @@ public:
 	virtual void draw(float delta) override;
 private:
 
+	void updateDinos(float delta);
+
 	CameraController* _cameraController;
 
 	const int NUMBER_OF_DINOS = 10;
+	const float DINO_SPEED = 10.0f;
 
 	std::vector<rgl::AnimatedRenderObject*> _dinos;
 
