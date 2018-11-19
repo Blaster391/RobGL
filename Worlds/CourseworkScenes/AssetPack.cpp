@@ -124,3 +124,18 @@ void AssetPack::loadAbductionResources()
 	//rgl::Shader* fireFragShader = new rgl::Shader("Assets/Shaders/Particles/fireFrag.glsl", GL_FRAGMENT_SHADER);
 	//rgl::Shader* fireGeoShader = new rgl::Shader("Assets/Shaders/Particles/fireGeo.glsl", GL_GEOMETRY_SHADER);
 }
+
+rgl::Shader * AssetPack::getShader(std::string s)
+{
+	return _shaders[s];
+}
+
+rgl::Texture * AssetPack::getTexture(std::string t)
+{
+	return _textures[t];
+}
+
+rgl::Cubemap * AssetPack::getCubemap(std::string c)
+{
+	return _cubemaps[c];
+}

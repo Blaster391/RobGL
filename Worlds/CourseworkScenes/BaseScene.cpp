@@ -1,6 +1,6 @@
 #include "BaseScene.h"
 
-BaseScene::BaseScene(Window& window) : _renderer(window)
+BaseScene::BaseScene(Window& window, Input& input) : _renderer(window), _input(input)
 {
 }
 

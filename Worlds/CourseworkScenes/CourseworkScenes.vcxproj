@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="AssetPack.cpp" />
     <ClCompile Include="BaseScene.cpp" />
+    <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpaceScene.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="AssetPack.h" />
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="CameraController.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpaceScene.h" />
     <ClInclude Include="Timer.h" />

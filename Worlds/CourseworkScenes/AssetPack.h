@@ -17,7 +17,9 @@ public:
 	void loadSpaceResources();
 	void loadAbductionResources();
 
-
+	rgl::Shader* getShader(std::string s);
+	rgl::Texture* getTexture(std::string t);
+	rgl::Cubemap* getCubemap(std::string c);
 
 private:
 	std::map<std::string, rgl::Mesh*> _meshes;

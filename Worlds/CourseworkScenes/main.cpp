@@ -20,11 +20,15 @@ int main() {
 
 	//Setup scene manager
 	SceneManager sceneManager(&input);
-	ValleyScene valleyScene(window);
-	SpaceScene spaceScene(window);
+	ValleyScene valleyScene(window, input);
+	SpaceScene spaceScene(window, input);
 
 	AssetPack assets;
 	assets.loadSharedResources();
+
+	assets.loadValleyResources();
+	assets.loadSpaceResources();
+	assets.loadAbductionResources();
 
 	valleyScene.setupScene(&assets);
 	spaceScene.setupScene(&assets);
@@ -50,6 +54,8 @@ int main() {
 
 	while (!finished) {
 		float delta = _frameTimer.delta();
+
+		window.update(delta);
 
 		input.update(delta);
 
