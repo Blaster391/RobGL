@@ -8,6 +8,7 @@
 #include "LightPool.h"
 #include "CombinePool.h"
 #include "ShadowmapPool.h"
+#include "AnimatedRenderObject.h"
 
 namespace rgl {
 	class Renderer
@@ -18,16 +19,16 @@ namespace rgl {
 
 		void enablePostProcessing(const std::vector<Shader*>& toScreenShaders);
 		void enableDeferredLighting(const std::vector<Shader*>& lightingShaders, const std::vector<Shader*>& combineShaders, Camera* camera, ScreenInformationUniform* screenInformationUniform);
-		void enableShadowMapping(const std::vector<Shader*>& shadowShaders, Camera* shadowViewport, int shadowMapSize);
+		void enableShadowMapping(const std::vector<Shader*>& shadowShaders, const std::vector<Shader*>& animatedShadowShaders, Camera* shadowViewport, int shadowMapSize);
 
 		void update(float delta);
 
-		void setAmbientColour(glm::vec4 colour);
 		void addLight(PointLight* light);
 		void addRenderPool(RenderPool* rp);
 		void addPostProcessingFX(PostProcessingFX* fx);
 
 		void addRenderObjectToShadowPool(RenderObject* ro);
+		void addAnimatedRenderObjectToShadowPool(AnimatedRenderObject* ro);
 
 		GLuint getShadowMapTexture() { return _shadowTex; }
 
@@ -87,7 +88,7 @@ namespace rgl {
 
 		int _shadowMapSize;
 		ShadowmapPool* _shadowmapPool;
-
+		ShadowmapPool* _animatedShadowmapPool;
 	};
 }
 

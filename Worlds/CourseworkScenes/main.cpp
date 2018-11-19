@@ -16,8 +16,6 @@ int main() {
 	Input input;
 	input.startup(&window);
 
-
-
 	//Setup scene manager
 	SceneManager sceneManager(&input);
 	ValleyScene valleyScene(window, input);

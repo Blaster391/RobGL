@@ -35,6 +35,7 @@ void AssetPack::loadSharedResources()
 	_shaders["PointLightVertex"] = new rgl::Shader("Assets/Shaders/pointLightVert.glsl", GL_VERTEX_SHADER);
 	_shaders["PointLightFragment"] = new rgl::Shader("Assets/Shaders/pointLightFrag.glsl", GL_FRAGMENT_SHADER);
 
+	_shaders["AnimatedShadowMapVertex"] = new rgl::Shader("Assets/Shaders/animatedShadowMapVert.glsl", GL_VERTEX_SHADER);
 	_shaders["ShadowMapVertex"] = new rgl::Shader("Assets/Shaders/shadowMapVert.glsl", GL_VERTEX_SHADER);
 	_shaders["ShadowMapFragment"] = new rgl::Shader("Assets/Shaders/shadowMapFrag.glsl", GL_FRAGMENT_SHADER);
 

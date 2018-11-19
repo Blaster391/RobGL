@@ -27,17 +27,16 @@ void ValleyScene::setupScene(AssetPack * assets)
 
 	rgl::DirectionalLightCamera* directionalLightCamera = new rgl::DirectionalLightCamera(glm::vec4(1, 1, 1, 1), glm::vec3(1, 1, -1));
 	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera->getUniformData();
-	directionalLightCamera->setProjectionOrthographic(1, 100, 100, 100);
-	directionalLightCamera->setPosition(glm::vec3(40, 40, 40));
-	directionalLightCamera->pitch(-3.14 / 3);
-
+	directionalLightCamera->setProjectionOrthographic(100, 400, 300, 300);
+	directionalLightCamera->setPosition(glm::vec3(200, 200, -20));
+	directionalLightCamera->pitch(-0.6f);
+	directionalLightCamera->yaw(-3.9f);
 	rgl::ScreenInformationUniform*  screenInfoUniform = new rgl::ScreenInformationUniform(800, 600);
 
 	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, mainCamera, screenInfoUniform);
-	_renderer.enableShadowMapping({assets->getShader("ShadowMapVertex"), assets->getShader("ShadowMapFragment")}, directionalLightCamera, 2160);
+	_renderer.enableShadowMapping({assets->getShader("ShadowMapVertex"), assets->getShader("ShadowMapFragment")}, { assets->getShader("AnimatedShadowMapVertex"), assets->getShader("ShadowMapFragment") }, directionalLightCamera, 2160);
 
 	directionalLightUniform->setShadowTexture(_renderer.getShadowMapTexture());
-
 
 	//Setup render pools
 	rgl::RenderPool* valleyRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("ValleyFloorFragment") }, mainCamera);
@@ -70,12 +69,13 @@ void ValleyScene::setupScene(AssetPack * assets)
 		rgl::AnimatedRenderObject* dino = new rgl::AnimatedRenderObject;
 		dino->setMesh(assets->getAnimatedMesh("anky"));
 		dino->setTexture(assets->getTexture("anky"));
-		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, -3, i + 70 + 10*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
+		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, -3.5, i + 70 + 10*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
 		
 		//Randomly displace the animation
 		dino->setActiveAnimation(0, Random::random() * 2);
 		_dinos.push_back(dino);
 		dinosaurRenderPool->addRenderObject(dino);
+		_renderer.addAnimatedRenderObjectToShadowPool(dino);
 	}
 
 	//Setup post processing
@@ -92,7 +92,6 @@ void ValleyScene::setupScene(AssetPack * assets)
 	_sceneNameText->setPosition(0.25f, -0.5f);
 	_sceneNameText->setScale(0.1f);
 	_sceneNameText->setText("Dinosaur Valley");
-
 
 	_renderer.addPostProcessingFX(skybox);
 	_renderer.addPostProcessingFX(_fpsText);

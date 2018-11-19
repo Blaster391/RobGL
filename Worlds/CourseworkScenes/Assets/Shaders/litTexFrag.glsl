@@ -43,7 +43,8 @@ void main(void)	{
 			projCoords = projCoords * 0.5 + 0.5; 
 			float currentDepth = projCoords.z;  
 			float closestDepth = texture(shadowTex, projCoords.xy).r;
-			float bias = max(0.05 * (1.0 - dot(normals, lightDirection)), 0.005);  
+			float bias = max(0.01 * (1.0 - dot(normals, lightDirection)), 0.005);  
+			bias = 0.000f;
 			if(currentDepth - bias > closestDepth){
 				shadow = 0.10f;
 			}

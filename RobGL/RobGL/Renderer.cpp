@@ -62,10 +62,11 @@ namespace rgl {
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	void Renderer::enableShadowMapping(const std::vector<Shader*>& shadowShaders, Camera * shadowViewport, int shadowMapSize)
+	void Renderer::enableShadowMapping(const std::vector<Shader*>& shadowShaders, const std::vector<Shader*>& animatedShadowShaders, Camera * shadowViewport, int shadowMapSize)
 	{
 		setupShadowMap(shadowMapSize);
 		_shadowmapPool = new ShadowmapPool(shadowShaders, shadowViewport);
+		_animatedShadowmapPool = new ShadowmapPool(animatedShadowShaders, shadowViewport);
 		_shadowMap = true;
 	}
 
@@ -119,10 +120,6 @@ namespace rgl {
 		swapBuffers();
 	}
 
-	void Renderer::setAmbientColour(glm::vec4 colour)
-	{
-		_ambientColour = colour;
-	}
 	void Renderer::addLight(PointLight * light)
 	{
 		if (_lit) {
@@ -141,6 +138,11 @@ namespace rgl {
 	void Renderer::addRenderObjectToShadowPool(RenderObject * ro)
 	{
 		_shadowmapPool->addRenderObject(ro);
+	}
+
+	void Renderer::addAnimatedRenderObjectToShadowPool(AnimatedRenderObject * ro)
+	{
+		_animatedShadowmapPool->addRenderObject(ro);
 	}
 
 	Texture * Renderer::getDepthTexture()
@@ -308,6 +310,7 @@ namespace rgl {
 		glEnable(GL_DEPTH_TEST);
 		glViewport(0, 0, _shadowMapSize, _shadowMapSize);
 		_shadowmapPool->draw(delta);
+		_animatedShadowmapPool->draw(delta);
 		glViewport(0, 0, _window.getCurrentWidth(), _window.getCurrentHeight());
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
