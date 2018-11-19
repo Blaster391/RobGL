@@ -6,6 +6,8 @@
 #include <Window/Window.h>
 #include "Timer.h"
 
+#include "AssetPack.h"
+
 int main() {
 
 	Window window;
@@ -14,10 +16,18 @@ int main() {
 	Input input;
 	input.startup(&window);
 
+
+
 	//Setup scene manager
 	SceneManager sceneManager(&input);
 	ValleyScene valleyScene(window);
 	SpaceScene spaceScene(window);
+
+	AssetPack assets;
+	assets.loadSharedResources();
+
+	valleyScene.setupScene(&assets);
+	spaceScene.setupScene(&assets);
 
 	sceneManager.addScene(&valleyScene);
 	sceneManager.addScene(&spaceScene);

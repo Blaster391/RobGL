@@ -7,6 +7,8 @@ public:
 	ValleyScene(Window& window);
 	~ValleyScene();
 
+	virtual void setupScene(AssetPack* assets) override;
+
 private:
 
 };

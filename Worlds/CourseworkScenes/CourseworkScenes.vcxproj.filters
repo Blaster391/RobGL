@@ -36,6 +36,9 @@
     <ClCompile Include="ValleyScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="AssetPack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneManager.h">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="ValleyScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetPack.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssetPack.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="ValleyScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetPack.h" />
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpaceScene.h" />
