@@ -84,9 +84,13 @@ void AssetPack::loadValleyResources()
 		"Assets/Textures/cubemaps/Valley/rusted_south.jpg" ,
 		"Assets/Textures/cubemaps/Valley/rusted_north.jpg" }, true);
 
+	//Textures
+	_textures["ground_rock"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_rock.jpg", false, true);
+
 
 	//Heightmaps
-	_meshes["valleyFloor"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmap.png");
+	_meshes["valleyFloor_1"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_1.png");
+	_meshes["valleyFloor_2"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_2.png");
 }
 
 void AssetPack::loadSpaceResources()
@@ -138,4 +142,14 @@ rgl::Texture * AssetPack::getTexture(std::string t)
 rgl::Cubemap * AssetPack::getCubemap(std::string c)
 {
 	return _cubemaps[c];
+}
+
+rgl::Mesh * AssetPack::getMesh(std::string m)
+{
+	return _meshes[m];
+}
+
+rgl::AnimatedMesh * AssetPack::getAnimatedMesh(std::string m)
+{
+	return _animatedMeshes[m];
 }

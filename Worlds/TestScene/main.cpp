@@ -1,6 +1,8 @@
 #include <iostream>
+
 #include <RobGL/Renderer.h>
 #include <Window/Window.h>
+
 #include <Input/Input.h>
 #include <RobGL/TextureLoader.h>
 #include <RobGL/MeshHelpers.h>
