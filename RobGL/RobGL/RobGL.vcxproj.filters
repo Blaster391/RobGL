@@ -200,6 +200,9 @@
     <ClInclude Include="Text.h">
       <Filter>Text</Filter>
     </ClInclude>
+    <ClInclude Include="AdditionalTextureUniform.h">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -327,6 +330,9 @@
     </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Text</Filter>
+    </ClCompile>
+    <ClCompile Include="AdditionalTextureUniform.cpp">
+      <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

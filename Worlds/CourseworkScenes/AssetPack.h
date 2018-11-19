@@ -5,6 +5,7 @@
 #include <RobGL/Texture.h>
 #include <RobGL/Cubemap.h>
 #include <RobGL/Shader.h>
+#include <RobGL/Text.h>
 
 class AssetPack
 {
@@ -22,6 +23,8 @@ public:
 	rgl::Cubemap* getCubemap(std::string c);
 	rgl::Mesh* getMesh(std::string m);
 	rgl::AnimatedMesh* getAnimatedMesh(std::string m);
+	rgl::Text* getText();
+
 private:
 	std::map<std::string, rgl::Mesh*> _meshes;
 	std::map<std::string, rgl::AnimatedMesh*> _animatedMeshes;
@@ -30,5 +33,7 @@ private:
 	std::map<std::string, rgl::Cubemap*> _cubemaps;
 
 	std::map<std::string, rgl::Shader*> _shaders;
+
+	rgl::Text* _alphabet;
 };
 

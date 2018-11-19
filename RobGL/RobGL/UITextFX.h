@@ -5,7 +5,7 @@ namespace rgl {
 	class UITextFX : public PostProcessingFX
 	{
 	public:
-		UITextFX(std::vector<Shader*>& shaders, Text* alphabet);
+		UITextFX(const std::vector<Shader*>& shaders, Text* alphabet);
 		void setText(std::string text);
 		void setPosition(float x, float y);
 		void setScale(float scale);

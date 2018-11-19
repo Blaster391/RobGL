@@ -1,7 +1,7 @@
 #include "UITextFX.h"
 
 namespace rgl {
-	UITextFX::UITextFX(std::vector<Shader*>& shaders, Text* alphabet) : PostProcessingFX(shaders,1),  _alphabet(alphabet)
+	UITextFX::UITextFX(const std::vector<Shader*>& shaders, Text* alphabet) : PostProcessingFX(shaders,1),  _alphabet(alphabet)
 	{
 	}
 

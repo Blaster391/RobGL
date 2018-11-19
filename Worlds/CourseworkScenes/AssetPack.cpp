@@ -3,6 +3,7 @@
 #include <RobGL/TextureLoader.h>
 #include <RobGL/MeshHelpers.h>
 
+
 AssetPack::AssetPack()
 {
 }
@@ -23,8 +24,8 @@ void AssetPack::loadSharedResources()
 	_shaders["ColouredFragment"] = new rgl::Shader("Assets/Shaders/colourFrag.glsl", GL_FRAGMENT_SHADER);
 
 	_shaders["TexturedVertex"] = new rgl::Shader("Assets/Shaders/texVert.glsl", GL_VERTEX_SHADER);
-	_shaders["TexturedFragment"] = new rgl::Shader("Assets/Shaders/texFrag.glsl", GL_FRAGMENT_SHADER);
-	_shaders["UnlitTexturedFragment"] = new rgl::Shader("Assets/Shaders/litTexFrag.glsl", GL_FRAGMENT_SHADER);
+	_shaders["TexturedFragment"] = new rgl::Shader("Assets/Shaders/litTexFrag.glsl", GL_FRAGMENT_SHADER);
+	_shaders["UnlitTexturedFragment"] = new rgl::Shader("Assets/Shaders/texFrag.glsl", GL_FRAGMENT_SHADER);
 
 	_shaders["AnimatedVertex"] = new rgl::Shader("Assets/Shaders/animatedVert.glsl", GL_VERTEX_SHADER);
 
@@ -69,12 +70,16 @@ void AssetPack::loadSharedResources()
 	_textures["anky"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png", true, true);
 	_textures["particle"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/particle.tga", true, false);
 
-	
+	//### Text ###//
+	_alphabet = new rgl::Text("Assets/Fonts/arial.ttf");
 
 }
 
 void AssetPack::loadValleyResources()
 {
+	//Shaders
+	_shaders["ValleyFloorFragment"] = new rgl::Shader("Assets/Shaders/Valley/valleyFloorFrag.glsl", GL_FRAGMENT_SHADER);
+
 	//Skybox
 	_cubemaps["valley"] = rgl::TextureLoader::LoadCubemapFromFile({
 		"Assets/Textures/cubemaps/Valley/rusted_west.jpg",
@@ -86,7 +91,8 @@ void AssetPack::loadValleyResources()
 
 	//Textures
 	_textures["ground_rock"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_rock.jpg", false, true);
-
+	_textures["ground_grass"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_grass.png", false, true);
+	_textures["ground_sand"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_sand.jpg", false, true);
 
 	//Heightmaps
 	_meshes["valleyFloor_1"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_1.png");
@@ -153,3 +159,9 @@ rgl::AnimatedMesh * AssetPack::getAnimatedMesh(std::string m)
 {
 	return _animatedMeshes[m];
 }
+
+rgl::Text * AssetPack::getText()
+{
+	return _alphabet;
+}
+

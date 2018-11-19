@@ -197,7 +197,7 @@ int main() {
 
 	//rgl::StencilPool stencilPool(stencilShaders, &uiCamera);
 
-	rgl::Text alphabet("Assets/Fonts/arial.ttf");
+
 
 
 	rgl::ParticleSystem fireParticles(100);

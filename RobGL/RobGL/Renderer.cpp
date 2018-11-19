@@ -43,14 +43,14 @@ namespace rgl {
 
 	}
 
-	void Renderer::enablePostProcessing(std::vector<Shader*> toScreenShaders) {
+	void Renderer::enablePostProcessing(const std::vector<Shader*>& toScreenShaders) {
 		setupFramebuffers(_window.getCurrentWidth(), _window.getCurrentHeight());
 
 		_toScreenRenderPool = new ToScreenRenderPool(toScreenShaders, _bufferColourTex[0]);
 		_postProcess = true;
 	}
 
-	void Renderer::enableDeferredLighting(std::vector<Shader*>& lightingShaders, std::vector<Shader*>& combineShaders, Camera* camera, ScreenInformationUniform* screenInformationUniform)
+	void Renderer::enableDeferredLighting(const std::vector<Shader*>& lightingShaders, const std::vector<Shader*>& combineShaders, Camera* camera, ScreenInformationUniform* screenInformationUniform)
 	{
 		glDisable(GL_DEPTH_TEST);
 		_lit = true;
@@ -62,7 +62,7 @@ namespace rgl {
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	void Renderer::enableShadowMapping(std::vector<Shader*>& shadowShaders, Camera * shadowViewport, int shadowMapSize)
+	void Renderer::enableShadowMapping(const std::vector<Shader*>& shadowShaders, Camera * shadowViewport, int shadowMapSize)
 	{
 		setupShadowMap(shadowMapSize);
 		_shadowmapPool = new ShadowmapPool(shadowShaders, shadowViewport);

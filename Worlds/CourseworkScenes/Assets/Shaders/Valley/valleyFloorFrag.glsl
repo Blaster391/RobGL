@@ -1,6 +1,8 @@
 #version 460 core
 
 uniform sampler2D tex;
+uniform sampler2D flatTex;
+
 uniform sampler2D shadowTex;
 
 uniform vec4 lightColour;
@@ -53,8 +55,15 @@ void main(void)	{
 		}
 	}
 	
+	vec3 up = vec3(0,1,0);
+	
+	
+	float blendAmount = max(0.0f, dot(normals, up));
+	vec4 blendColour = texture(tex,IN.texCoords) * (1 - blendAmount) +texture(flatTex,IN.texCoords) * (blendAmount);
+	
+	
 	//Unlit
-	fragColour[0] = texture(tex,IN.texCoords);
+	fragColour[0] = blendColour;
 	
 	//Normals
 	fragColour[1] = vec4(normals,1);

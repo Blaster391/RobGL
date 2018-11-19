@@ -517,7 +517,7 @@ namespace rgl {
 				v.Position = glm::vec3(x * stepSize, 0, z * stepSize);
 				
 				//TODO better texCoords
-				v.TexCoord = glm::vec2(x * stepSize, z * stepSize);
+				v.TexCoord = glm::vec2(x * stepSize, z * stepSize) * 0.5f;
 				
 
 				vertices.push_back(v);
