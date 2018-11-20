@@ -27,7 +27,6 @@ namespace rgl {
 
 		void setEnabled(bool active);
 
-
 		void addUniformData(BaseUniform* uniform);
 
 	protected:

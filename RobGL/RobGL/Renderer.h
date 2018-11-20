@@ -9,6 +9,7 @@
 #include "CombinePool.h"
 #include "ShadowmapPool.h"
 #include "AnimatedRenderObject.h"
+#include "SkyboxFX.h"
 
 namespace rgl {
 	class Renderer
@@ -35,6 +36,8 @@ namespace rgl {
 		Texture* getDepthTexture();
 
 		void resize(int width, int height);
+
+		void setSkybox(SkyboxFX* skybox);
 
 	private:
 		void clearBuffers();
@@ -89,6 +92,8 @@ namespace rgl {
 		int _shadowMapSize;
 		ShadowmapPool* _shadowmapPool;
 		ShadowmapPool* _animatedShadowmapPool;
+
+		SkyboxFX* _skybox = nullptr;
 	};
 }
 

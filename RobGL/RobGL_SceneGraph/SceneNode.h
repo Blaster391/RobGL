@@ -18,13 +18,14 @@ namespace rgl {
 			void attachRenderObject(RenderObject* ro);
 
 			SceneNode* getParent();
-			void setParent(SceneNode* p);
 
 			void setPosition(glm::vec3 p);
 			void setRotation(glm::mat4  r);
 			void setScale(glm::vec3 s);
 
 		private:
+			void setParent(SceneNode* p);
+
 			SceneNode* _parent = nullptr;
 
 			RenderObject* _renderObject = nullptr;

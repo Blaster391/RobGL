@@ -134,6 +134,7 @@
     <ClCompile Include="AssetPack.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="LerpSkyboxUniform.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="AssetPack.h" />
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="CameraController.h" />
+    <ClInclude Include="LerpSkyboxUniform.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpaceScene.h" />

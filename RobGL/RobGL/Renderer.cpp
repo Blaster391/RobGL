@@ -91,6 +91,16 @@ namespace rgl {
 
 		clearBuffers();
 
+		if (_skybox) {
+			glDisable(GL_DEPTH_TEST);
+			glBindFramebuffer(GL_FRAMEBUFFER, _processFBO);
+			_skybox->process(delta, _bufferColourTex[0], _bufferColourTex[1]);
+			glEnable(GL_DEPTH_TEST);
+
+			bindFrameBuffers();
+		}
+
+
 
 		for (auto& pool : _renderPools) {
 			pool->draw(delta);
@@ -160,6 +170,11 @@ namespace rgl {
 				setupShadowMap(_shadowMapSize);
 			}
 		}
+	}
+
+	void Renderer::setSkybox(SkyboxFX * skybox)
+	{
+		_skybox = skybox;
 	}
 
 	void Renderer::clearBuffers()

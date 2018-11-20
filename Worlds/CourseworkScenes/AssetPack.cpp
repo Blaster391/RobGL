@@ -126,6 +126,16 @@ void AssetPack::loadSpaceResources()
 		"Assets/Textures/cubemaps/Space/Red/bkg1_front5.png" ,
 		"Assets/Textures/cubemaps/Space/Red/bkg1_back6.png" }, true);
 
+	_shaders["SpaceSkyboxFragmentFX"] = new rgl::Shader("Assets/Shaders/Space/spaceSkyboxFragFX.glsl", GL_FRAGMENT_SHADER);
+
+	//Models
+	//_meshes["Earth"] = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/Space/Earth/scene.gltf");
+	_meshes["Planet"] = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/Space/sphere.gltf");
+
+	//Textures
+	_textures["Earth"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/earth.jpg",false,true);
+	_textures["Earth_Atmosphere"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/atmosphere.png", true, true);
+	_textures["Moon"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/moon.jpg", false, true);
 }
 
 void AssetPack::loadAbductionResources()
