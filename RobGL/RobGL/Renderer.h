@@ -39,7 +39,6 @@ namespace rgl {
 
 		void resize(int width, int height);
 
-		void setSkybox(SkyboxFX* skybox);
 
 	private:
 		void clearBuffers();
@@ -95,7 +94,6 @@ namespace rgl {
 		ShadowmapPool* _shadowmapPool;
 		ShadowmapPool* _animatedShadowmapPool;
 
-		SkyboxFX* _skybox = nullptr;
 	};
 }
 

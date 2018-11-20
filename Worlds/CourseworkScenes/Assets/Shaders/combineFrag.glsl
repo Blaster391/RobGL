@@ -14,18 +14,18 @@ out vec4 fragColour[4];
 void main(void)	{
 
 	
-	vec3 diffuse = texture (colourTex , IN.texCoords).xyz ;
+	vec4 diffuse = texture (colourTex , IN.texCoords) ;
 	vec3 light = texture (emissiveTex , IN.texCoords ).xyz ;
 	vec3 specular = texture(specularTex , IN.texCoords ).xyz ;
 
-	vec3 colour = diffuse * light; // lambert
+	vec3 colour = diffuse.xyz * light; // lambert
 	colour += specular; //Specular
 	
 
 	
-	fragColour[0].xyz = diffuse * 0.1f; // ambient
+	fragColour[0].xyz = diffuse.xyz * 0.1f; // ambient
 	fragColour[0].xyz += colour; 
-    fragColour[0].a = 1.0;
+    fragColour[0].a = diffuse.a;
 	
 	fragColour[1] = vec4(0,0,0,0);
 	fragColour[2] = vec4(0,0,0,0);

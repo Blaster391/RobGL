@@ -13,11 +13,8 @@ out vec4 fragColour;
 
 void main(void)	{
 
-	float depth = texture(depthTex,texCoords).r;
+	vec4 colour = texture(tex,texCoords);
 
-	if(depth != 1){
-		fragColour = texture(tex,texCoords);
-	}else{
-		fragColour = texture(skybox, vsViewDirection);
-	}
+	fragColour = texture(skybox, vsViewDirection) * (1 - colour.a) + (colour * colour.a);
+	
 }

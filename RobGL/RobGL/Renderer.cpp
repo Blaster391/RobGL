@@ -91,14 +91,6 @@ namespace rgl {
 
 		clearBuffers();
 
-		if (_skybox) {
-			glDisable(GL_DEPTH_TEST);
-			glBindFramebuffer(GL_FRAMEBUFFER, _processFBO);
-			_skybox->process(delta, _bufferColourTex[0], _bufferColourTex[1]);
-			glEnable(GL_DEPTH_TEST);
-
-			bindFrameBuffers();
-		}
 
 		for (auto& pool : _renderPools) {
 			pool->draw(delta);
@@ -178,14 +170,10 @@ namespace rgl {
 		}
 	}
 
-	void Renderer::setSkybox(SkyboxFX * skybox)
-	{
-		_skybox = skybox;
-	}
-
 	void Renderer::clearBuffers()
 	{
 		/*glClearStencil(1);*/
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 	void Renderer::swapBuffers()
@@ -355,7 +343,7 @@ namespace rgl {
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, _processFBO);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _bufferColourTex[1], 0);
-		//glClearColor(0.2f, 0.2f, 0.2f, 0.2f);
+		//
 		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 		for (auto& fx : _postFX) {

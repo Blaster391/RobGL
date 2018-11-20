@@ -31,7 +31,7 @@ void SpaceScene::setupScene(AssetPack * assets)
 	_skyboxUniform = new LerpSkyboxUniform(assets->getCubemap("space_light_blue"), assets->getCubemap("space_red"), 20);
 	skybox->addUniformData(_skyboxUniform);
 
-	_renderer.setSkybox(skybox);
+	_renderer.addPostProcessingFX(skybox);
 
 	//Setup scene nodes and render objects
 	_sunNode = new rgl::scenes::SceneNode;
