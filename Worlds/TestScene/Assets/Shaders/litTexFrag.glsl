@@ -50,6 +50,23 @@ void main(void)	{
 				shadow = 0.10f;
 			}
 			
+			float xOffset = 10;
+			float yOffset = 10;
+			
+			//Soften the shadow
+			for (int y = -1 ; y <= 1 ; y++) {
+				for (int x = -1 ; x <= 1 ; x++) {
+				vec2 offsetProjCoords = projCoords + vec2(x * xOffset, y * yOffset);
+
+				closestDepth = texture(shadowTex, offsetProjCoords).r;
+				
+				if(currentDepth - bias < closestDepth){
+					shadow += 0.10f;
+				}
+			}
+    }
+
+			
 		}
 	}
 	

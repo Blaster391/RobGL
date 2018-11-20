@@ -107,24 +107,24 @@ void AssetPack::loadSpaceResources()
 		"Assets/Textures/cubemaps/Space/Blue/bkg1_left.png",
 		"Assets/Textures/cubemaps/Space/Blue/bkg1_top.png",
 		"Assets/Textures/cubemaps/Space/Blue/bkg1_bot.png",
-		"Assets/Textures/cubemaps/Space/Blue/bkg1_back.png" ,
-		"Assets/Textures/cubemaps/Space/Blue/bkg1_front.png" }, true);
+		"Assets/Textures/cubemaps/Space/Blue/bkg1_front.png" ,
+		"Assets/Textures/cubemaps/Space/Blue/bkg1_back.png" }, true);
 
 	_cubemaps["space_light_blue"] = rgl::TextureLoader::LoadCubemapFromFile({
-		"Assets/Textures/cubemaps/Valley/rusted_west.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_east.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_up.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_down.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_south.jpg" ,
-		"Assets/Textures/cubemaps/Valley/rusted_north.jpg" }, true);
+		"Assets/Textures/cubemaps/Space/LightBlue/right.png",
+		"Assets/Textures/cubemaps/Space/LightBlue/left.png",
+		"Assets/Textures/cubemaps/Space/LightBlue/top.png",
+		"Assets/Textures/cubemaps/Space/LightBlue/bot.png",
+		"Assets/Textures/cubemaps/Space/LightBlue/front.png" ,
+		"Assets/Textures/cubemaps/Space/LightBlue/back.png" }, true);
 
 	_cubemaps["space_red"] = rgl::TextureLoader::LoadCubemapFromFile({
-		"Assets/Textures/cubemaps/Valley/rusted_west.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_east.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_up.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_down.jpg",
-		"Assets/Textures/cubemaps/Valley/rusted_south.jpg" ,
-		"Assets/Textures/cubemaps/Valley/rusted_north.jpg" }, true);
+		"Assets/Textures/cubemaps/Space/Red/bkg1_right1.png",
+		"Assets/Textures/cubemaps/Space/Red/bkg1_left2.png",
+		"Assets/Textures/cubemaps/Space/Red/bkg1_top3.png",
+		"Assets/Textures/cubemaps/Space/Red/bkg1_bottom4.png",
+		"Assets/Textures/cubemaps/Space/Red/bkg1_front5.png" ,
+		"Assets/Textures/cubemaps/Space/Red/bkg1_back6.png" }, true);
 
 }
 

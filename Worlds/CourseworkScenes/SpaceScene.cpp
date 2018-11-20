@@ -16,14 +16,16 @@ void SpaceScene::setupScene(AssetPack * assets)
 
 	_renderer.enablePostProcessing({ assets->getShader("TexturedVertex"), assets->getShader("UnlitTexturedFragment") });
 
-	mainCamera->setProjectionOrthographic();
+	mainCamera->setProjectionPerspective(800,600);
 
 
 
 
-	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({ assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") }, assets->getCubemap("space_blue"), _renderer.getDepthTexture(), mainCamera);
+	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({ assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") }, assets->getCubemap("space_red"), _renderer.getDepthTexture(), mainCamera);
 
 	_renderer.addPostProcessingFX(skybox);
+
+	_sceneNameText->setText("Spaaaacccceee");
 }
 
 void SpaceScene::draw(float delta)

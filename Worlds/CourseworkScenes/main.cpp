@@ -28,8 +28,8 @@ int main() {
 	assets.loadSpaceResources();
 	assets.loadAbductionResources();
 
-	valleyScene.setupScene(&assets);
-	spaceScene.setupScene(&assets);
+	valleyScene.setup(&assets);
+	spaceScene.setup(&assets);
 
 	sceneManager.addScene(&valleyScene);
 	sceneManager.addScene(&spaceScene);
