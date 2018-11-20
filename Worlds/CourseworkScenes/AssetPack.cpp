@@ -136,6 +136,7 @@ void AssetPack::loadSpaceResources()
 	_textures["Earth"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/earth.jpg",false,true);
 	_textures["Earth_Atmosphere"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/atmosphere.png", true, true);
 	_textures["Moon"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/moon.jpg", false, true);
+	_textures["Sun"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Sun/sun.jpg", false, true);
 }
 
 void AssetPack::loadAbductionResources()

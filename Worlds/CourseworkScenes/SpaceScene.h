@@ -19,6 +19,8 @@ private:
 	CameraController* _cameraController;
 	LerpSkyboxUniform* _skyboxUniform;
 
+	rgl::scenes::SceneNode* _sunNode;
+
 	rgl::scenes::SceneNode* _earthNode;
 	rgl::scenes::SceneNode* _earthAtmosphereNode;
 	rgl::scenes::SceneNode* _moonNode;
@@ -27,6 +29,10 @@ private:
 	const float _moonOrbitRadius = 8.0f;
 	float _currentMoonOrbit = 0.0f;
 	const float _moonOrbitSpeed = 0.75f;
+
+	float _currentEarthOrbit = 0.0f;
+	const float _earthOrbitSpeed = 0.25f;
+	const float _earthOrbitRadius = 50.0f;
 
 	//Helper method since many things orbit
 	glm::vec3 calculateOrbit(float pos, float radius) {

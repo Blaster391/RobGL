@@ -33,14 +33,24 @@ void SpaceScene::setupScene(AssetPack * assets)
 	_renderer.setSkybox(skybox);
 
 	//Setup scene nodes and render objects
-	rgl::scenes::SceneNode* _earthNode = new rgl::scenes::SceneNode;
+	_sunNode = new rgl::scenes::SceneNode;
+	rgl::RenderObject* sunRO = new rgl::RenderObject;
+	sunRO->setMesh(assets->getMesh("Planet"));
+	sunRO->setTexture(assets->getTexture("Sun"));
+	opaqueRenderPool->addRenderObject(sunRO);
+	_sunNode->attachRenderObject(sunRO);
+	_sunNode->setScale(glm::vec3(10.0f, 10.0f, 10.0f));
+	_sunNode->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+
+
+	_earthNode = new rgl::scenes::SceneNode;
 	rgl::RenderObject* earthRO = new rgl::RenderObject;
 	earthRO->setMesh(assets->getMesh("Planet"));
 	earthRO->setTexture(assets->getTexture("Earth"));
 	opaqueRenderPool->addRenderObject(earthRO);
 	_earthNode->attachRenderObject(earthRO);
-	_earthNode->setScale(glm::vec3(1.0f, 1.0f, 1.0f));
-	_earthNode->setPosition(glm::vec3(1.0f, 1.0f, 1.0f));
+	_earthNode->setScale(glm::vec3(1, 1, 1));
+	_earthNode->setPosition(glm::vec3(50.0f, 0.0f, 50.0f));
 
 	_earthAtmosphereNode = new rgl::scenes::SceneNode;
 	rgl::RenderObject* earthAtmosphereRO = new rgl::RenderObject;
@@ -76,6 +86,9 @@ void SpaceScene::draw(float delta)
 	
 	_currentMoonOrbit += _moonOrbitSpeed * delta;
 	_moonNode->setPosition(calculateOrbit(_currentMoonOrbit,_moonOrbitRadius));
+
+	_currentEarthOrbit += _earthOrbitSpeed * delta;
+	_earthNode->setPosition(calculateOrbit(_currentEarthOrbit, _earthOrbitRadius));
 
 	BaseScene::draw(delta);
 }
