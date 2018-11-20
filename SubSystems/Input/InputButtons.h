@@ -29,6 +29,17 @@ enum class InputButton {
 	KEYBOARD_Y,
 	KEYBOARD_Z,
 
+	KEYBOARD_1,
+	KEYBOARD_2,
+	KEYBOARD_3,
+	KEYBOARD_4,
+	KEYBOARD_5,
+	KEYBOARD_6,
+	KEYBOARD_7,
+	KEYBOARD_8,
+	KEYBOARD_9,
+	KEYBOARD_0,
+
 	KEYBOARD_SPACE,
 	KEYBOARD_L_SHIFT,
 	KEYBOARD_L_CTRL,
@@ -111,6 +122,27 @@ public:
 			return InputButton::KEYBOARD_UP;
 		case GLFW_KEY_DOWN:
 			return InputButton::KEYBOARD_DOWN;
+
+		case GLFW_KEY_1:
+			return InputButton::KEYBOARD_1;
+		case GLFW_KEY_2:
+			return InputButton::KEYBOARD_2;
+		case GLFW_KEY_3:
+			return InputButton::KEYBOARD_3;
+		case GLFW_KEY_4:
+			return InputButton::KEYBOARD_4;
+		case GLFW_KEY_5:
+			return InputButton::KEYBOARD_5;
+		case GLFW_KEY_6:
+			return InputButton::KEYBOARD_6;
+		case GLFW_KEY_7:
+			return InputButton::KEYBOARD_7;
+		case GLFW_KEY_8:
+			return InputButton::KEYBOARD_8;
+		case GLFW_KEY_9:
+			return InputButton::KEYBOARD_9;
+		case GLFW_KEY_0:
+			return InputButton::KEYBOARD_0;
 
 		case GLFW_KEY_SPACE:
 			return InputButton::KEYBOARD_SPACE;

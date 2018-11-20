@@ -31,5 +31,9 @@ protected:
 
 	rgl::UITextFX* _fpsText;
 	rgl::UITextFX* _sceneNameText;
+
+	rgl::PostProcessingFX* _renderNormals;
+	rgl::PostProcessingFX* _renderRenderEmissive;
+	rgl::PostProcessingFX* _renderDepth;
 };
 

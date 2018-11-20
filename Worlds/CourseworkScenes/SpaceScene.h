@@ -24,11 +24,12 @@ private:
 	rgl::scenes::SceneNode* _earthNode;
 	rgl::scenes::SceneNode* _earthAtmosphereNode;
 	rgl::scenes::SceneNode* _moonNode;
+
 	float _earthAtmosphereRotateAmount = 0.0f;
 	const float _earthAtmosphereRotateSpeed = 0.1f;
 	const float _moonOrbitRadius = 8.0f;
 	float _currentMoonOrbit = 0.0f;
-	const float _moonOrbitSpeed = 0.75f;
+	const float _moonOrbitSpeed = -0.75f;
 
 	float _currentEarthOrbit = 0.0f;
 	const float _earthOrbitSpeed = 0.25f;

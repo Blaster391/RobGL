@@ -34,6 +34,8 @@ namespace rgl {
 		GLuint getShadowMapTexture() { return _shadowTex; }
 
 		Texture* getDepthTexture();
+		Texture* getNormalsTexture();
+		Texture* getEmissiveTexture();
 
 		void resize(int width, int height);
 

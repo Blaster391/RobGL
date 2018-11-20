@@ -100,8 +100,6 @@ namespace rgl {
 			bindFrameBuffers();
 		}
 
-
-
 		for (auto& pool : _renderPools) {
 			pool->draw(delta);
 		}
@@ -158,6 +156,14 @@ namespace rgl {
 	Texture * Renderer::getDepthTexture()
 	{
 		return new Texture(_bufferDepthTex,false);
+	}
+
+	Texture* Renderer::getNormalsTexture() {
+		return new Texture(_bufferNormalTex, false);
+	}
+
+	Texture* Renderer::getEmissiveTexture() {
+		return new Texture(_lightEmissiveTex, false);
 	}
 
 	void Renderer::resize(int width, int height)

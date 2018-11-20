@@ -53,6 +53,9 @@ void AssetPack::loadSharedResources()
 	_shaders["BlurFragmentFX"] = new rgl::Shader("Assets/Shaders/blurFragFX.glsl", GL_FRAGMENT_SHADER);
 	_shaders["SobelFragmentFX"] = new rgl::Shader("Assets/Shaders/sobelFragFX.glsl", GL_FRAGMENT_SHADER);
 
+	_shaders["RenderFBOFragmentFX"] = new rgl::Shader("Assets/Shaders/renderFBOFragFX.glsl", GL_FRAGMENT_SHADER);
+	_shaders["RenderDepthFBOFragmentFX"] = new rgl::Shader("Assets/Shaders/renderDepthFBOFragFX.glsl", GL_FRAGMENT_SHADER);
+
 	//### Models ###//
 	_meshes["triangle"] = rgl::MeshHelpers::GenerateTriangle();
 	_meshes["quad"] = rgl::MeshHelpers::GenerateQuad();
