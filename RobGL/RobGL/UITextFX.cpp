@@ -67,7 +67,7 @@ namespace rgl {
 
 
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		return xOrigin + (ch.Advance * (1.0/64.0f) * (1.0/400)); // Bitshift by 6 to get value in pixels (2^6 = 64)
+		return xOrigin + (/*ch.Advance * (1.0/64.0f) * */(1.0/10)); // Bitshift by 6 to get value in pixels (2^6 = 64)
 
 
 

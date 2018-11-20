@@ -59,7 +59,7 @@ namespace rgl {
 
 		offset = offset + delta;
 		if (offset > 3.14 * 2) {
-			offset = 0;
+			offset -= 3.14 * 2;
 		}
 		for (int i = 0; i < _numberOfParticles; ++i) {
 			_vertexBufferData[i].Position = glm::vec3(sin(offset + i), i*0.01f, cos(offset + i));

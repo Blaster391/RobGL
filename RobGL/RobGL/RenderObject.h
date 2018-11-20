@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include <External/glm/mat4x4.hpp>
 #include "BoundingSphere.h"
+
 namespace rgl {
 
 	class RenderObject
@@ -45,6 +46,7 @@ namespace rgl {
 	private:
 		Mesh* _mesh = nullptr;
 		Texture* _texture = nullptr;
+
 
 
 		BoundingSphere* _bounds = nullptr;

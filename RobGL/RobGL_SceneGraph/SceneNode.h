@@ -35,7 +35,7 @@ namespace rgl {
 
 			glm::vec3 _position = glm::vec3();
 			glm::mat4  _rotation = glm::mat4(1);
-			glm::vec3 _scale = glm::vec3();
+			glm::vec3 _scale = glm::vec3(1);
 		};
 	}
 }

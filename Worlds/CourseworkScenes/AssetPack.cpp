@@ -145,9 +145,28 @@ void AssetPack::loadSpaceResources()
 void AssetPack::loadAbductionResources()
 {
 	////Particles
-	//rgl::Shader* fireVertShader = new rgl::Shader("Assets/Shaders/Particles/fireVert.glsl", GL_VERTEX_SHADER);
-	//rgl::Shader* fireFragShader = new rgl::Shader("Assets/Shaders/Particles/fireFrag.glsl", GL_FRAGMENT_SHADER);
-	//rgl::Shader* fireGeoShader = new rgl::Shader("Assets/Shaders/Particles/fireGeo.glsl", GL_GEOMETRY_SHADER);
+	_shaders["BeamVertexFX"] = new rgl::Shader("Assets/Shaders/Particles/fireVert.glsl", GL_VERTEX_SHADER);
+	_shaders["BeamFragmentFX"] = new rgl::Shader("Assets/Shaders/Particles/fireFrag.glsl", GL_FRAGMENT_SHADER);
+	_shaders["BeamGeoFX"] = new rgl::Shader("Assets/Shaders/Particles/fireGeo.glsl", GL_GEOMETRY_SHADER);
+
+
+	//Skybox
+	_cubemaps["abduction"] = rgl::TextureLoader::LoadCubemapFromFile({
+		"Assets/Textures/cubemaps/Abduction/mnight_rt.tga" ,
+		"Assets/Textures/cubemaps/Abduction/mnight_lf.tga" ,
+		"Assets/Textures/cubemaps/Abduction/mnight_up.tga" ,
+		"Assets/Textures/cubemaps/Abduction/mnight_dn.tga" ,
+		"Assets/Textures/cubemaps/Abduction/mnight_ft.tga"  ,
+		"Assets/Textures/cubemaps/Abduction/mnight_bk.tga" }, true);
+
+	_meshes["abductionFloor"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/abduction.png");
+
+	//Textures
+	_textures["ufo"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Abduction/ufo_diffuse.png", true, true);
+
+
+	//Meshes
+	_meshes["ufo"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Abduction/UFO.obj");
 }
 
 rgl::Shader * AssetPack::getShader(std::string s)

@@ -338,7 +338,7 @@ int main() {
 	renderer.addRenderPool(&texturedPool);
 	renderer.addRenderPool(&animatedPool);
 	renderer.addRenderPool(&transparentTexturedPool);
-	renderer.addRenderPool(&fireParticlesPool);
+
 
 	//blurFx.addUniformData(&screenInfoUnform);
 
