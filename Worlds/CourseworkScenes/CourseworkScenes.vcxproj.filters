@@ -48,6 +48,9 @@
     <ClCompile Include="LerpSkyboxUniform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AbductionScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneManager.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="LerpSkyboxUniform.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbductionScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

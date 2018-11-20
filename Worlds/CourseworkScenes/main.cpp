@@ -1,5 +1,6 @@
 #include "ValleyScene.h"
 #include "SpaceScene.h"
+#include "AbductionScene.h"
 
 #include "SceneManager.h"
 #include <Input/Input.h>
@@ -20,6 +21,7 @@ int main() {
 	SceneManager sceneManager(&input);
 	ValleyScene valleyScene(window, input);
 	SpaceScene spaceScene(window, input);
+	AbductionScene abductionScene(window, input);
 
 	AssetPack assets;
 	assets.loadSharedResources();
@@ -30,9 +32,11 @@ int main() {
 
 	valleyScene.setup(&assets);
 	spaceScene.setup(&assets);
+	abductionScene.setup(&assets);
 
 	sceneManager.addScene(&valleyScene);
 	sceneManager.addScene(&spaceScene);
+	sceneManager.addScene(&abductionScene);
 
 	//Setup window
 	window.hideCursor();

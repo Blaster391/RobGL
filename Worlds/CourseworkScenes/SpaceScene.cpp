@@ -14,6 +14,7 @@ void SpaceScene::setupScene(AssetPack * assets)
 	rgl::Camera* mainCamera = new rgl::Camera;
 	_cameraController = new CameraController(mainCamera, &_input);
 
+	mainCamera->setPosition(glm::vec3(10, 0, 40));
 	_renderer.enablePostProcessing({ assets->getShader("TexturedVertex"), assets->getShader("UnlitTexturedFragment") });
 
 	mainCamera->setProjectionPerspective(800,600);
