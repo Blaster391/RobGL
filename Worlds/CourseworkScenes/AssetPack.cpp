@@ -59,7 +59,7 @@ void AssetPack::loadSharedResources()
 	//### Models ###//
 	_meshes["triangle"] = rgl::MeshHelpers::GenerateTriangle();
 	_meshes["quad"] = rgl::MeshHelpers::GenerateQuad();
-	_meshes["anky"] = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	_meshes["anky"] = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/anky.gltf");
 	_meshes["sphere"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
 
 
@@ -67,7 +67,7 @@ void AssetPack::loadSharedResources()
 	_meshes["cowboyHat"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 
 	//Animated Meshes
-	_animatedMeshes["anky"] = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/ankyanim.gltf");
+	_animatedMeshes["anky"] = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/anky.gltf");
 
 	//### Textures ###//
 	_textures["box"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/test.png", false, true);
