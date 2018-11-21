@@ -25,9 +25,9 @@ void main(void)	{
 	 float dist = length ( lightPos - pos );
 	 float atten = 1.0 - clamp ( dist / lightRadius , 0.0 , 1.0);
 	 
-	 if( atten == 0.0) {
-	  discard ;
-	}
+	// if( atten == 0.0) {
+	//  discard ;
+	//}
 	
 	vec3 incident = normalize (lightPos - pos);
 	vec3 viewDir = normalize (cameraPos - pos);
@@ -37,9 +37,9 @@ void main(void)	{
 	float rFactor = clamp(dot(halfDir , normal) ,0.0 ,1.0);
 	float sFactor = pow (rFactor, 33.0);
 
-	fragColour[0] = vec4(lightColour.xyz * lambert * atten , 1.0);
+	//fragColour[0] = vec4(lightColour.xyz * lambert * atten , 1.0);
 	fragColour[1] = vec4(lightColour.xyz * sFactor * atten * 0.33 ,1.0);
-	
+	fragColour[0]  = lightColour;
 	
 	//fragColour[0] = vec4(0,0,1,1);
 	//fragColour[1] = vec4(0,1,0,1);

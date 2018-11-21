@@ -57,15 +57,6 @@ namespace rgl {
 		//glDisable(GL_DEPTH_TEST);
 		glBindVertexArray(_arrayObject);
 
-		offset = offset + delta;
-		if (offset > 3.14 * 2) {
-			offset -= 3.14 * 2;
-		}
-		for (int i = 0; i < _numberOfParticles; ++i) {
-			_vertexBufferData[i].Position = glm::vec3(sin(offset + i), i*0.01f, cos(offset + i));
-			float colour = offset / (3.14 * 2);
-			_vertexBufferData[i].Colour = glm::vec4(colour, 0.2f, 1 - colour, 1);
-		}
 
 		if (_texture != nullptr) {
 			_texture->bind();
