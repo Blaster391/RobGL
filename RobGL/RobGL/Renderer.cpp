@@ -40,6 +40,7 @@ namespace rgl {
 		glCullFace(GL_BACK);
 		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
+		glPatchParameteri(GL_PATCH_VERTICES, 3);
 
 	}
 

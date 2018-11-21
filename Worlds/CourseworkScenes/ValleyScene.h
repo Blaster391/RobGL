@@ -2,6 +2,10 @@
 #include "BaseScene.h"
 #include "CameraController.h"
 
+#include <RobGL/SkyboxFX.h>
+#include <RobGL/DirectionalLightCamera.h>
+#include <RobGL/AdditionalTextureUniform.h>
+#include <RobGL/TesselationControlUniform.h>
 
 
 class ValleyScene : public BaseScene
@@ -21,11 +25,12 @@ private:
 
 	CameraController* _cameraController;
 
-	const int NUMBER_OF_DINOS = 10;
+	const int NUMBER_OF_DINOS = 15;
 	const float DINO_SPEED = 10.0f;
 
 	std::vector<rgl::AnimatedRenderObject*> _dinos;
 
-
+	rgl::TesselationControlUniform* _tesselationUniform;
+	rgl::TesselationControlUniform* _tesselationLODUniform;
 };
 

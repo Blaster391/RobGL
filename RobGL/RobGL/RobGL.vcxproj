@@ -167,6 +167,7 @@
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SkyboxFX.h" />
     <ClInclude Include="StencilPool.h" />
+    <ClInclude Include="TesselationControlUniform.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SkyboxFX.cpp" />
     <ClCompile Include="StencilPool.cpp" />
+    <ClCompile Include="TesselationControlUniform.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />

@@ -1,8 +1,5 @@
 #include "ValleyScene.h"
 
-#include <RobGL/SkyboxFX.h>
-#include <RobGL/DirectionalLightCamera.h>
-#include <RobGL/AdditionalTextureUniform.h>
 
 #include "Random.h"
 
@@ -39,11 +36,29 @@ void ValleyScene::setupScene(AssetPack * assets)
 	directionalLightUniform->setShadowTexture(_renderer.getShadowMapTexture());
 
 	//Setup render pools
-	rgl::RenderPool* valleyRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("ValleyFloorFragment") }, mainCamera);
+	int outerTes[4] = { 10,10,10,10 };
+	_tesselationUniform = new rgl::TesselationControlUniform(outerTes, 10);
+	_tesselationLODUniform = new rgl::TesselationControlUniform(outerTes, 1);
+
+	
+	rgl::RenderPool* valleyRenderPoolLOD = new rgl::RenderPool({ assets->getShader("ValleyFloorVertex"), assets->getShader("ValleyFloorTessControl"), assets->getShader("ValleyFloorTessEvaluation"), assets->getShader("ValleyFloorFragment") }, mainCamera);
 	rgl::AdditionalTextureUniform* textureUniform = new rgl::AdditionalTextureUniform(assets->getTexture("ground_sand"), "flatTex");
+	valleyRenderPoolLOD->addUniformData(directionalLightUniform);
+	valleyRenderPoolLOD->addUniformData(textureUniform);
+	valleyRenderPoolLOD->addUniformData(_tesselationLODUniform);
+	_renderer.addRenderPool(valleyRenderPoolLOD);
+
+	rgl::RenderPool* valleyRenderPool = new rgl::RenderPool({ assets->getShader("ValleyFloorVertex"), assets->getShader("ValleyFloorTessControl"), assets->getShader("ValleyFloorTessEvaluation"), assets->getShader("ValleyFloorFragment") }, mainCamera);
 	valleyRenderPool->addUniformData(directionalLightUniform);
 	valleyRenderPool->addUniformData(textureUniform);
+	valleyRenderPool->addUniformData(_tesselationUniform);
 	_renderer.addRenderPool(valleyRenderPool);
+
+
+	rgl::RenderPool* waterRenderPool = new rgl::RenderPool({ assets->getShader("ValleyFloorVertex"), assets->getShader("ValleyFloorTessControl"), assets->getShader("ValleyFloorTessEvaluation"), assets->getShader("ValleyFloorFragment") }, mainCamera);
+	waterRenderPool->addUniformData(directionalLightUniform);
+	waterRenderPool->addUniformData(_tesselationUniform);
+	_renderer.addRenderPool(waterRenderPool);
 
 	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
 	dinosaurRenderPool->addUniformData(directionalLightUniform);
@@ -55,14 +70,30 @@ void ValleyScene::setupScene(AssetPack * assets)
 	valleyFloor->setTexture(assets->getTexture("ground_rock"));
 	valleyFloor->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(0, 0, 0)) * glm::scale(glm::mat4(1), glm::vec3(1,5,1)));
 	valleyRenderPool->addRenderObject(valleyFloor);
-	//_renderer.addRenderObjectToShadowPool(valleyFloor);
 
 	rgl::RenderObject* valleyFloor2 = new rgl::RenderObject;
 	valleyFloor2->setMesh(assets->getMesh("valleyFloor_2"));
 	valleyFloor2->setTexture(assets->getTexture("ground_rock"));
 	valleyFloor2->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(0, 0, 150)) * glm::scale(glm::mat4(1), glm::vec3(1, 5, 1)));
 	valleyRenderPool->addRenderObject(valleyFloor2);
-	//_renderer.addRenderObjectToShadowPool(valleyFloor2);
+
+	rgl::RenderObject* valleyFloor3 = new rgl::RenderObject;
+	valleyFloor3->setMesh(assets->getMesh("valleyFloor_3"));
+	valleyFloor3->setTexture(assets->getTexture("ground_rock"));
+	valleyFloor3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(-150, 0, 0)) * glm::scale(glm::mat4(1), glm::vec3(1, 5, 1)));
+	valleyRenderPoolLOD->addRenderObject(valleyFloor3);
+
+	rgl::RenderObject* valleyFloor4 = new rgl::RenderObject;
+	valleyFloor4->setMesh(assets->getMesh("valleyFloor_4"));
+	valleyFloor4->setTexture(assets->getTexture("ground_rock"));
+	valleyFloor4->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(150, 0, 0)) * glm::scale(glm::mat4(1), glm::vec3(1, 5, 1)));
+	valleyRenderPoolLOD->addRenderObject(valleyFloor4);
+
+	rgl::RenderObject* water = new rgl::RenderObject;
+	water->setMesh(assets->getMesh("flatMap"));
+	water->setTexture(assets->getTexture("water"));
+	water->setModelMatrix( glm::translate(glm::mat4(1), glm::vec3(15, 15, 185)) * glm::scale(glm::mat4(1), glm::vec3(0.7, 1, 0.7)));
+	waterRenderPool->addRenderObject(water);
 
 	//Setup dinosaurs
 	for (int i = 0; i < NUMBER_OF_DINOS; ++i) {
@@ -90,7 +121,11 @@ void ValleyScene::draw(float delta)
 {
 	_cameraController->update(delta);
 
-
+	if (_input.isKeyPressed(InputButton::KEYBOARD_T)) {
+		int outerTes[4] = { 1,1,1,1 };
+		_tesselationUniform->setTesselation(outerTes, 1);
+		_tesselationLODUniform->setTesselation(outerTes, 1);
+	}
 
 	updateDinos(delta);
 
@@ -103,16 +138,11 @@ void ValleyScene::updateDinos(float delta)
 
 		auto currentMatrix = d->getModelMatrix();
 
-		if (currentMatrix[3].x < 0) {
-			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, -150)));
+		if (currentMatrix[3].x < -25) {
+			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, -200)));
 		}
 		else {
 			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, DINO_SPEED*delta)));
 		}
-
-		
-
-		
-
 	}
 }

@@ -203,6 +203,9 @@
     <ClInclude Include="AdditionalTextureUniform.h">
       <Filter>Shaders\Uniforms</Filter>
     </ClInclude>
+    <ClInclude Include="TesselationControlUniform.h">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -332,6 +335,9 @@
       <Filter>Text</Filter>
     </ClCompile>
     <ClCompile Include="AdditionalTextureUniform.cpp">
+      <Filter>Shaders\Uniforms</Filter>
+    </ClCompile>
+    <ClCompile Include="TesselationControlUniform.cpp">
       <Filter>Shaders\Uniforms</Filter>
     </ClCompile>
   </ItemGroup>

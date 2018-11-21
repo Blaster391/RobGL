@@ -62,6 +62,8 @@ void AssetPack::loadSharedResources()
 	_meshes["anky"] = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/ankyanim.gltf");
 	_meshes["sphere"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
 
+	_meshes["flatMap"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10);
+
 	//Hats
 	_meshes["cowboyHat"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
 
@@ -73,6 +75,7 @@ void AssetPack::loadSharedResources()
 	_textures["stainedglass"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/stainedglass.tga", true, true);
 	_textures["anky"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png", true, true);
 	_textures["particle"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/particle.tga", true, false);
+	_textures["water"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/water.jpg", false, true);
 
 	//### Text ###//
 	_alphabet = new rgl::Text("Assets/Fonts/arial.ttf");
@@ -83,6 +86,9 @@ void AssetPack::loadValleyResources()
 {
 	//Shaders
 	_shaders["ValleyFloorFragment"] = new rgl::Shader("Assets/Shaders/Valley/valleyFloorFrag.glsl", GL_FRAGMENT_SHADER);
+	_shaders["ValleyFloorVertex"] = new rgl::Shader("Assets/Shaders/Valley/valleyFloorVert.glsl", GL_VERTEX_SHADER);
+	_shaders["ValleyFloorTessControl"] = new rgl::Shader("Assets/Shaders/Valley/valleyFloorTessControl.glsl", GL_TESS_CONTROL_SHADER);
+	_shaders["ValleyFloorTessEvaluation"] = new rgl::Shader("Assets/Shaders/Valley/valleyFloorTessEval.glsl", GL_TESS_EVALUATION_SHADER);
 
 	//Skybox
 	_cubemaps["valley"] = rgl::TextureLoader::LoadCubemapFromFile({
@@ -101,6 +107,12 @@ void AssetPack::loadValleyResources()
 	//Heightmaps
 	_meshes["valleyFloor_1"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_1.png");
 	_meshes["valleyFloor_2"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_2.png");
+	_meshes["valleyFloor_3"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_3.png");
+	_meshes["valleyFloor_4"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/valley_4.png");
+	_meshes["valleyFloor_1"]->setType(GL_PATCHES);
+	_meshes["valleyFloor_2"]->setType(GL_PATCHES);
+	_meshes["valleyFloor_3"]->setType(GL_PATCHES);
+	_meshes["valleyFloor_4"]->setType(GL_PATCHES);
 }
 
 void AssetPack::loadSpaceResources()

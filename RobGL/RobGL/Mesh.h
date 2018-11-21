@@ -15,6 +15,7 @@ namespace rgl {
 
 		void setVerticies(std::vector<Vertex> verticies);
 		void setIndicies(std::vector<unsigned int> indicies);
+		void setType(GLuint type) { _meshType = type;}
 
 		virtual void draw(float delta, GLuint program);
 
