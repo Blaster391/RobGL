@@ -143,7 +143,6 @@
     <ClInclude Include="Cubemap.h" />
     <ClInclude Include="DirectionalLightCamera.h" />
     <ClInclude Include="DirectionalLightUniform.h" />
-    <ClInclude Include="FallbackShaders.h" />
     <ClInclude Include="FixedScreenCamera.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="glad\glad.h" />
@@ -178,6 +177,7 @@
     <ClInclude Include="UITextFX.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexWeightData.h" />
+    <ClInclude Include="WaterUniform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdditionalTextureUniform.cpp" />
@@ -192,7 +192,6 @@
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="DirectionalLightCamera.cpp" />
     <ClCompile Include="DirectionalLightUniform.cpp" />
-    <ClCompile Include="FallbackShaders.cpp" />
     <ClCompile Include="FixedScreenCamera.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="glad\glad.c" />
@@ -224,6 +223,7 @@
     <ClCompile Include="UITextFX.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexWeightData.cpp" />
+    <ClCompile Include="WaterUniform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

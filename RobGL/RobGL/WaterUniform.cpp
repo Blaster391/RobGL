@@ -2,10 +2,10 @@
 
 namespace rgl {
 
-	WaterUniform::WaterUniform()
+
+	WaterUniform::WaterUniform(Cubemap * reflection) : _reflection(reflection)
 	{
 	}
-
 
 	WaterUniform::~WaterUniform()
 	{
@@ -20,6 +20,11 @@ namespace rgl {
 	{
 		glUniform1f(glGetUniformLocation(program, "time"), _time);
 		glUniform1f(glGetUniformLocation(program, "displacement"), _maxDisplacement);
+
+		glUniform1i(glGetUniformLocation(program, "reflectionCube"), 15);
+		glActiveTexture(GL_TEXTURE15);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, _reflection->pointer());
+		glActiveTexture(GL_TEXTURE0);
 	}
 
 }

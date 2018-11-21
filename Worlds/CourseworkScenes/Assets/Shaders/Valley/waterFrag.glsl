@@ -1,7 +1,9 @@
 #version 460 core
 
 uniform sampler2D tex;
-uniform sampler2D flatTex;
+uniform samplerCube reflectionCube;
+
+uniform float time;
 
 uniform sampler2D shadowTex;
 
@@ -131,22 +133,19 @@ void main(void)	{
 		}
 	}
 	
-	vec3 up = vec3(0,1,0);
-	
-	
-	float blendAmount = max(0.0f, dot(normals, up));
-	vec4 blendColour = texture(tex,IN.texCoords) * (1 - blendAmount) +texture(flatTex,IN.texCoords) * (blendAmount);
+
+	vec4 reflection = texture(reflectionCube, reflect(viewDir, normals));
 	
 	
 	//Unlit
-	fragColour[0] = blendColour;
-	
+	fragColour[0] = texture(tex,vec2(IN.texCoords.x + time, IN.texCoords.y + time * 0.5f)) * reflection;
+	//fragColour[0] =reflection;
 	//Normals
 	fragColour[1] = vec4(normals,1);
 	//Emissive
 	fragColour[2] = vec4(lightColour.rgb * lambert * shadow, 1);
 	//Specular
-	fragColour[3] = vec4(((lightColour.rgb * sFactor) * 0.01f * shadow),1);
+	fragColour[3] = vec4(((lightColour.rgb * sFactor) * 0.4f * shadow),1);
 
 	
 	//FOR DEBUGGING

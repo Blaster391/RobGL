@@ -6,7 +6,7 @@
 #include <RobGL/DirectionalLightCamera.h>
 #include <RobGL/AdditionalTextureUniform.h>
 #include <RobGL/TesselationControlUniform.h>
-
+#include <RobGL/WaterUniform.h>
 
 class ValleyScene : public BaseScene
 {
@@ -32,5 +32,6 @@ private:
 
 	rgl::TesselationControlUniform* _tesselationUniform;
 	rgl::TesselationControlUniform* _tesselationLODUniform;
+	rgl::WaterUniform* _waterUniform;
 };
 

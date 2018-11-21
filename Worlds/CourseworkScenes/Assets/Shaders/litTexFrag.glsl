@@ -31,7 +31,7 @@ void main(void)	{
 	vec3 incident = normalize(lightDirection);
 	float lambert = max(0.0, dot(incident, normals));
 	
-	vec3 viewDir = normalize((cameraPos - IN.worldPos));
+	vec3 viewDir = normalize((IN.worldPos- cameraPos));
 	vec3 halfDir = normalize(incident + viewDir);
 	
 	float rFactor = max(0.0, dot(halfDir,normals));
