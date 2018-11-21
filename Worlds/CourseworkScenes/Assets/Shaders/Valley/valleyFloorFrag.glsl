@@ -94,10 +94,6 @@ void main(void)	{
 	poissonDisk[62] = vec2(-0.545396, 0.538133);
 	poissonDisk[63] = vec2(-0.178564, -0.596057);
 
-
-
-
-
 	float shadow = 1.0f;
 
 	vec3 normals = normalize(IN.normals);

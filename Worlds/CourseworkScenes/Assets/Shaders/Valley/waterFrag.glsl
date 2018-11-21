@@ -138,7 +138,7 @@ void main(void)	{
 	
 	
 	//Unlit
-	fragColour[0] = texture(tex,vec2(IN.texCoords.x + time, IN.texCoords.y + time * 0.5f)) * reflection;
+	fragColour[0] = texture(tex,vec2(IN.texCoords.x + time* 0.05f, IN.texCoords.y + time * 0.05f)) * reflection;
 	//fragColour[0] =reflection;
 	//Normals
 	fragColour[1] = vec4(normals,1);
