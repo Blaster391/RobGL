@@ -135,11 +135,12 @@ void main(void)	{
 	
 
 	vec4 reflection = texture(reflectionCube, reflect(viewDir, normals));
-	
+	vec4 diffuse = texture(tex,vec2(IN.texCoords.x + time* 0.05f, IN.texCoords.y + time * 0.05f));
+
 	
 	//Unlit
-	fragColour[0] = texture(tex,vec2(IN.texCoords.x + time* 0.05f, IN.texCoords.y + time * 0.05f)) * reflection;
-	//fragColour[0] =reflection;
+	fragColour[0] = vec4(diffuse.xyz * reflection.xyz, 0.7f);
+
 	//Normals
 	fragColour[1] = vec4(normals,1);
 	//Emissive

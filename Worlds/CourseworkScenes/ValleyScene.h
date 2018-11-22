@@ -28,7 +28,8 @@ private:
 	const int NUMBER_OF_DINOS = 15;
 	const float DINO_SPEED = 10.0f;
 
-	std::vector<rgl::AnimatedRenderObject*> _dinos;
+	std::vector<rgl::AnimatedRenderObject*> _runningDinos;
+	std::vector<rgl::AnimatedRenderObject*> _animatedObjects;
 
 	rgl::TesselationControlUniform* _tesselationUniform;
 	rgl::TesselationControlUniform* _tesselationLODUniform;

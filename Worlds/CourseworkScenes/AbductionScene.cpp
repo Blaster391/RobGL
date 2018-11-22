@@ -129,6 +129,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	rgl::PointLight* ufoLight1 = new rgl::PointLight(glm::vec4(0,1, 0, 1));
 	ufoLightNode1->setScale(glm::vec3(40, 40, 40));
 	ufoLightNode1->setPosition(glm::vec3(0, -15, 0));
+	ufoLight1->setMesh(assets->getMesh("sphere"));
 	ufoLightNode1->attachRenderObject(ufoLight1);
 	_ufoNode->addChild(ufoLightNode1);
 	_renderer.addLight(ufoLight1);

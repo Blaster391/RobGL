@@ -17,7 +17,9 @@ void ValleyScene::setupScene(AssetPack * assets)
 	rgl::Camera* mainCamera = new rgl::Camera;
 	_cameraController = new CameraController(mainCamera, &_input);
 	mainCamera->setProjectionPerspective(800,600);
-	mainCamera->setPosition(glm::vec3(0, 0, -10));
+	mainCamera->setPosition(glm::vec3(30, 7, 75));
+	mainCamera->pitch(-0.3f);
+	mainCamera->yaw(-glm::half_pi<float>());
 
 	//Setup renderer
 	_renderer.enablePostProcessing({ assets->getShader("TexturedVertex"), assets->getShader("UnlitTexturedFragment") });
@@ -48,16 +50,16 @@ void ValleyScene::setupScene(AssetPack * assets)
 
 	_renderer.addRenderPool(valleyRenderPool);
 
+	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	dinosaurRenderPool->addUniformData(directionalLightUniform);
+	_renderer.addRenderPool(dinosaurRenderPool);
+
 	_waterUniform = new rgl::WaterUniform(assets->getCubemap("valley"));
 	rgl::RenderPool* waterRenderPool = new rgl::RenderPool({ assets->getShader("WaterVertex"), assets->getShader("WaterTessControl"), assets->getShader("WaterTessEvaluation"), assets->getShader("WaterFragment") }, mainCamera);
 	waterRenderPool->addUniformData(directionalLightUniform);
 	waterRenderPool->addUniformData(_tesselationUniform);
 	waterRenderPool->addUniformData(_waterUniform);
 	_renderer.addRenderPool(waterRenderPool);
-
-	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
-	dinosaurRenderPool->addUniformData(directionalLightUniform);
-	_renderer.addRenderPool(dinosaurRenderPool);
 
 	//Setup render objects
 	rgl::RenderObject* valleyFloor = new rgl::RenderObject;
@@ -87,21 +89,38 @@ void ValleyScene::setupScene(AssetPack * assets)
 	rgl::RenderObject* water = new rgl::RenderObject;
 	water->setMesh(assets->getMesh("water"));
 	water->setTexture(assets->getTexture("water"));
-	water->setModelMatrix( glm::translate(glm::mat4(1), glm::vec3(15, 15, 185)) * glm::scale(glm::mat4(1), glm::vec3(0.7, 1, 0.7)));
+	water->setModelMatrix( glm::translate(glm::mat4(1), glm::vec3(15, 13, 185)) * glm::scale(glm::mat4(1), glm::vec3(0.7, 1, 0.7)));
 	waterRenderPool->addRenderObject(water);
 
 	//Setup dinosaurs
+	//Drinking dinos
+	rgl::AnimatedRenderObject* drinkingDino1 = new rgl::AnimatedRenderObject;
+	drinkingDino1->setMesh(assets->getAnimatedMesh("anky"));
+	drinkingDino1->setTexture(assets->getTexture("anky"));
+	drinkingDino1->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(84, 13.2f, 204.5f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -1.4f, glm::vec3(0, 1, 0))* glm::rotate(glm::mat4(1), 0.2f, glm::vec3(1, 0, 0)));
+	//Randomly displace the animation
+	drinkingDino1->setActiveAnimation(1, Random::random() * 2);
+	dinosaurRenderPool->addRenderObject(drinkingDino1);
+	_renderer.addAnimatedRenderObjectToShadowPool(drinkingDino1);
+	_animatedObjects.push_back(drinkingDino1);
+
+	//Idle dinos
+
+	//Bonus dino
+
+	//Walking dinos
 	for (int i = 0; i < NUMBER_OF_DINOS; ++i) {
-		rgl::AnimatedRenderObject* dino = new rgl::AnimatedRenderObject;
-		dino->setMesh(assets->getAnimatedMesh("anky"));
-		dino->setTexture(assets->getTexture("anky"));
-		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, 0, i + 74 + 4*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
+		rgl::AnimatedRenderObject* runningDino = new rgl::AnimatedRenderObject;
+		runningDino->setMesh(assets->getAnimatedMesh("anky"));
+		runningDino->setTexture(assets->getTexture("anky"));
+		runningDino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, 0, i + 74 + 4*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
 		
 		//Randomly displace the animation
-		dino->setActiveAnimation(1, Random::random() * 2);
-		_dinos.push_back(dino);
-		dinosaurRenderPool->addRenderObject(dino);
-		_renderer.addAnimatedRenderObjectToShadowPool(dino);
+		runningDino->setActiveAnimation(2, Random::random() * 2);
+		_runningDinos.push_back(runningDino);
+		_animatedObjects.push_back(runningDino);
+		dinosaurRenderPool->addRenderObject(runningDino);
+		_renderer.addAnimatedRenderObjectToShadowPool(runningDino);
 	}
 
 	//Setup post processing
@@ -131,7 +150,7 @@ void ValleyScene::draw(float delta)
 
 void ValleyScene::updateDinos(float delta)
 {
-	for (auto& d : _dinos) {
+	for (auto& d : _runningDinos) {
 
 		auto currentMatrix = d->getModelMatrix();
 
@@ -142,6 +161,10 @@ void ValleyScene::updateDinos(float delta)
 			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, DINO_SPEED*delta)));
 		}
 
-		d->update(delta);
+
+	}
+
+	for (auto& ao : _animatedObjects) {
+		ao->update(delta);
 	}
 }

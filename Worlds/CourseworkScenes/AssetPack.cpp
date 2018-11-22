@@ -177,7 +177,7 @@ void AssetPack::loadAbductionResources()
 
 
 	//Meshes
-	_meshes["ufo"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
+	_meshes["ufo"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Abduction/ufo2.obj");
 }
 
 rgl::Shader * AssetPack::getShader(std::string s)
