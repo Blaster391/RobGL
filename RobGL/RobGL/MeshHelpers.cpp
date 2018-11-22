@@ -309,7 +309,7 @@ namespace rgl {
 			}
 
 
-			root->setInverseBindMatrix(glm::mat4(1));
+			root->setInverseBindMatrix(inverse(glm::mat4(1)));
 
 			Skeleton* s = new Skeleton;
 			s->setJoints(root, joints);

@@ -81,7 +81,7 @@ namespace rgl {
 
 	glm::mat4 Joint::getLocalJointTransform()
 	{
-		glm::quat rotate(_rotation);
+		glm::quat rotate(_rotation.w, _rotation.x, _rotation.y, _rotation.z);
 		return glm::translate(glm::mat4(1), _translation) *  glm::mat4_cast(rotate)  * glm::scale(glm::mat4(1), _scale);
 	}
 

@@ -31,7 +31,7 @@ namespace rgl {
 		Joint* _parent = nullptr;
 		std::vector<int> _childrenIndex;
 
-		glm::vec4 _rotation = glm::vec4(1,1,1,0);
+		glm::vec4 _rotation = glm::vec4(0,0,0,1);
 		glm::vec3 _scale = glm::vec3(1);
 		glm::vec3 _translation = glm::vec3(0);
 

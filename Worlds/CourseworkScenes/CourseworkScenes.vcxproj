@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Configuration)\;..\..\extlibs\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RobGL_SceneGraph.lib;glfw3.lib;Input.lib;Window.lib;RobGL.lib;freetypeDEBUG.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
