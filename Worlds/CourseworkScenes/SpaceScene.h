@@ -16,7 +16,11 @@ public:
 protected:
 	virtual void setupScene(AssetPack* assets) override;
 private:
+	bool _lockToEarth = true;
+
+
 	CameraController* _cameraController;
+	rgl::Camera* _mainCamera;
 	LerpSkyboxUniform* _skyboxUniform;
 
 	rgl::scenes::SceneNode* _sunNode;
@@ -24,6 +28,14 @@ private:
 	rgl::scenes::SceneNode* _earthNode;
 	rgl::scenes::SceneNode* _earthAtmosphereNode;
 	rgl::scenes::SceneNode* _moonNode;
+	rgl::scenes::SceneNode* _moonMoonNode;
+	rgl::scenes::SceneNode* _ufoNode;
+
+	rgl::scenes::SceneNode* _jupiterNode;
+	rgl::scenes::SceneNode* _jupiterMoonNode;
+	rgl::scenes::SceneNode* _mercuryNode;
+	rgl::scenes::SceneNode* _saturnNode;
+
 
 	float _earthAtmosphereRotateAmount = 0.0f;
 	const float _earthAtmosphereRotateSpeed = 0.1f;

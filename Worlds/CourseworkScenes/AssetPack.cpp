@@ -62,7 +62,7 @@ void AssetPack::loadSharedResources()
 	_meshes["quad"] = rgl::MeshHelpers::GenerateQuad();
 	_meshes["anky"] = rgl::MeshHelpers::LoadMeshFromGLTF("Assets/Models/anky.gltf");
 	_meshes["sphere"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
-
+	_meshes["ufo"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Abduction/ufo2.obj");
 
 	//Animated Meshes
 	_animatedMeshes["anky"] = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/anky.gltf");
@@ -73,6 +73,7 @@ void AssetPack::loadSharedResources()
 	_textures["anky"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Anky.png", true, true);
 	_textures["particle"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/particle.tga", true, false);
 	_textures["water"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/water.jpg", false, true);
+	_textures["ufo"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Abduction/ufo_diffuse.png", true, true);
 
 	//### Text ###//
 	_alphabet = new rgl::Text("Assets/Fonts/arial.ttf");
@@ -159,6 +160,11 @@ void AssetPack::loadSpaceResources()
 	_textures["Earth_Atmosphere"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/atmosphere.png", true, true);
 	_textures["Moon"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Earth/moon.jpg", false, true);
 	_textures["Sun"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/Sun/sun.jpg", false, true);
+
+	_textures["Europa"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/europa.jpg", false, true);
+	_textures["Jupiter"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/jupiter.png", false, true);
+	_textures["Mercury"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/mercury.jpg", false, true);
+	_textures["Saturn"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Space/saturn.jpg", false, true);
 }
 
 void AssetPack::loadAbductionResources()
@@ -180,12 +186,6 @@ void AssetPack::loadAbductionResources()
 
 	_meshes["abductionFloor"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/abduction.png");
 
-	//Textures
-	_textures["ufo"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Abduction/ufo_diffuse.png", true, true);
-
-
-	//Meshes
-	_meshes["ufo"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Abduction/ufo2.obj");
 }
 
 rgl::Shader * AssetPack::getShader(std::string s)

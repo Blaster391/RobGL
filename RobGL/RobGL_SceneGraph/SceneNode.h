@@ -19,6 +19,7 @@ namespace rgl {
 
 			SceneNode* getParent();
 
+			glm::vec3 getPosition() { return _position; }
 			void setPosition(glm::vec3 p);
 			void setRotation(glm::mat4  r);
 			void setScale(glm::vec3 s);
