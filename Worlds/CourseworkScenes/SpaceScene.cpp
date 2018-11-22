@@ -51,7 +51,7 @@ void SpaceScene::setupScene(AssetPack * assets)
 	mercuryRO->setTexture(assets->getTexture("Mercury"));
 	opaqueRenderPool->addRenderObject(mercuryRO);
 	_mercuryNode->attachRenderObject(mercuryRO);
-	_mercuryNode->setScale(glm::vec3(0.2f, 0.2f, 0.2f));
+	_mercuryNode->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
 	_mercuryNode->setPosition(glm::vec3(5.0f, 0.0f, 0.0f));
 	_sunNode->addChild(_mercuryNode);
 
@@ -62,8 +62,9 @@ void SpaceScene::setupScene(AssetPack * assets)
 	earthRO->setTexture(assets->getTexture("Earth"));
 	opaqueRenderPool->addRenderObject(earthRO);
 	_earthNode->attachRenderObject(earthRO);
-	_earthNode->setScale(glm::vec3(1, 1, 1));
-	_earthNode->setPosition(glm::vec3(50.0f, 0.0f, 50.0f));
+	_earthNode->setScale(glm::vec3(0.2f, 0.2f, 0.2f));
+	_earthNode->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	_sunNode->addChild(_earthNode);
 
 	_earthAtmosphereNode = new rgl::scenes::SceneNode;
 	rgl::RenderObject* earthAtmosphereRO = new rgl::RenderObject;
@@ -143,7 +144,7 @@ void SpaceScene::setupScene(AssetPack * assets)
 
 void SpaceScene::draw(float delta)
 {
-	_cameraController->update(delta);
+	_cameraController->update(delta * 5);
 	_skyboxUniform->update(delta);
 
 	_earthAtmosphereRotateAmount += _earthAtmosphereRotateSpeed * delta;
@@ -154,6 +155,18 @@ void SpaceScene::draw(float delta)
 	_moonNode->setPosition(calculateOrbit(_currentMoonOrbit,_moonOrbitRadius));
 	_moonMoonNode->setPosition(calculateOrbit(-_currentMoonOrbit, _moonOrbitRadius));
 
+	_currentMercuryOrbit += _mercuryOrbitSpeed * delta;
+	_mercuryNode->setPosition(calculateOrbit(_currentMercuryOrbit, _mercuryOrbitRadius));
+
+	_currentSaturnOrbit += _saturnOrbitSpeed * delta;
+	_saturnNode->setPosition(calculateOrbit(_currentSaturnOrbit, _saturnOrbitRadius));
+
+	_currentJupiterOrbit += _jupiterOrbitSpeed * delta;
+	_jupiterNode->setPosition(calculateOrbit(_currentJupiterOrbit, _jupiterOrbitRadius));
+
+	_currentJupiterMoonOrbit += _jupiterMoonOrbitSpeed * delta;
+	_jupiterMoonNode->setPosition(calculateOrbit(_currentJupiterMoonOrbit, _jupiterMoonOrbitRadius));
+
 	_currentEarthOrbit += _earthOrbitSpeed * delta;
 	_earthNode->setPosition(calculateOrbit(_currentEarthOrbit, _earthOrbitRadius));
 
@@ -162,7 +175,7 @@ void SpaceScene::draw(float delta)
 	}
 
 	if (_lockToEarth) {
-		_mainCamera->setPosition(_earthNode->getPosition() + glm::vec3(10,0,0));
+		_mainCamera->setPosition(_earthNode->getWorldPosition() + glm::vec3(10,0,0));
 	}
 
 	BaseScene::draw(delta);

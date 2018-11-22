@@ -39,13 +39,31 @@ private:
 
 	float _earthAtmosphereRotateAmount = 0.0f;
 	const float _earthAtmosphereRotateSpeed = 0.1f;
-	const float _moonOrbitRadius = 8.0f;
+
 	float _currentMoonOrbit = 0.0f;
+	const float _moonOrbitRadius = 8.0f;
 	const float _moonOrbitSpeed = -0.75f;
 
+	float _currentMercuryOrbit = 0.0f;
+	const float _mercuryOrbitRadius = 5.0f;
+	const float _mercuryOrbitSpeed = 1.0f;
+
+	float _currentSaturnOrbit = 0.0f;
+	const float _saturnOrbitRadius = 50.0f;
+	const float _saturnOrbitSpeed = 0.3f;
+
+	float _currentJupiterOrbit = 0.0f;
+	const float _jupiterOrbitRadius = 35.0f;
+	const float _jupiterOrbitSpeed = -0.1f;
+
+	float _currentJupiterMoonOrbit = 0.0f;
+	const float _jupiterMoonOrbitRadius = 10.0f;
+	const float _jupiterMoonOrbitSpeed = 0.1f;
+
 	float _currentEarthOrbit = 0.0f;
+	const float _earthOrbitRadius = 10.0f;
 	const float _earthOrbitSpeed = 0.25f;
-	const float _earthOrbitRadius = 50.0f;
+
 
 	//Helper method since many things orbit
 	glm::vec3 calculateOrbit(float pos, float radius) {
