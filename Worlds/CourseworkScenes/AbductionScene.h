@@ -8,7 +8,7 @@
 
 
 struct Abductee {
-	rgl::RenderObject* RenderObject;
+	rgl::AnimatedRenderObject* RenderObject;
 	float CurrentPosition = 0.0f;
 	bool reverse = false;
 	glm::vec3 originalPosition;

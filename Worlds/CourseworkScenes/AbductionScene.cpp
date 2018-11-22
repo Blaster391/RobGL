@@ -72,7 +72,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	dino1->setMesh(assets->getAnimatedMesh("anky"));
 	dino1->setTexture(assets->getTexture("anky"));
 	dino1->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(75,20,75)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(1, 0, 0)));
-	dino1->setActiveAnimation(0, 0);
+	dino1->setActiveAnimation(3, 0);
 	animatedRenderPool->addRenderObject(dino1);
 	_abductees.push_back({ dino1 , 0, false, glm::vec3(75,50,75) });
 
@@ -81,7 +81,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	dino2->setMesh(assets->getAnimatedMesh("anky"));
 	dino2->setTexture(assets->getTexture("anky"));
 	dino2->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(60, 25, 75)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(1, 0, 0)));
-	dino2->setActiveAnimation(0, 0);
+	dino2->setActiveAnimation(3, 1);
 	animatedRenderPool->addRenderObject(dino2);
 	_abductees.push_back({ dino2 , 3, false, glm::vec3(60, 35, 75) });
 
@@ -89,7 +89,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	dino3->setMesh(assets->getAnimatedMesh("anky"));
 	dino3->setTexture(assets->getTexture("anky"));
 	dino3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(70, 20, 80)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(1, 0, 0)));
-	dino3->setActiveAnimation(0, 0);
+	dino3->setActiveAnimation(3, 0.7);
 	animatedRenderPool->addRenderObject(dino3);
 	_abductees.push_back({ dino3 , -2, true, glm::vec3(70, 60, 80) });
 
@@ -150,7 +150,10 @@ void AbductionScene::draw(float delta)
 	_currentUfoRotation += delta * _ufoRotateSpeed;
 	_ufoNode->setRotation(glm::rotate(glm::mat4(1), _currentUfoRotation, glm::vec3(0,1,0)));
 
+
+
 	for (auto& a : _abductees) {
+		a.RenderObject->update(delta);
 		if (a.reverse) {
 			a.CurrentPosition -= delta * _dinoAbductSpeed;
 			if (a.CurrentPosition < -_dinoMovementRadius) {
