@@ -11,7 +11,6 @@ namespace rgl {
 	}
 	void ShadowmapPool::drawData(float delta)
 	{
-		glClear(GL_DEPTH_BUFFER_BIT);
 		//glCullFace(GL_FRONT);
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 

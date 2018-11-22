@@ -14,6 +14,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 {
 	rgl::Camera* mainCamera = new rgl::Camera;
 	_cameraController = new CameraController(mainCamera, &_input);
+	mainCamera->setPosition(glm::vec3(60,10, 75));
 
 	_screenInfoUniform = new rgl::ScreenInformationUniform(800, 600);
 
@@ -127,8 +128,8 @@ void AbductionScene::setupScene(AssetPack * assets)
 
 	rgl::scenes::SceneNode* ufoLightNode1 = new rgl::scenes::SceneNode;
 	rgl::PointLight* ufoLight1 = new rgl::PointLight(glm::vec4(0,1, 0, 1));
-	ufoLightNode1->setScale(glm::vec3(40, 40, 40));
-	ufoLightNode1->setPosition(glm::vec3(0, -15, 0));
+	ufoLightNode1->setScale(glm::vec3(20, 20, 20));
+	ufoLightNode1->setPosition(glm::vec3(5, -15, 0));
 	ufoLight1->setMesh(assets->getMesh("sphere"));
 	ufoLightNode1->attachRenderObject(ufoLight1);
 	_ufoNode->addChild(ufoLightNode1);

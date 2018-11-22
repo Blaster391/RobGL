@@ -62,9 +62,21 @@ namespace rgl {
 
 	glm::mat4 Joint::calculateJointMatrix(glm::mat4 globalTransform)
 	{
-		glm::mat4 jointMatrix = /*globalTransform **/ getGlobalJointTransform() * _inverseBind;
+		auto gjt = getGlobalJointTransform();
+
+		glm::mat4 jointMatrix = /*globalTransform **/ gjt * _inverseBind;
+
+		if (_attachment != nullptr) {
+			_attachment->setModelMatrix(globalTransform * gjt * _attachmentLocalTransform);
+		}
 
 		return jointMatrix;
+	}
+
+	void Joint::attachRenderObject(RenderObject * attachment, glm::mat4 localTransform)
+	{
+		_attachment = attachment;
+		_attachmentLocalTransform = localTransform;
 	}
 
 	glm::mat4 Joint::getGlobalJointTransform()

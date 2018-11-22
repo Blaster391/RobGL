@@ -25,6 +25,8 @@ namespace rgl {
 		void setGlobalTransform(glm::mat4 transform);
 		void setActiveAnimation(int anim, float offset = 0.0f);
 
+		Skeleton* getSkeleton() { return _skeleton; }
+
 	protected:
 		AnimatedMesh* _mesh;
 		Animation _activeAnimation;

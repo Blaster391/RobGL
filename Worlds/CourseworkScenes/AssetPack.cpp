@@ -63,9 +63,6 @@ void AssetPack::loadSharedResources()
 	_meshes["sphere"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/ico.obj");
 
 
-	//Hats
-	_meshes["cowboyHat"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/hat.obj");
-
 	//Animated Meshes
 	_animatedMeshes["anky"] = rgl::MeshHelpers::LoadAnimatedMeshFromGLTF("Assets/Models/anky.gltf");
 
@@ -112,6 +109,16 @@ void AssetPack::loadValleyResources()
 
 	_meshes["water"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10);
 	_meshes["water"]->setType(GL_PATCHES);
+
+	//Hats
+	_meshes["cowboyHat"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Valley/hat1.obj");
+	_textures["cowboyHat"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Valley/CowboyHat.png", true, true);
+
+	_meshes["topHat"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Valley/topHat.obj");
+	_textures["topHat"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Valley/TopHat.png", true, true);
+
+	_meshes["bowlerHat"] = rgl::MeshHelpers::LoadMeshFromObj("Assets/Models/Valley/bowlerHat.obj");
+	_textures["bowlerHat"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Valley/BowlerHat.jpg", false, true);
 }
 
 void AssetPack::loadSpaceResources()

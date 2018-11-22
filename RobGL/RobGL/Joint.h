@@ -2,6 +2,7 @@
 #include <vector>
 #include <External/glm/common.hpp>
 #include <External/glm/mat4x4.hpp>
+#include "RenderObject.h"
 namespace rgl {
 	class Joint
 	{
@@ -26,7 +27,12 @@ namespace rgl {
 
 		glm::mat4 calculateJointMatrix(glm::mat4 globalTransform);
 
+		void attachRenderObject(RenderObject* attachment, glm::mat4 localTransform);
+
 	protected:
+		RenderObject* _attachment = nullptr;
+		glm::mat4 _attachmentLocalTransform;
+
 		std::vector<Joint*> _children;
 		Joint* _parent = nullptr;
 		std::vector<int> _childrenIndex;

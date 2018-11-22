@@ -53,6 +53,10 @@ void ValleyScene::setupScene(AssetPack * assets)
 	dinosaurRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(dinosaurRenderPool);
 
+	rgl::RenderPool* hatRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	hatRenderPool->addUniformData(directionalLightUniform);
+	_renderer.addRenderPool(hatRenderPool);
+
 	_waterUniform = new rgl::WaterUniform(assets->getCubemap("valley"));
 	rgl::RenderPool* waterRenderPool = new rgl::RenderPool({ assets->getShader("WaterVertex"), assets->getShader("WaterTessControl"), assets->getShader("WaterTessEvaluation"), assets->getShader("WaterFragment") }, mainCamera);
 	waterRenderPool->addUniformData(directionalLightUniform);
@@ -149,11 +153,39 @@ void ValleyScene::setupScene(AssetPack * assets)
 
 	//Walking dinos
 	for (int i = 0; i < NUMBER_OF_DINOS; ++i) {
+		rgl::RenderObject* hat = new rgl::RenderObject;
+		float randHat = Random::random() * 4;
+
+		if (randHat < 1) {
+			hat->setMesh(assets->getMesh("topHat"));
+			hat->setTexture(assets->getTexture("topHat"));
+			hatRenderPool->addRenderObject(hat);
+			_renderer.addRenderObjectToShadowPool(hat);
+		}
+		else if (randHat < 2) {
+			hat->setMesh(assets->getMesh("cowboyHat"));
+			hat->setTexture(assets->getTexture("cowboyHat"));
+			hatRenderPool->addRenderObject(hat);
+			_renderer.addRenderObjectToShadowPool(hat);
+		}
+		else if (randHat < 3) {
+			hat->setMesh(assets->getMesh("bowlerHat"));
+			hat->setTexture(assets->getTexture("bowlerHat"));
+			hatRenderPool->addRenderObject(hat);
+			_renderer.addRenderObjectToShadowPool(hat);
+		}
+
+
+
 		rgl::AnimatedRenderObject* runningDino = new rgl::AnimatedRenderObject;
 		runningDino->setMesh(assets->getAnimatedMesh("anky"));
 		runningDino->setTexture(assets->getTexture("anky"));
 		runningDino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, 0, i + 74 + 4*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
-		
+		runningDino->getSkeleton()->getJoint(12)->attachRenderObject(hat,glm::translate(glm::mat4(1), glm::vec3(0,0.4f,0)) 
+																				* glm::scale(glm::mat4(1),glm::vec3(0.3,0.3,0.3)) 
+																				* glm::rotate(glm::mat4(1),0.7f, glm::vec3(1,0,0)));
+
+
 		//Randomly displace the animation
 		runningDino->setActiveAnimation(2, Random::random() * 2);
 		_runningDinos.push_back(runningDino);

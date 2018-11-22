@@ -126,7 +126,7 @@ void main(void)	{
 			//Soften shadows with possion disk
 			for (int i=0;i<64;i++){
 			  if (texture( shadowTex, projCoords.xy + poissonDisk[i]/2000.0 ).r  <  currentDepth - bias ){
-				shadow -= 0.0125;
+				shadow -= 0.01;
 				}
 			}
 			

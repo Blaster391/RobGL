@@ -317,6 +317,7 @@ namespace rgl {
 	void Renderer::drawShadows(float delta)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, _shadowFBO);
+		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glViewport(0, 0, _shadowMapSize, _shadowMapSize);
 		_shadowmapPool->draw(delta);
