@@ -32,7 +32,6 @@ private:
 	std::vector<rgl::AnimatedRenderObject*> _animatedObjects;
 
 	rgl::TesselationControlUniform* _tesselationUniform;
-	rgl::TesselationControlUniform* _tesselationLODUniform;
 	rgl::WaterUniform* _waterUniform;
 };
 

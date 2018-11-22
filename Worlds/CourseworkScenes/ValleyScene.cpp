@@ -40,7 +40,6 @@ void ValleyScene::setupScene(AssetPack * assets)
 	//Setup render pools
 	int outerTes[4] = { 10,10,10,10 };
 	_tesselationUniform = new rgl::TesselationControlUniform(outerTes, 10);
-	_tesselationLODUniform = new rgl::TesselationControlUniform(outerTes, 1);
 
 
 	rgl::AdditionalTextureUniform* textureUniform = new rgl::AdditionalTextureUniform(assets->getTexture("ground_sand"), "flatTex");
@@ -97,14 +96,54 @@ void ValleyScene::setupScene(AssetPack * assets)
 	rgl::AnimatedRenderObject* drinkingDino1 = new rgl::AnimatedRenderObject;
 	drinkingDino1->setMesh(assets->getAnimatedMesh("anky"));
 	drinkingDino1->setTexture(assets->getTexture("anky"));
-	drinkingDino1->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(84, 13.2f, 204.5f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -1.4f, glm::vec3(0, 1, 0))* glm::rotate(glm::mat4(1), 0.2f, glm::vec3(1, 0, 0)));
+	drinkingDino1->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(82, 13.0f, 203.5f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -1.4f, glm::vec3(0, 1, 0))* glm::rotate(glm::mat4(1), 0.2f, glm::vec3(1, 0, 0)));
 	//Randomly displace the animation
 	drinkingDino1->setActiveAnimation(1, Random::random() * 2);
 	dinosaurRenderPool->addRenderObject(drinkingDino1);
 	_renderer.addAnimatedRenderObjectToShadowPool(drinkingDino1);
 	_animatedObjects.push_back(drinkingDino1);
 
+	rgl::AnimatedRenderObject* drinkingDino2 = new rgl::AnimatedRenderObject;
+	drinkingDino2->setMesh(assets->getAnimatedMesh("anky"));
+	drinkingDino2->setTexture(assets->getTexture("anky"));
+	drinkingDino2->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(82, 12.7f, 208.5f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -0.9f, glm::vec3(0, 1, 0))* glm::rotate(glm::mat4(1), 0.2f, glm::vec3(1, 0, 0)));
+	//Randomly displace the animation
+	drinkingDino2->setActiveAnimation(1, Random::random() * 2);
+	dinosaurRenderPool->addRenderObject(drinkingDino2);
+	_renderer.addAnimatedRenderObjectToShadowPool(drinkingDino2);
+	_animatedObjects.push_back(drinkingDino2);
+
 	//Idle dinos
+	rgl::AnimatedRenderObject* idleDino1 = new rgl::AnimatedRenderObject;
+	idleDino1->setMesh(assets->getAnimatedMesh("anky"));
+	idleDino1->setTexture(assets->getTexture("anky"));
+	idleDino1->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(42, 18.5f, 262.0f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -2.4f, glm::vec3(0, 1, 0)));
+	//Randomly displace the animation
+	idleDino1->setActiveAnimation(0, Random::random() * 2);
+	dinosaurRenderPool->addRenderObject(idleDino1);
+	_renderer.addAnimatedRenderObjectToShadowPool(idleDino1);
+	_animatedObjects.push_back(idleDino1);
+
+	rgl::AnimatedRenderObject* idleDino2 = new rgl::AnimatedRenderObject;
+	idleDino2->setMesh(assets->getAnimatedMesh("anky"));
+	idleDino2->setTexture(assets->getTexture("anky"));
+	idleDino2->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(35, 18.5f, 255.0f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), 0.4f, glm::vec3(0, 1, 0)));
+	//Randomly displace the animation
+	idleDino2->setActiveAnimation(0, Random::random() * 2);
+	dinosaurRenderPool->addRenderObject(idleDino2);
+	_renderer.addAnimatedRenderObjectToShadowPool(idleDino2);
+	_animatedObjects.push_back(idleDino2);
+
+	rgl::AnimatedRenderObject* idleDino3 = new rgl::AnimatedRenderObject;
+	idleDino3->setMesh(assets->getAnimatedMesh("anky"));
+	idleDino3->setTexture(assets->getTexture("anky"));
+	idleDino3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(33, 18.5f, 265.0f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), 2.4f, glm::vec3(0, 1, 0)));
+	//Randomly displace the animation
+	idleDino3->setActiveAnimation(0, Random::random() * 2);
+	dinosaurRenderPool->addRenderObject(idleDino3);
+	_renderer.addAnimatedRenderObjectToShadowPool(idleDino3);
+	_animatedObjects.push_back(idleDino3);
+
 
 	//Bonus dino
 
@@ -138,7 +177,6 @@ void ValleyScene::draw(float delta)
 	if (_input.isKeyPressed(InputButton::KEYBOARD_T)) {
 		int outerTes[4] = { 1,1,1,1 };
 		_tesselationUniform->setTesselation(outerTes, 1);
-		_tesselationLODUniform->setTesselation(outerTes, 1);
 	}
 
 	_waterUniform->update(delta);
