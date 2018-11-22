@@ -95,7 +95,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 		rgl::AnimatedRenderObject* dino = new rgl::AnimatedRenderObject;
 		dino->setMesh(assets->getAnimatedMesh("anky"));
 		dino->setTexture(assets->getTexture("anky"));
-		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, 0, i + 70 + 10*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
+		dino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, 0, i + 74 + 4*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
 		
 		//Randomly displace the animation
 		dino->setActiveAnimation(1, Random::random() * 2);
@@ -141,5 +141,7 @@ void ValleyScene::updateDinos(float delta)
 		else {
 			d->setModelMatrix(currentMatrix * glm::translate(glm::mat4(1), glm::vec3(0, 0, DINO_SPEED*delta)));
 		}
+
+		d->update(delta);
 	}
 }

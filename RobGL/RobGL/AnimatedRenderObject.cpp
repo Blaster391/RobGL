@@ -9,13 +9,17 @@ namespace rgl {
 	AnimatedRenderObject::~AnimatedRenderObject()
 	{
 	}
+	void AnimatedRenderObject::update(float delta)
+	{
+		_activeAnimation.update(delta);
+		_skeleton->updateJointMatrices();
+	}
+
 	void AnimatedRenderObject::draw(float delta, GLuint program)
 	{
 		setGlobalTransform(_modelMatrix);
 
-		_activeAnimation.update(delta);
-		
-		auto debug = _skeleton->getJointMatrices();
+
 
 		glUniformMatrix4fv(glGetUniformLocation(program, "jointMatrices"), 50, false, (float*)_skeleton->getJointMatrices());
 

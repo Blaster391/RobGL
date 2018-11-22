@@ -21,6 +21,8 @@ namespace rgl {
 		Joint* getRoot();
 		std::map<int, Joint*> getJoints();
 
+		void updateJointMatrices();
+
 		Joint* getJoint(int idx) {
 			return _joints[idx];
 		}

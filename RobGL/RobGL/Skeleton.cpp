@@ -41,10 +41,6 @@ namespace rgl {
 
 	glm::mat4 * Skeleton::getJointMatrices()
 	{
-		for (auto& j : _joints) {
-			_jointMatrices[j.first] = j.second->calculateJointMatrix(_globalTransform);
-		}
-
 		return _jointMatrices;
 	}
 	void Skeleton::setGlobalTransform(glm::mat4 transform)
@@ -58,5 +54,11 @@ namespace rgl {
 	std::map<int, Joint*> Skeleton::getJoints()
 	{
 		return _joints;
+	}
+	void Skeleton::updateJointMatrices()
+	{
+		for (auto& j : _joints) {
+			_jointMatrices[j.first] = j.second->calculateJointMatrix(_globalTransform);
+		}
 	}
 }

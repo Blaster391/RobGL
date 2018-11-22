@@ -19,6 +19,7 @@ namespace rgl {
 			RenderObject::setMesh(m);
 		}
 
+		void update(float delta);
 		virtual void draw(float delta, GLuint program) override;
 
 		void setGlobalTransform(glm::mat4 transform);
