@@ -34,9 +34,9 @@ int main() {
 	spaceScene.setup(&assets);
 	abductionScene.setup(&assets);
 
-	sceneManager.addScene(&valleyScene);
 	sceneManager.addScene(&spaceScene);
 	sceneManager.addScene(&abductionScene);
+	sceneManager.addScene(&valleyScene);
 
 	//Setup window
 	window.hideCursor();

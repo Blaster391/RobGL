@@ -175,7 +175,7 @@ void SpaceScene::draw(float delta)
 	}
 
 	if (_lockToEarth) {
-		_mainCamera->setPosition(_earthNode->getWorldPosition() + glm::vec3(10,0,0));
+		_mainCamera->setPosition(_earthNode->getWorldPosition() + glm::vec3(0,0,18));
 	}
 
 	BaseScene::draw(delta);

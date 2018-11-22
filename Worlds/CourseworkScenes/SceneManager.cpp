@@ -33,7 +33,7 @@ bool SceneManager::update(float delta)
 		--_activeScene;
 	}
 
-	if (_activeScene >= _scenes.size()) {
+	if (_activeScene >= (int)_scenes.size()) {
 		_activeScene = 0;
 	}
 	else if (_activeScene < 0) {

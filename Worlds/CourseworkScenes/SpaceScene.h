@@ -40,23 +40,23 @@ private:
 	float _earthAtmosphereRotateAmount = 0.0f;
 	const float _earthAtmosphereRotateSpeed = 0.1f;
 
-	float _currentMoonOrbit = 0.0f;
+	float _currentMoonOrbit = 2.3f;
 	const float _moonOrbitRadius = 8.0f;
 	const float _moonOrbitSpeed = -0.75f;
 
-	float _currentMercuryOrbit = 0.0f;
+	float _currentMercuryOrbit = 1.1f;
 	const float _mercuryOrbitRadius = 5.0f;
 	const float _mercuryOrbitSpeed = 1.0f;
 
-	float _currentSaturnOrbit = 0.0f;
+	float _currentSaturnOrbit = 3.0f;
 	const float _saturnOrbitRadius = 50.0f;
 	const float _saturnOrbitSpeed = 0.3f;
 
-	float _currentJupiterOrbit = 0.0f;
+	float _currentJupiterOrbit = 0.4f;
 	const float _jupiterOrbitRadius = 35.0f;
 	const float _jupiterOrbitSpeed = -0.1f;
 
-	float _currentJupiterMoonOrbit = 0.0f;
+	float _currentJupiterMoonOrbit = 7.4f;
 	const float _jupiterMoonOrbitRadius = 10.0f;
 	const float _jupiterMoonOrbitSpeed = 0.1f;
 
