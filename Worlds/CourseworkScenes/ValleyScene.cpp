@@ -26,7 +26,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 
 	rgl::DirectionalLightCamera* directionalLightCamera = new rgl::DirectionalLightCamera(glm::vec4(1, 1, 1, 1), glm::vec3(1, 1, -1));
 	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera->getUniformData();
-	directionalLightCamera->setProjectionOrthographic(100, 400, 300, 300);
+	directionalLightCamera->setProjectionOrthographic(100, 400, 250, 250);
 	directionalLightCamera->setPosition(glm::vec3(200, 200, -20));
 	directionalLightCamera->pitch(-0.6f);
 	directionalLightCamera->yaw(-3.9f);
@@ -174,10 +174,20 @@ void ValleyScene::draw(float delta)
 {
 	_cameraController->update(delta);
 
-	if (_input.isKeyPressed(InputButton::KEYBOARD_T)) {
-		int outerTes[4] = { 1,1,1,1 };
-		_tesselationUniform->setTesselation(outerTes, 1);
+	if (_input.isKeyHeld(InputButton::KEYBOARD_T)) {
+		int outerTes[3] = { 1,1,1 };
+		_tesselationUniform->setTesselation(outerTes, 0);
 	}
+	else if (_input.isKeyHeld(InputButton::KEYBOARD_Y)) {
+		int outerTes[3] = { 100,100,100 };
+		_tesselationUniform->setTesselation(outerTes, 100);
+	}
+	else {
+		int outerTes[3] = { 10,10,10 };
+		_tesselationUniform->setTesselation(outerTes, 10);
+	}
+
+
 
 	_waterUniform->update(delta);
 
