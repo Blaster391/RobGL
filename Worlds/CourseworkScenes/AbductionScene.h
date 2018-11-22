@@ -26,7 +26,6 @@ protected:
 	virtual void setupScene(AssetPack* assets) override;
 private:
 	CameraController* _cameraController;
-	rgl::ScreenInformationUniform*  _screenInfoUniform;
 
 	rgl::scenes::SceneNode* _ufoNode;
 	const float _ufoRotateSpeed = 1.0f;

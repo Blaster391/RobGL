@@ -16,8 +16,6 @@ void AbductionScene::setupScene(AssetPack * assets)
 	_cameraController = new CameraController(mainCamera, &_input);
 	mainCamera->setPosition(glm::vec3(60,10, 75));
 
-	_screenInfoUniform = new rgl::ScreenInformationUniform(800, 600);
-
 	_renderer.enablePostProcessing({ assets->getShader("TexturedVertex"), assets->getShader("UnlitTexturedFragment") });
 	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, mainCamera, _screenInfoUniform);
 	//_renderer.enableShadowMapping({ assets->getShader("ShadowMapVertex"), assets->getShader("ShadowMapFragment") }, { assets->getShader("AnimatedShadowMapVertex"), assets->getShader("ShadowMapFragment") }, directionalLightCamera, 2160);

@@ -131,7 +131,7 @@ void main(void)	{
 	
 	
 	float blendAmount = max(0.0f, dot(normals, up));
-	vec4 blendColour = texture(tex,IN.texCoords) * (1 - blendAmount) +texture(flatTex,IN.texCoords) * (blendAmount);
+	vec4 blendColour = texture(tex,IN.texCoords * 0.1f) * (1 - blendAmount) +texture(flatTex,IN.texCoords) * (blendAmount);
 	
 	
 	//Unlit

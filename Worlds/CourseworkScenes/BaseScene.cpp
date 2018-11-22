@@ -11,6 +11,7 @@ BaseScene::~BaseScene()
 
 void BaseScene::setup(AssetPack * assets)
 {
+	_screenInfoUniform = new rgl::ScreenInformationUniform(800, 600);
 
 	_fpsText = new rgl::UITextFX({ assets->getShader("TextVertex"), assets->getShader("TextFragment") }, assets->getText());
 	_fpsText->setColour(glm::vec4(1, 1, 1, 1));
@@ -27,6 +28,7 @@ void BaseScene::setup(AssetPack * assets)
 	_renderRenderEmissive = new rgl::PostProcessingFX({ assets->getShader("TexturedVertex_NO_MVP"), assets->getShader("RenderFBOFragmentFX") }, 1);
 	_renderDepth = new rgl::PostProcessingFX({ assets->getShader("TexturedVertex_NO_MVP"), assets->getShader("RenderDepthFBOFragmentFX") }, 1);
 
+	_depthOfFieldFX = new rgl::PostProcessingFX({ assets->getShader("TexturedVertex_NO_MVP"), assets->getShader("DepthOfFieldFragmentFX") }, 101);
 
 	//Actually setup the scene
 	setupScene(assets);
@@ -34,10 +36,13 @@ void BaseScene::setup(AssetPack * assets)
 	_renderNormals->addUniformData(new rgl::AdditionalTextureUniform(_renderer.getNormalsTexture(), "overrideTex"));
 	_renderRenderEmissive->addUniformData(new rgl::AdditionalTextureUniform(_renderer.getEmissiveTexture(), "overrideTex"));
 	_renderDepth->addUniformData(new rgl::AdditionalTextureUniform(_renderer.getDepthTexture(), "overrideTex"));
+	_depthOfFieldFX->addUniformData(new rgl::AdditionalTextureUniform(_renderer.getDepthTexture(), "depthTex"));
+	_depthOfFieldFX->addUniformData(_screenInfoUniform);
 
 	_renderer.addPostProcessingFX(_renderNormals);
 	_renderer.addPostProcessingFX(_renderRenderEmissive);
 	_renderer.addPostProcessingFX(_renderDepth);
+	_renderer.addPostProcessingFX(_depthOfFieldFX);
 
 	_renderer.addPostProcessingFX(_fpsText);
 	_renderer.addPostProcessingFX(_sceneNameText);
@@ -45,6 +50,7 @@ void BaseScene::setup(AssetPack * assets)
 
 void BaseScene::onResize(int width, int height)
 {
+	_screenInfoUniform->updateScreenSize(width, height);
 	_renderer.resize(width, height);
 }
 
@@ -79,6 +85,13 @@ void BaseScene::draw(float delta)
 		_renderNormals->setEnabled(false);
 		_renderRenderEmissive->setEnabled(false);
 		_renderDepth->setEnabled(false);
+		
+	}
+	if (_input.isKeyHeld(InputButton::KEYBOARD_4)) {
+		_depthOfFieldFX->setEnabled(true);
+	}
+	else {
+		_depthOfFieldFX->setEnabled(false);
 	}
 
 

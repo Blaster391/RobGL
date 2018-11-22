@@ -30,9 +30,8 @@ void ValleyScene::setupScene(AssetPack * assets)
 	directionalLightCamera->setPosition(glm::vec3(200, 200, -20));
 	directionalLightCamera->pitch(-0.6f);
 	directionalLightCamera->yaw(-3.9f);
-	rgl::ScreenInformationUniform*  screenInfoUniform = new rgl::ScreenInformationUniform(800, 600);
 
-	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, mainCamera, screenInfoUniform);
+	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, mainCamera, _screenInfoUniform);
 	_renderer.enableShadowMapping({assets->getShader("ShadowMapVertex"), assets->getShader("ShadowMapFragment")}, { assets->getShader("AnimatedShadowMapVertex"), assets->getShader("ShadowMapFragment") }, directionalLightCamera, 2160 * 4);
 
 	directionalLightUniform->setShadowTexture(_renderer.getShadowMapTexture());
@@ -141,7 +140,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 	rgl::AnimatedRenderObject* idleDino3 = new rgl::AnimatedRenderObject;
 	idleDino3->setMesh(assets->getAnimatedMesh("anky"));
 	idleDino3->setTexture(assets->getTexture("anky"));
-	idleDino3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(33, 18.5f, 265.0f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), 2.4f, glm::vec3(0, 1, 0)));
+	idleDino3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(38, 18.5f, 265.0f)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -3.0f, glm::vec3(0, 1, 0)));
 	//Randomly displace the animation
 	idleDino3->setActiveAnimation(0, Random::random() * 2);
 	dinosaurRenderPool->addRenderObject(idleDino3);
@@ -180,7 +179,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 		rgl::AnimatedRenderObject* runningDino = new rgl::AnimatedRenderObject;
 		runningDino->setMesh(assets->getAnimatedMesh("anky"));
 		runningDino->setTexture(assets->getTexture("anky"));
-		runningDino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3, 0, i + 74 + 4*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
+		runningDino->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(15 * i + Random::random() * 3 - 15, 0, 70 + 20*Random::random())) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(0, 1, 0)));
 		runningDino->getSkeleton()->getJoint(12)->attachRenderObject(hat,glm::translate(glm::mat4(1), glm::vec3(0,0.4f,0)) 
 																				* glm::scale(glm::mat4(1),glm::vec3(0.3,0.3,0.3)) 
 																				* glm::rotate(glm::mat4(1),0.7f, glm::vec3(1,0,0)));

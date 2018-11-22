@@ -55,6 +55,7 @@ void AssetPack::loadSharedResources()
 
 	_shaders["RenderFBOFragmentFX"] = new rgl::Shader("Assets/Shaders/renderFBOFragFX.glsl", GL_FRAGMENT_SHADER);
 	_shaders["RenderDepthFBOFragmentFX"] = new rgl::Shader("Assets/Shaders/renderDepthFBOFragFX.glsl", GL_FRAGMENT_SHADER);
+	_shaders["DepthOfFieldFragmentFX"] = new rgl::Shader("Assets/Shaders/depthOfFieldFragFX.glsl", GL_FRAGMENT_SHADER);
 
 	//### Models ###//
 	_meshes["triangle"] = rgl::MeshHelpers::GenerateTriangle();
@@ -97,7 +98,7 @@ void AssetPack::loadValleyResources()
 		"Assets/Textures/cubemaps/Valley/rusted_north.jpg" }, true);
 
 	//Textures
-	_textures["ground_rock"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_rock.jpg", false, true);
+	_textures["ground_rock"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/mountain_rock.jpg", false, true);
 	_textures["ground_grass"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_grass.png", false, true);
 	_textures["ground_sand"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/ground_sand.jpg", false, true);
 
