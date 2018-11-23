@@ -13,16 +13,16 @@ AbductionScene::~AbductionScene()
 
 void AbductionScene::setupScene(AssetPack * assets)
 {
-	rgl::Camera* mainCamera = new rgl::Camera;
-	_cameraController = new CameraController(mainCamera, &_input);
-	mainCamera->setPosition(glm::vec3(60,10, 75));
+	_mainCamera = new rgl::Camera;
+	_cameraController = new CameraController(_mainCamera, &_input);
+	_mainCamera->setPosition(glm::vec3(60,10, 75));
 
 	_renderer.enablePostProcessing({ assets->getShader("TexturedVertex"), assets->getShader("UnlitTexturedFragment") });
-	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, mainCamera, _screenInfoUniform);
+	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, _mainCamera, _screenInfoUniform);
 	//_renderer.enableShadowMapping({ assets->getShader("ShadowMapVertex"), assets->getShader("ShadowMapFragment") }, { assets->getShader("AnimatedShadowMapVertex"), assets->getShader("ShadowMapFragment") }, directionalLightCamera, 2160);
 
 	
-	mainCamera->setProjectionPerspective(800, 600);
+	_mainCamera->setProjectionPerspective(800, 600);
 
 	rgl::DirectionalLightCamera* directionalLightCamera = new rgl::DirectionalLightCamera(glm::vec4(0.25f, 0.25f,0.25f, 1), glm::vec3(0, 1, 0));
 	rgl::DirectionalLightUniform* directionalLightUniform = directionalLightCamera->getUniformData();
@@ -41,14 +41,14 @@ void AbductionScene::setupScene(AssetPack * assets)
 	_beamParticles = beamParticles->getParticleBuffer();
 
 	//Setup render pools
-	rgl::ParticlePool*  beamParticlesPool = new rgl::ParticlePool({ assets->getShader("BeamVertexFX"),assets->getShader("BeamGeoFX"), assets->getShader("BeamFragmentFX")}, mainCamera, beamParticles);
+	rgl::ParticlePool*  beamParticlesPool = new rgl::ParticlePool({ assets->getShader("BeamVertexFX"),assets->getShader("BeamGeoFX"), assets->getShader("BeamFragmentFX")}, _mainCamera, beamParticles);
 	_renderer.addRenderPool(beamParticlesPool);
 
-	rgl::RenderPool* texturedRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	rgl::RenderPool* texturedRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("TexturedFragment") }, _mainCamera);
 	texturedRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(texturedRenderPool);
 
-	rgl::RenderPool* animatedRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	rgl::RenderPool* animatedRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, _mainCamera);
 	animatedRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(animatedRenderPool);
 
@@ -136,7 +136,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	_renderer.addLight(light8);
 	_spinLight.push_back({ light8, 5, false, 0, 2, glm::vec3(85, 40, 75), glm::vec3(50, 50, 50) });
 
-	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({ assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") }, assets->getCubemap("abduction"), _renderer.getDepthTexture(), mainCamera);
+	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({ assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") }, assets->getCubemap("abduction"), _renderer.getDepthTexture(), _mainCamera);
 	_renderer.addPostProcessingFX(skybox);
 
 	_sceneNameText->setText("Alien Abduction");

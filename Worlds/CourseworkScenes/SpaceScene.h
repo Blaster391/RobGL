@@ -20,7 +20,6 @@ private:
 
 
 	CameraController* _cameraController;
-	rgl::Camera* _mainCamera;
 	LerpSkyboxUniform* _skyboxUniform;
 
 	rgl::scenes::SceneNode* _sunNode;

@@ -164,6 +164,7 @@ namespace rgl {
 			freeFramebuffers();
 
 			setupFramebuffers(width, height);
+			setupShadowMap(_shadowMapSize);
 			if (_shadowMap) {
 				setupShadowMap(_shadowMapSize);
 			}
@@ -301,17 +302,28 @@ namespace rgl {
 	}
 	void Renderer::freeFramebuffers()
 	{
-		glDeleteTextures(2, _bufferColourTex);
-		glDeleteTextures(1, &_bufferDepthTex);
-		glDeleteTextures(1, &_bufferNormalTex);
-		glDeleteTextures(1, &_lightEmissiveTex);
-		glDeleteTextures(1, &_lightSpecularTex);
-		glDeleteTextures(1, &_shadowTex);
 
-		glDeleteFramebuffers(1, &_bufferFBO);
-		glDeleteFramebuffers(1, &_processFBO);
-		glDeleteFramebuffers(1, &_lightingFBO);
-		glDeleteFramebuffers(1, &_shadowFBO);
+		if (_postProcess) {
+			glDeleteTextures(2, _bufferColourTex);
+			glDeleteTextures(1, &_bufferDepthTex);
+			glDeleteTextures(1, &_bufferNormalTex);
+
+			glDeleteFramebuffers(1, &_bufferFBO);
+			glDeleteFramebuffers(1, &_processFBO);
+		}
+
+
+		if (_lit) {
+			glDeleteTextures(1, &_lightEmissiveTex);
+			glDeleteTextures(1, &_lightSpecularTex);
+			glDeleteFramebuffers(1, &_lightingFBO);
+		}
+
+		if (_shadowMap) {
+			glDeleteTextures(1, &_shadowTex);
+			glDeleteFramebuffers(1, &_shadowFBO);
+		}
+
 	}
 	void Renderer::drawShadows(float delta)
 	{

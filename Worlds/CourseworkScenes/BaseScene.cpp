@@ -50,8 +50,9 @@ void BaseScene::setup(AssetPack * assets)
 
 void BaseScene::onResize(int width, int height)
 {
-	_screenInfoUniform->updateScreenSize(width, height);
 	_renderer.resize(width, height);
+    _screenInfoUniform->updateScreenSize(width, height);
+	_mainCamera->setProjectionPerspective(width, height);
 }
 
 void BaseScene::draw(float delta)

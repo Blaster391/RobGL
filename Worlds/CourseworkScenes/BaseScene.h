@@ -15,7 +15,7 @@ public:
 
 	void setup(AssetPack* assets);
 
-	virtual void onResize(int width, int height);
+	void onResize(int width, int height);
 
 	virtual void draw(float delta);
 
@@ -38,5 +38,8 @@ protected:
 	rgl::PostProcessingFX* _renderRenderEmissive;
 	rgl::PostProcessingFX* _renderDepth;
 	rgl::PostProcessingFX* _depthOfFieldFX;
+
+	rgl::Camera* _mainCamera;
+
 };
 

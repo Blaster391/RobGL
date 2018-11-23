@@ -14,12 +14,12 @@ ValleyScene::~ValleyScene()
 void ValleyScene::setupScene(AssetPack * assets)
 {
 	//Setup camera
-	rgl::Camera* mainCamera = new rgl::Camera;
-	_cameraController = new CameraController(mainCamera, &_input);
-	mainCamera->setProjectionPerspective(800,600);
-	mainCamera->setPosition(glm::vec3(30, 7, 75));
-	mainCamera->pitch(-0.3f);
-	mainCamera->yaw(-glm::half_pi<float>());
+	_mainCamera = new rgl::Camera;
+	_cameraController = new CameraController(_mainCamera, &_input);
+	_mainCamera->setProjectionPerspective(800,600);
+	_mainCamera->setPosition(glm::vec3(30, 7, 75));
+	_mainCamera->pitch(-0.3f);
+	_mainCamera->yaw(-glm::half_pi<float>());
 
 	//Setup renderer
 	_renderer.enablePostProcessing({ assets->getShader("TexturedVertex"), assets->getShader("UnlitTexturedFragment") });
@@ -31,7 +31,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 	directionalLightCamera->pitch(-0.6f);
 	directionalLightCamera->yaw(-3.9f);
 
-	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, mainCamera, _screenInfoUniform);
+	_renderer.enableDeferredLighting({ assets->getShader("PointLightVertex"), assets->getShader("PointLightFragment") }, { assets->getShader("LightingCombineVertex"), assets->getShader("LightingCombineFragment") }, _mainCamera, _screenInfoUniform);
 	_renderer.enableShadowMapping({assets->getShader("ShadowMapVertex"), assets->getShader("ShadowMapFragment")}, { assets->getShader("AnimatedShadowMapVertex"), assets->getShader("ShadowMapFragment") }, directionalLightCamera, 2160 * 4);
 
 	directionalLightUniform->setShadowTexture(_renderer.getShadowMapTexture());
@@ -42,22 +42,22 @@ void ValleyScene::setupScene(AssetPack * assets)
 
 
 	rgl::AdditionalTextureUniform* textureUniform = new rgl::AdditionalTextureUniform(assets->getTexture("ground_sand"), "flatTex");
-	rgl::RenderPool* valleyRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("ValleyFloorFragment") }, mainCamera);
+	rgl::RenderPool* valleyRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("ValleyFloorFragment") }, _mainCamera);
 	valleyRenderPool->addUniformData(directionalLightUniform);
 	valleyRenderPool->addUniformData(textureUniform);
 
 	_renderer.addRenderPool(valleyRenderPool);
 
-	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	rgl::RenderPool* dinosaurRenderPool = new rgl::RenderPool({ assets->getShader("AnimatedVertex"), assets->getShader("TexturedFragment") }, _mainCamera);
 	dinosaurRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(dinosaurRenderPool);
 
-	rgl::RenderPool* hatRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("TexturedFragment") }, mainCamera);
+	rgl::RenderPool* hatRenderPool = new rgl::RenderPool({ assets->getShader("TexturedVertex"), assets->getShader("TexturedFragment") }, _mainCamera);
 	hatRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(hatRenderPool);
 
 	_waterUniform = new rgl::WaterUniform(assets->getCubemap("valley"));
-	rgl::RenderPool* waterRenderPool = new rgl::RenderPool({ assets->getShader("WaterVertex"), assets->getShader("WaterTessControl"), assets->getShader("WaterTessEvaluation"), assets->getShader("WaterFragment") }, mainCamera);
+	rgl::RenderPool* waterRenderPool = new rgl::RenderPool({ assets->getShader("WaterVertex"), assets->getShader("WaterTessControl"), assets->getShader("WaterTessEvaluation"), assets->getShader("WaterFragment") }, _mainCamera);
 	waterRenderPool->addUniformData(directionalLightUniform);
 	waterRenderPool->addUniformData(_tesselationUniform);
 	waterRenderPool->addUniformData(_waterUniform);
@@ -191,7 +191,7 @@ void ValleyScene::setupScene(AssetPack * assets)
 	}
 
 	//Setup post processing
-	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") },assets->getCubemap("valley"),_renderer.getDepthTexture(), mainCamera);
+	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") },assets->getCubemap("valley"),_renderer.getDepthTexture(), _mainCamera);
 	_renderer.addPostProcessingFX(skybox);
 
 	_sceneNameText->setText("Dinosaur Valley");

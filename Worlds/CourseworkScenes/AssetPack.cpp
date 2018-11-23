@@ -181,8 +181,8 @@ void AssetPack::loadAbductionResources()
 		"Assets/Textures/cubemaps/Abduction/mnight_lf.tga" ,
 		"Assets/Textures/cubemaps/Abduction/mnight_up.tga" ,
 		"Assets/Textures/cubemaps/Abduction/mnight_dn.tga" ,
-		"Assets/Textures/cubemaps/Abduction/mnight_ft.tga"  ,
-		"Assets/Textures/cubemaps/Abduction/mnight_bk.tga" }, true);
+		"Assets/Textures/cubemaps/Abduction/mnight_bk.tga"  ,
+		"Assets/Textures/cubemaps/Abduction/mnight_ft.tga" }, true);
 
 	_meshes["abductionFloor"] = rgl::MeshHelpers::GenerateHeightMap(16, 16, 10, "Assets/Textures/heightmaps/abduction.png");
 
