@@ -102,6 +102,13 @@ void BaseScene::draw(float delta)
 		_depthOfFieldFX->setEnabled(false);
 	}
 
+	if (_input.isKeyPressed(InputButton::KEYBOARD_U)) {
+		drawUI = !drawUI;
+	}
+
+
+	_sceneNameText->setEnabled(drawUI);
+	_fpsText->setEnabled(drawUI);
 
 	_renderer.update(delta);
 }

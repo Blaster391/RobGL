@@ -197,10 +197,6 @@ namespace rgl {
 		int weightsAccessor = mesh.primitives[0].attributes["WEIGHTS_0"];
 		int jointsAccessor = mesh.primitives[0].attributes["JOINTS_0"];
 
-		std::cout << model.accessors[indicesAccessor].count << std::endl;
-		std::cout << model.accessors[positionAccessor].count << std::endl;
-		std::cout << model.accessors[texCoordAccessor].count << std::endl;
-
 		auto positionBV = model.bufferViews[model.accessors[positionAccessor].bufferView];
 		auto texCoordBV = model.bufferViews[model.accessors[texCoordAccessor].bufferView];
 		auto weightsBV = model.bufferViews[model.accessors[weightsAccessor].bufferView];
@@ -249,8 +245,6 @@ namespace rgl {
 
 
 			auto inverseBindAccessor = model.accessors[skin.inverseBindMatrices];
-			
-
 
 			auto inverseBindBV = model.bufferViews[model.accessors[inverseBindAccessor.bufferView].bufferView];
 			auto inverseBindIterator = (glm::mat4*)(model.buffers[inverseBindBV.buffer].data.data() + inverseBindBV.byteOffset);

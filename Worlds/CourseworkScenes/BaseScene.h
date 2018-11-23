@@ -19,7 +19,11 @@ public:
 
 	virtual void draw(float delta);
 
+
+
 protected:
+	bool drawUI = false;
+	
 	virtual void setupScene(AssetPack* assets) = 0;
 
 	rgl::Renderer _renderer;
