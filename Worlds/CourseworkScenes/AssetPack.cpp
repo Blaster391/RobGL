@@ -93,7 +93,7 @@ void AssetPack::loadSharedResources()
 	_textures["ufo"] = rgl::TextureLoader::LoadFromFile("Assets/Textures/Abduction/ufo_diffuse.png", true, true);
 
 	//### Text ###//
-	_alphabet = new rgl::Text("Assets/Fonts/arial.ttf");
+	_alphabet = new rgl::Text("Assets/Fonts/consola.ttf");
 
 }
 

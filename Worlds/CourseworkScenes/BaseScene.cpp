@@ -22,13 +22,13 @@ void BaseScene::setup(AssetPack * assets)
 
 	_fpsText = new rgl::UITextFX({ assets->getShader("TextVertex"), assets->getShader("TextFragment") }, assets->getText());
 	_fpsText->setColour(glm::vec4(1, 1, 1, 1));
-	_fpsText->setPosition(0.5f, 0.75f);
+	_fpsText->setPosition(0.1f, 0.75f);
 	_fpsText->setScale(0.1f);
 	_fpsText->setText("FPS: 1234");
 
 	_sceneNameText = new rgl::UITextFX({ assets->getShader("TextVertex"), assets->getShader("TextFragment") }, assets->getText());
 	_sceneNameText->setColour(glm::vec4(1, 1, 1, 1));
-	_sceneNameText->setPosition(0.25f, -0.5f);
+	_sceneNameText->setPosition(0.1f, -0.75f);
 	_sceneNameText->setScale(0.1f);
 
 	_renderNormals = new rgl::PostProcessingFX({ assets->getShader("TexturedVertex_NO_MVP"), assets->getShader("RenderFBOFragmentFX") }, 1);
