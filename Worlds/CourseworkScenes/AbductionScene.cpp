@@ -1,5 +1,6 @@
 #include "AbductionScene.h"
 #include <RobGL/DirectionalLightCamera.h>
+#include <RobGL/AdditionalTextureUniform.h>
 
 
 AbductionScene::AbductionScene(Window & window, Input & input) : BaseScene(window, input)
@@ -51,6 +52,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	animatedRenderPool->addUniformData(directionalLightUniform);
 	_renderer.addRenderPool(animatedRenderPool);
 
+
 	//Setup render objects
 	rgl::RenderObject* floor = new rgl::RenderObject;
 	floor->setMesh(assets->getMesh("abductionFloor"));
@@ -72,7 +74,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	dino1->setMesh(assets->getAnimatedMesh("anky"));
 	dino1->setTexture(assets->getTexture("anky"));
 	dino1->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(75,20,75)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(1, 0, 0)));
-	dino1->setActiveAnimation(3, 0);
+	dino1->setActiveAnimation(2, 0);
 	animatedRenderPool->addRenderObject(dino1);
 	_abductees.push_back({ dino1 , 0, false, glm::vec3(75,50,75) });
 
@@ -81,7 +83,7 @@ void AbductionScene::setupScene(AssetPack * assets)
 	dino2->setMesh(assets->getAnimatedMesh("anky"));
 	dino2->setTexture(assets->getTexture("anky"));
 	dino2->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(60, 25, 75)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(1, 0, 0)));
-	dino2->setActiveAnimation(3, 1);
+	dino2->setActiveAnimation(2, 1);
 	animatedRenderPool->addRenderObject(dino2);
 	_abductees.push_back({ dino2 , 3, false, glm::vec3(60, 35, 75) });
 
@@ -89,50 +91,50 @@ void AbductionScene::setupScene(AssetPack * assets)
 	dino3->setMesh(assets->getAnimatedMesh("anky"));
 	dino3->setTexture(assets->getTexture("anky"));
 	dino3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(70, 20, 80)) * glm::scale(glm::mat4(1), glm::vec3(1, 1, 1)) * glm::rotate(glm::mat4(1), -glm::half_pi<float>(), glm::vec3(1, 0, 0)));
-	dino3->setActiveAnimation(3, 0.7);
+	dino3->setActiveAnimation(2, 0.7);
 	animatedRenderPool->addRenderObject(dino3);
 	_abductees.push_back({ dino3 , -2, true, glm::vec3(70, 60, 80) });
 
 	//Setup lights
-	rgl::PointLight* light = new rgl::PointLight(glm::vec4(1, 0, 0, 1));
+	rgl::PointLight* light = new rgl::PointLight(glm::vec4(0.4f, 0.5f, 0.2f, 1));
 	light->setMesh(assets->getMesh("sphere"));
-	light->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(50,0,50))*glm::scale(glm::mat4(1),glm::vec3(40,40,40)));
 	_renderer.addLight(light);
+	_spinLight.push_back({ light, 2, false, 0, 3, glm::vec3(50,0,50) , glm::vec3(40,40,40) });
 
-	rgl::PointLight* light2 = new rgl::PointLight(glm::vec4(1, 1, 0, 1));
+	rgl::PointLight* light2 = new rgl::PointLight(glm::vec4(0.3f, 0.6f, 0.1f, 1));
 	light2->setMesh(assets->getMesh("sphere"));
-	light2->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(80, 10, 50))*glm::scale(glm::mat4(1), glm::vec3(60, 60, 60)));
 	_renderer.addLight(light2);
+	_spinLight.push_back({ light2, 2, false, 0, 7, glm::vec3(80, 10, 50) , glm::vec3(60, 60, 60) });
 
-	rgl::PointLight* light3 = new rgl::PointLight(glm::vec4(0, 0, 1, 1));
+	rgl::PointLight* light3 = new rgl::PointLight(glm::vec4(0.3f, 0, 0.8f, 1));
 	light3->setMesh(assets->getMesh("sphere"));
-	light3->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(100, 0, 90))*glm::scale(glm::mat4(1), glm::vec3(40, 40, 40)));
 	_renderer.addLight(light3);
+	_spinLight.push_back({ light3, 2, true, 0, 10, glm::vec3(100, 10, 90) , glm::vec3(40, 40, 40) });
 
-	rgl::PointLight* light4 = new rgl::PointLight(glm::vec4(0, 0, 1, 1));
+	rgl::PointLight* light4 = new rgl::PointLight(glm::vec4(0.2f, 0.3f, 0.5f, 1));
 	light4->setMesh(assets->getMesh("sphere"));
-	light4->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(75, 20, 75))*glm::scale(glm::mat4(1), glm::vec3(75, 75, 75)));
 	_renderer.addLight(light4);
+	_spinLight.push_back({ light4, 2, true, 0, 6, glm::vec3(75, 20, 75) , glm::vec3(40, 40, 40) });
 
 	rgl::PointLight* light5= new rgl::PointLight(glm::vec4(1, 1, 1, 1));
 	light5->setMesh(assets->getMesh("sphere"));
-	light5->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(85, 25, 75))*glm::scale(glm::mat4(1), glm::vec3(25, 25, 25)));
 	_renderer.addLight(light5);
+	_spinLight.push_back({ light5, 2, false, 0, 1, glm::vec3(85, 25, 75) , glm::vec3(25, 25, 25) });
 
-	rgl::PointLight* light6 = new rgl::PointLight(glm::vec4(1, 0, 1, 1));
+	rgl::PointLight* light6 = new rgl::PointLight(glm::vec4(0.2f, 0.5f, 0.5f, 1));
 	light6->setMesh(assets->getMesh("sphere"));
-	light6->setModelMatrix(glm::translate(glm::mat4(1), glm::vec3(85, 60, 75))*glm::scale(glm::mat4(1), glm::vec3(50, 50, 50)));
 	_renderer.addLight(light6);
+	_spinLight.push_back({ light6, 5, false, 0, 3, glm::vec3(85, 20, 75), glm::vec3(45, 45, 45) });
 
-	rgl::scenes::SceneNode* ufoLightNode1 = new rgl::scenes::SceneNode;
-	rgl::PointLight* ufoLight1 = new rgl::PointLight(glm::vec4(0,1, 0, 1));
-	ufoLightNode1->setScale(glm::vec3(20, 20, 20));
-	ufoLightNode1->setPosition(glm::vec3(5, -15, 0));
-	ufoLight1->setMesh(assets->getMesh("sphere"));
-	ufoLightNode1->attachRenderObject(ufoLight1);
-	_ufoNode->addChild(ufoLightNode1);
-	_renderer.addLight(ufoLight1);
+	rgl::PointLight* light7 = new rgl::PointLight(glm::vec4(1.0f, 0.4f, 0, 1));
+	light7->setMesh(assets->getMesh("sphere"));
+	_renderer.addLight(light7);
+	_spinLight.push_back({ light7, 3, false, 0, 5, glm::vec3(85, 10, 75), glm::vec3(50, 50, 50) });
 
+	rgl::PointLight* light8 = new rgl::PointLight(glm::vec4(0.7f, 0, 0.6f, 1));
+	light8->setMesh(assets->getMesh("sphere"));
+	_renderer.addLight(light8);
+	_spinLight.push_back({ light8, 5, false, 0, 2, glm::vec3(85, 40, 75), glm::vec3(50, 50, 50) });
 
 	rgl::SkyboxFX* skybox = new rgl::SkyboxFX({ assets->getShader("SkyboxVertexFX"), assets->getShader("SkyboxFragmentFX") }, assets->getCubemap("abduction"), _renderer.getDepthTexture(), mainCamera);
 	_renderer.addPostProcessingFX(skybox);
@@ -169,6 +171,17 @@ void AbductionScene::draw(float delta)
 		a.RenderObject->setModelMatrix(glm::translate(glm::mat4(1), a.originalPosition + glm::vec3(0,a.CurrentPosition * _dinoMovementRadius,0)) 
 													* glm::scale(glm::mat4(1), glm::vec3(std::max(abs(a.CurrentPosition) / _dinoMovementRadius, _dinoMinScale), std::max(abs(a.CurrentPosition) / _dinoMovementRadius, _dinoMinScale), std::max(abs(a.CurrentPosition) / _dinoMovementRadius, _dinoMinScale)))
 													* glm::rotate(glm::mat4(1), -a.CurrentPosition, glm::vec3(1, 1, 0)));
+	}
+
+	for (auto& l : _spinLight) {
+		l.currentSpin += delta * l.speed;
+		if (l.reverse) {
+			l.light->setModelMatrix(glm::translate(glm::mat4(1), l.originalPosition) * -glm::translate(glm::mat4(1), glm::vec3(sin(l.currentSpin), 0, cos(l.currentSpin) * l.spinRadius)) * glm::scale(glm::mat4(1), l.scale));
+		}
+		else {
+			l.light->setModelMatrix(glm::translate(glm::mat4(1), l.originalPosition) * glm::translate(glm::mat4(1), glm::vec3(sin(l.currentSpin), 0, cos(l.currentSpin) * l.spinRadius)) * glm::scale(glm::mat4(1), l.scale));
+		}
+
 	}
 
 	offset = offset + delta;

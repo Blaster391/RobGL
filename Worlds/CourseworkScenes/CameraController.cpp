@@ -42,7 +42,6 @@ void CameraController::update(float delta)
 		_camera->translate(-glm::normalize(pos[1]) * delta);
 	}
 
-	//TODO sensitivity
 	_camera->pitch(-_input->Mouse().getYDelta() * 0.001f);
 	_camera->yaw(-_input->Mouse().getXDelta() * 0.001f);
 }

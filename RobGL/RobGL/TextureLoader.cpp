@@ -38,7 +38,6 @@ namespace rgl {
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 
-		//TODO set this somewhere else
 		glTexParameterf(GL_TEXTURE_MAX_ANISOTROPY, GL_TEXTURE_2D, 16);
 
 		glBindTexture(GL_TEXTURE_2D, 0);

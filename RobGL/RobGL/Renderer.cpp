@@ -31,7 +31,6 @@ namespace rgl {
 		glDebugMessageCallback(MessageCallback, 0);
 
 
-		//TODO configuations
 		glEnable(GL_MULTISAMPLE);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);

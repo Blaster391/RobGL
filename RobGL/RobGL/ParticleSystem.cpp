@@ -57,7 +57,6 @@ namespace rgl {
 		//glDisable(GL_DEPTH_TEST);
 		glBindVertexArray(_arrayObject);
 
-
 		if (_texture != nullptr) {
 			_texture->bind();
 		}
@@ -68,7 +67,7 @@ namespace rgl {
 			_texture->unbind();
 		}
 		glBindVertexArray(0);
-		glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_DEPTH_TEST);
 	}
 	float ParticleSystem::getParticleSize()
 	{

@@ -2,6 +2,7 @@
 
 uniform sampler2D tex;
 
+
 uniform vec4 lightColour;
 uniform vec3 lightDirection;
 uniform vec3 lightPosition;
@@ -19,32 +20,7 @@ in Vertex	{
 out vec4 fragColour[4];
 
 void main(void)	{	
-
-/*	float shadow = 1.0f;
-
-	vec3 normals = normalize(IN.normals);
-
-	vec3 incident = normalize(lightDirection);
-	float lambert = max(0.0, dot(incident, normals));
 	
-	vec3 viewDir = normalize((cameraPos - IN.worldPos));
-	vec3 halfDir = normalize(incident + viewDir);
-	
-	float rFactor = max(0.0, dot(halfDir,normals));
-	float sFactor = pow(rFactor,50);
-	
-	if(useShadows == 1){
-		if(IN.shadowProj.w > 0.0){
-			vec3 projCoords = IN.shadowProj.xyz / IN.shadowProj.w;
-			projCoords = projCoords * 0.5 + 0.5; 
-			float currentDepth = projCoords.z;  
-			float closestDepth = texture(shadowTex, projCoords.xy).r;
-			float bias = max(0.05 * (1.0 - dot(normals, lightDirection)), 0.005);  
-			if(currentDepth - bias > closestDepth){
-				shadow = 0.10f;
-			}	
-		}
-	}*/
 	
 	vec4 texColour =  texture(tex, IN.texCoords);
 	
@@ -52,16 +28,16 @@ void main(void)	{
 		discard;
 	}
 	
-	texColour.a  = 1;
-	
 	vec4 combinedColour = texColour * IN.colour;
+	combinedColour.a = 1;
+
 	
 	//Unlit
 	fragColour[0] = combinedColour;
 	//Normals
-	fragColour[1] = vec4(0,0,0,0);
+	fragColour[1] = vec4(0,0,0,1);
 	//Emissive
 	fragColour[2] = combinedColour;
 	//Specular
-	fragColour[3] = vec4(0,0,0,0);
+	fragColour[3] = vec4(0,0,0,1);
 }

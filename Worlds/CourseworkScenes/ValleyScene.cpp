@@ -147,9 +147,6 @@ void ValleyScene::setupScene(AssetPack * assets)
 	_renderer.addAnimatedRenderObjectToShadowPool(idleDino3);
 	_animatedObjects.push_back(idleDino3);
 
-
-	//Bonus dino
-
 	//Walking dinos
 	for (int i = 0; i < NUMBER_OF_DINOS; ++i) {
 		rgl::RenderObject* hat = new rgl::RenderObject;
