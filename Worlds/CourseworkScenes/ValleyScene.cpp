@@ -9,6 +9,9 @@ ValleyScene::ValleyScene(Window& window, Input& i) : BaseScene(window, i)
 
 ValleyScene::~ValleyScene()
 {
+	for (auto& a:  _animatedObjects) {
+		delete a;
+	}
 }
 
 void ValleyScene::setupScene(AssetPack * assets)

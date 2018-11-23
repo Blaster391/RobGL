@@ -15,6 +15,23 @@ AssetPack::~AssetPack()
 		delete s.second;
 	}
 
+	for (auto& s : _textures) {
+		delete s.second;
+	}
+
+	for (auto& s : _cubemaps) {
+		delete s.second;
+	}
+
+	for (auto& s : _meshes) {
+		delete s.second;
+	}
+
+	for (auto& s : _animatedMeshes) {
+		delete s.second;
+	}
+
+	delete _alphabet;
 }
 
 void AssetPack::loadSharedResources()

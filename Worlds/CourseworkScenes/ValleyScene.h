@@ -12,7 +12,7 @@ class ValleyScene : public BaseScene
 {
 public:
 	ValleyScene(Window& window, Input& i);
-	~ValleyScene();
+	virtual ~ValleyScene();
 
 
 	virtual void draw(float delta) override;

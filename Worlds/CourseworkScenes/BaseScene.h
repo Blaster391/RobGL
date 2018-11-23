@@ -11,7 +11,7 @@ class BaseScene
 {
 public:
 	BaseScene(Window& window, Input& input);
-	~BaseScene();
+	virtual ~BaseScene();
 
 	void setup(AssetPack* assets);
 

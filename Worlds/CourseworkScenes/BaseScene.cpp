@@ -7,6 +7,13 @@ BaseScene::BaseScene(Window& window, Input& input) : _renderer(window), _input(i
 
 BaseScene::~BaseScene()
 {
+	delete _screenInfoUniform;
+	delete _fpsText;
+	delete _sceneNameText;
+	delete _mainCamera;
+	delete _renderNormals;
+	delete _renderRenderEmissive;
+	delete _depthOfFieldFX;
 }
 
 void BaseScene::setup(AssetPack * assets)

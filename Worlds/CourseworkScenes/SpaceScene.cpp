@@ -7,6 +7,16 @@ SpaceScene::SpaceScene(Window & window, Input& input) : BaseScene(window, input)
 
 SpaceScene::~SpaceScene()
 {
+	delete _cameraController;
+	delete _earthNode;
+	delete _earthAtmosphereNode;
+	delete _jupiterNode;
+	delete _saturnNode;
+	delete _moonNode;
+	delete _moonMoonNode;
+	delete _skyboxUniform;
+	delete _ufoNode;
+	delete _mercuryNode;
 }
 
 void SpaceScene::setupScene(AssetPack * assets)
