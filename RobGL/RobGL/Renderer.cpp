@@ -88,7 +88,7 @@ namespace rgl {
 		if (_postProcess) {
 			bindFrameBuffers();
 		}
-
+		glViewport(0, 0, _window.getCurrentWidth(), _window.getCurrentHeight());
 		clearBuffers();
 
 
@@ -164,7 +164,7 @@ namespace rgl {
 			freeFramebuffers();
 
 			setupFramebuffers(width, height);
-			setupShadowMap(_shadowMapSize);
+
 			if (_shadowMap) {
 				setupShadowMap(_shadowMapSize);
 			}
@@ -310,14 +310,15 @@ namespace rgl {
 
 			glDeleteFramebuffers(1, &_bufferFBO);
 			glDeleteFramebuffers(1, &_processFBO);
-		}
 
-
-		if (_lit) {
 			glDeleteTextures(1, &_lightEmissiveTex);
 			glDeleteTextures(1, &_lightSpecularTex);
 			glDeleteFramebuffers(1, &_lightingFBO);
+
 		}
+
+
+
 
 		if (_shadowMap) {
 			glDeleteTextures(1, &_shadowTex);
